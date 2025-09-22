@@ -1,4 +1,9 @@
-<!DOCTYPE html>
+step10b: {
+                title: "Parametrizar Faturamento Matriz",
+                responsible: "Matriz - Faturamento",
+                description: "Parametrização do faturamento em lote do cliente matriz com base no contrato para franquias.",
+                nextSteps: "Próximo: Transferir para faturista de serviços"
+            },<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -190,10 +195,7 @@
             color: white;
         }
 
-        .zoom-btn {
-            background: linear-gradient(45deg, #3498db, #2980b9);
-            color: white;
-        }
+
 
         .control-btn:hover {
             transform: translateY(-2px);
@@ -254,7 +256,9 @@
             border: 2px solid #e0e0e0;
             border-radius: 12px;
             background: #fafafa;
-            overflow: visible;
+            overflow-x: auto;
+            overflow-y: hidden;
+            display: block;
         }
 
         .flow-element {
@@ -264,7 +268,10 @@
 
         .flow-element:hover {
             filter: brightness(1.1);
-            transform: scale(1.05);
+        }
+
+        .flow-element:hover .flow-text {
+            filter: brightness(1.2);
         }
 
         .flow-process {
@@ -291,6 +298,13 @@
             stroke-width: 2;
         }
 
+        .flow-critical {
+            fill: #e74c3c;
+            stroke: #c0392b;
+            stroke-width: 3;
+            filter: drop-shadow(0 0 8px rgba(231, 76, 60, 0.6));
+        }
+
         .flow-text {
             font-family: 'Segoe UI', sans-serif;
             font-size: 11px;
@@ -299,6 +313,7 @@
             text-anchor: middle;
             dominant-baseline: middle;
             pointer-events: none;
+            transition: all 0.3s ease;
         }
 
         .flow-arrow {
@@ -309,18 +324,72 @@
         }
 
         .flow-arrow.animated {
-            stroke-dasharray: 5,5;
-            animation: dash 1s linear infinite;
+            stroke-dasharray: 8,4;
+            animation: dash 1.5s linear infinite;
         }
 
         .flow-element.active {
-            filter: brightness(1.2);
-            animation: pulse 1.5s infinite;
+            filter: brightness(1.4) drop-shadow(0 0 15px rgba(52, 152, 219, 0.8));
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .flow-element.active .flow-text {
+            filter: brightness(1.4);
+            font-weight: 700;
         }
 
         .flow-element.completed {
+            opacity: 0.6;
+            filter: saturate(0.7);
+        }
+
+        .flow-element.completed .flow-text {
+            opacity: 0.8;
+        }
+
+        /* Swim lanes and grid */
+        .swim-lane {
+            stroke: #bdc3c7;
+            stroke-width: 1;
+            stroke-dasharray: 3,3;
+            opacity: 0.5;
+        }
+
+        .phase-line {
+            stroke: #95a5a6;
+            stroke-width: 2;
             opacity: 0.7;
-            filter: saturate(0.5);
+        }
+
+        .sector-label {
+            font-size: 12px;
+            font-weight: 700;
+            fill: #2c3e50;
+            text-anchor: start;
+        }
+
+        .phase-label {
+            font-size: 14px;
+            font-weight: 700;
+            fill: #2c3e50;
+            text-anchor: middle;
+        }
+
+        .flow-label {
+            font-size: 9px;
+            fill: #e74c3c;
+            font-weight: 600;
+            text-anchor: middle;
+        }
+
+        /* Animação de brilho */
+        @keyframes glow {
+            from {
+                filter: brightness(1.4) drop-shadow(0 0 15px rgba(52, 152, 219, 0.8));
+            }
+            to {
+                filter: brightness(1.6) drop-shadow(0 0 25px rgba(52, 152, 219, 1));
+            }
         }
 
         /* Info Panel */
@@ -377,19 +446,49 @@
         }
 
         /* Responsive Design */
+        @media (max-width: 1200px) {
+            .flowchart-svg {
+                height: 600px;
+            }
+            
+            .flow-text {
+                font-size: 10px;
+            }
+            
+            .sector-label, .phase-label {
+                font-size: 11px;
+            }
+        }
+
         @media (max-width: 1024px) {
             .main-content {
                 grid-template-columns: 1fr;
             }
             
             .flowchart-svg {
-                height: 600px;
+                height: 500px;
             }
             
             .info-panel {
                 position: static;
                 width: 100%;
                 margin-top: 20px;
+                transform: none;
+                opacity: 1;
+            }
+            
+            .flow-text {
+                font-size: 9px;
+            }
+            
+            .flowchart-controls {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .control-btn {
+                padding: 8px 16px;
+                font-size: 0.8em;
             }
         }
 
@@ -408,12 +507,68 @@
             }
             
             .flowchart-svg {
-                height: 500px;
+                height: 400px;
+            }
+            
+            .flow-text {
+                font-size: 8px;
+                font-weight: 700;
             }
             
             .flowchart-controls {
                 flex-direction: column;
                 align-items: center;
+                gap: 8px;
+            }
+            
+            .control-btn {
+                width: 100%;
+                max-width: 200px;
+                padding: 12px;
+            }
+            
+            .flowchart-legend {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .legend-item {
+                width: 100%;
+                max-width: 200px;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .flowchart-container {
+                padding: 15px;
+            }
+            
+            .flowchart-svg {
+                height: 350px;
+            }
+            
+            .flow-text {
+                font-size: 7px;
+                font-weight: 700;
+            }
+            
+            .sector-label, .phase-label {
+                font-size: 9px;
+            }
+            
+            .info-panel {
+                padding: 15px;
+                font-size: 0.9em;
+            }
+            
+            .flowchart-header h2 {
+                font-size: 1.5em;
             }
         }
 
@@ -492,7 +647,6 @@
                 <button class="control-btn play-btn" onclick="playAnimation()">▶️ Executar Fluxo</button>
                 <button class="control-btn pause-btn" onclick="pauseAnimation()">⏸️ Pausar</button>
                 <button class="control-btn reset-btn" onclick="resetAnimation()">🔄 Reiniciar</button>
-                <button class="control-btn zoom-btn" onclick="toggleZoom()">🔍 Zoom</button>
             </div>
 
             <div class="flowchart-legend">
@@ -510,7 +664,7 @@
                 </div>
             </div>
 
-            <svg class="flowchart-svg" id="flowchartSvg" viewBox="0 0 1200 800">
+            <svg class="flowchart-svg" id="flowchartSvg" viewBox="0 0 2400 900" preserveAspectRatio="xMidYMid meet">
                 <!-- Arrow marker definition -->
                 <defs>
                     <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
@@ -518,17 +672,273 @@
                     </marker>
                 </defs>
 
+                <!-- Grid Lines - Swim Lanes (Horizontal) - Espaçamento de 120px -->
+                <line class="swim-lane" x1="0" y1="140" x2="2400" y2="140"/>
+                <line class="swim-lane" x1="0" y1="260" x2="2400" y2="260"/>
+                <line class="swim-lane" x1="0" y1="380" x2="2400" y2="380"/>
+                <line class="swim-lane" x1="0" y1="500" x2="2400" y2="500"/>
+                <line class="swim-lane" x1="0" y1="620" x2="2400" y2="620"/>
+                <line class="swim-lane" x1="0" y1="740" x2="2400" y2="740"/>
+
+                <!-- Phase Lines (Vertical) - Espaçamento de 400px -->
+                <line class="phase-line" x1="400" y1="60" x2="400" y2="860"/>
+                <line class="phase-line" x1="800" y1="60" x2="800" y2="860"/>
+                <line class="phase-line" x1="1200" y1="60" x2="1200" y2="860"/>
+                <line class="phase-line" x1="1600" y1="60" x2="1600" y2="860"/>
+                <line class="phase-line" x1="2000" y1="60" x2="2000" y2="860"/>
+
+                <!-- Headers - Setores (Y-axis) -->
+                <text class="sector-label" x="15" y="100">Filial - Vendas</text>
+                <text class="sector-label" x="15" y="220">Matriz - Jurídico</text>
+                <text class="sector-label" x="15" y="340">Filial - Técnico</text>
+                <text class="sector-label" x="15" y="460">Matriz - Logística</text>
+                <text class="sector-label" x="15" y="580">Matriz - Faturamento</text>
+                <text class="sector-label" x="15" y="700">B.A (Business Analyst)</text>
+
+                <!-- Headers - Fases (X-axis) -->
+                <text class="phase-label" x="200" y="45">FASE 1: VENDA</text>
+                <text class="phase-label" x="600" y="45">FASE 2: CONTRATO</text>
+                <text class="phase-label" x="1000" y="45">FASE 3: EXECUÇÃO</text>
+                <text class="phase-label" x="1400" y="45">FASE 4: ENTREGA</text>
+                <text class="phase-label" x="1800" y="45">FASE 5: ATIVAÇÃO</text>
+
+                <!-- FASE 1: VENDA (x: 50-380) -->
                 <!-- Start -->
-                <circle id="start" class="flow-element flow-start" cx="100" cy="50" r="25" onclick="showInfo('start')"/>
-                <text class="flow-text" x="100" y="55">INÍCIO</text>
+                <circle id="start" class="flow-element flow-start" cx="80" cy="100" r="25" onclick="showInfo('start')"/>
+                <text class="flow-text" x="80" y="105">INÍCIO</text>
 
-                <!-- Fechamento do Orçamento -->
-                <rect id="step1" class="flow-element flow-process" x="30" y="100" width="140" height="60" rx="5" onclick="showInfo('step1')"/>
-                <text class="flow-text" x="100" y="125">FECHAMENTO DO</text>
-                <text class="flow-text" x="100" y="140">ORÇAMENTO</text>
+                <!-- Fechamento Orçamento (Filial-Vendas) -->
+                <rect id="step1" class="flow-element flow-process" x="140" y="80" width="130" height="40" rx="5" onclick="showInfo('step1')"/>
+                <text class="flow-text" x="205" y="95">FECHAMENTO</text>
+                <text class="flow-text" x="205" y="107">ORÇAMENTO</text>
 
-                <!-- Ticket Automático -->
-                <rect id="step2" class="flow-element flow-process" x="250" y="100" width="140" height="60" rx="5" onclick="showInfo('step2')"/>
+                <!-- Ticket Automático (Sistema - posicionado entre setores) -->
+                <rect id="step2" class="flow-element flow-process" x="290" y="80" width="130" height="40" rx="5" onclick="showInfo('step2')"/>
+                <text class="flow-text" x="355" y="95">TICKET ABERTO</text>
+                <text class="flow-text" x="355" y="107">AUTOMATICAMENTE</text>
+
+                <!-- FASE 2: CONTRATO (x: 420-780) -->
+                <!-- Liberação Orçamento (Jurídico) -->
+                <rect id="step3" class="flow-element flow-process" x="440" y="200" width="130" height="40" rx="5" onclick="showInfo('step3')"/>
+                <text class="flow-text" x="505" y="215">LIBERAÇÃO</text>
+                <text class="flow-text" x="505" y="227">ORÇAMENTO</text>
+
+                <!-- Envio Contrato (Jurídico) -->
+                <rect id="step4" class="flow-element flow-process" x="590" y="200" width="130" height="40" rx="5" onclick="showInfo('step4')"/>
+                <text class="flow-text" x="655" y="210">ENVIO CONTRATO</text>
+                <text class="flow-text" x="655" y="220">P/ ASSINATURA</text>
+                <text class="flow-text" x="655" y="230">+ NOTIFICAÇÃO</text>
+
+                <!-- Decision: Contrato Assinado? -->
+                <polygon id="decision1" class="flow-element flow-decision" points="505,260 555,280 505,300 455,280" onclick="showInfo('decision1')"/>
+                <text class="flow-text" x="505" y="275">CONTRATO</text>
+                <text class="flow-text" x="505" y="285">ASSINADO?</text>
+
+                <!-- Baixa Contrato (Jurídico) -->
+                <rect id="step5" class="flow-element flow-process" x="590" y="260" width="130" height="40" rx="5" onclick="showInfo('step5')"/>
+                <text class="flow-text" x="655" y="275">BAIXA CONTRATO</text>
+                <text class="flow-text" x="655" y="287">COMO ASSINADO</text>
+
+                <!-- FASE 3: EXECUÇÃO (x: 820-1180) -->
+                <!-- Início Obra (Filial-Técnico) -->
+                <rect id="step6" class="flow-element flow-process" x="840" y="320" width="130" height="40" rx="5" onclick="showInfo('step6')"/>
+                <text class="flow-text" x="905" y="335">INÍCIO DA</text>
+                <text class="flow-text" x="905" y="347">OBRA</text>
+
+                <!-- Solicitação Equipamentos (Filial-Técnico) -->
+                <rect id="step7" class="flow-element flow-process" x="990" y="320" width="130" height="40" rx="5" onclick="showInfo('step7')"/>
+                <text class="flow-text" x="1055" y="330">SOLICITAÇÃO</text>
+                <text class="flow-text" x="1055" y="340">DOS</text>
+                <text class="flow-text" x="1055" y="350">EQUIPAMENTOS</text>
+
+                <!-- Decision: Equipamentos Disponíveis? -->
+                <polygon id="decision2" class="flow-element flow-decision" points="905,440 955,460 905,480 855,460" onclick="showInfo('decision2')"/>
+                <text class="flow-text" x="905" y="455">EQUIPAMENTOS</text>
+                <text class="flow-text" x="905" y="465">DISPONÍVEIS?</text>
+
+                <!-- Entrega Equipamentos (Logística) -->
+                <rect id="step8" class="flow-element flow-process" x="990" y="440" width="130" height="40" rx="5" onclick="showInfo('step8')"/>
+                <text class="flow-text" x="1055" y="450">ENTREGA DE</text>
+                <text class="flow-text" x="1055" y="460">EQUIPAMENTOS</text>
+                <text class="flow-text" x="1055" y="470">+ FECHAR OS</text>
+
+                <!-- Ticket Faturamento (Sistema) -->
+                <rect id="step9" class="flow-element flow-process" x="840" y="560" width="130" height="40" rx="5" onclick="showInfo('step9')"/>
+                <text class="flow-text" x="905" y="570">TICKET CRIADO</text>
+                <text class="flow-text" x="905" y="580">AUTOMÁTICO PARA</text>
+                <text class="flow-text" x="905" y="590">FATURAMENTO</text>
+
+                <!-- Decision: Filial ou Franquia? -->
+                <polygon id="decision3" class="flow-element flow-decision" points="1055,560 1105,580 1055,600 1005,580" onclick="showInfo('decision3')"/>
+                <text class="flow-text" x="1055" y="575">FILIAL OU</text>
+                <text class="flow-text" x="1055" y="585">FRANQUIA?</text>
+
+                <!-- FASE 4: ENTREGA (x: 1220-1580) -->
+                <!-- Parametrizar Filial -->
+                <rect id="step10a" class="flow-element flow-process" x="1240" y="540" width="130" height="40" rx="5" onclick="showInfo('step10a')"/>
+                <text class="flow-text" x="1305" y="555">PARAMETRIZAR</text>
+                <text class="flow-text" x="1305" y="565">FATURAMENTO</text>
+                <text class="flow-text" x="1305" y="575">FILIAL</text>
+
+                <!-- Parametrizar Matriz -->
+                <rect id="step10b" class="flow-element flow-process" x="1240" y="580" width="130" height="40" rx="5" onclick="showInfo('step10b')"/>
+                <text class="flow-text" x="1305" y="595">PARAMETRIZAR</text>
+                <text class="flow-text" x="1305" y="605">FATURAMENTO</text>
+                <text class="flow-text" x="1305" y="615">MATRIZ</text>
+
+                <!-- Finalizar Obra (Filial-Técnico) -->
+                <rect id="step11" class="flow-element flow-process" x="1240" y="320" width="130" height="40" rx="5" onclick="showInfo('step11')"/>
+                <text class="flow-text" x="1305" y="335">FINALIZAR OBRA</text>
+                <text class="flow-text" x="1305" y="347">DE IMPLANTAÇÃO</text>
+
+                <!-- ENTREGAR SERVIÇO (CRÍTICO) -->
+                <rect id="step12" class="flow-element flow-critical" x="1410" y="320" width="130" height="40" rx="5" onclick="showInfo('step12')"/>
+                <text class="flow-text" x="1475" y="335">⚠️ ENTREGAR</text>
+                <text class="flow-text" x="1475" y="347">SERVIÇO (CRÍTICO)</text>
+
+                <!-- FASE 5: ATIVAÇÃO (x: 1620-1980) -->
+                <!-- Ativação B.A -->
+                <rect id="step13" class="flow-element flow-process" x="1640" y="680" width="130" height="40" rx="5" onclick="showInfo('step13')"/>
+                <text class="flow-text" x="1705" y="695">ATIVAÇÃO</text>
+                <text class="flow-text" x="1705" y="707">MONITORAMENTO B.A</text>
+
+                <!-- Bonificações (Gestor) -->
+                <rect id="step14" class="flow-element flow-process" x="1790" y="560" width="130" height="40" rx="5" onclick="showInfo('step14')"/>
+                <text class="flow-text" x="1855" y="570">LANÇAR</text>
+                <text class="flow-text" x="1855" y="580">BONIFICAÇÕES</text>
+                <text class="flow-text" x="1855" y="590">(SE NECESSÁRIO)</text>
+
+                <!-- Concluir Ticket -->
+                <rect id="step15" class="flow-element flow-process" x="1940" y="560" width="130" height="40" rx="5" onclick="showInfo('step15')"/>
+                <text class="flow-text" x="2005" y="575">CONCLUIR</text>
+                <text class="flow-text" x="2005" y="587">TICKET</text>
+
+                <!-- End -->
+                <circle id="end" class="flow-element flow-end" cx="2200" cy="580" r="25" onclick="showInfo('end')"/>
+                <text class="flow-text" x="2200" y="585">FIM</text>
+
+                <!-- SETAS DO FLUXO PRINCIPAL COM QUEBRAS -->
+                <!-- Fase 1 -->
+                <line class="flow-arrow" x1="105" y1="100" x2="140" y2="100"/>
+                <line class="flow-arrow" x1="270" y1="100" x2="290" y2="100"/>
+                <!-- Seta quebrada: de step2 para step3 -->
+                <line class="flow-arrow" x1="355" y1="120" x2="355" y2="160"/>
+                <line class="flow-arrow" x1="355" y1="160" x2="505" y2="160"/>
+                <line class="flow-arrow" x1="505" y1="160" x2="505" y2="200"/>
+
+                <!-- Fase 2 -->
+                <line class="flow-arrow" x1="570" y1="220" x2="590" y2="220"/>
+                <line class="flow-arrow" x1="655" y1="240" x2="655" y2="260"/>
+                <!-- Decision: SIM -->
+                <line class="flow-arrow" x1="555" y1="280" x2="590" y2="280"/>
+                <!-- Seta quebrada: de step5 para step6 -->
+                <line class="flow-arrow" x1="720" y1="280" x2="780" y2="280"/>
+                <line class="flow-arrow" x1="780" y1="280" x2="780" y2="340"/>
+                <line class="flow-arrow" x1="780" y1="340" x2="840" y2="340"/>
+
+                <!-- Fase 3 -->
+                <line class="flow-arrow" x1="970" y1="340" x2="990" y2="340"/>
+                <!-- Seta quebrada: step7 para decision2 -->
+                <line class="flow-arrow" x1="1055" y1="360" x2="1055" y2="400"/>
+                <line class="flow-arrow" x1="1055" y1="400" x2="905" y2="400"/>
+                <line class="flow-arrow" x1="905" y1="400" x2="905" y2="440"/>
+                <!-- Decision2: SIM -->
+                <line class="flow-arrow" x1="955" y1="460" x2="990" y2="460"/>
+                <!-- Seta quebrada: step8 para step9 -->
+                <line class="flow-arrow" x1="1055" y1="480" x2="1055" y2="520"/>
+                <line class="flow-arrow" x1="1055" y1="520" x2="905" y2="520"/>
+                <line class="flow-arrow" x1="905" y1="520" x2="905" y2="560"/>
+                <line class="flow-arrow" x1="970" y1="580" x2="1005" y2="580"/>
+
+                <!-- Fase 4 -->
+                <!-- Decision3: FILIAL -->
+                <line class="flow-arrow" x1="1105" y1="570" x2="1240" y2="560"/>
+                <!-- Decision3: FRANQUIA -->
+                <line class="flow-arrow" x1="1105" y1="590" x2="1240" y2="600"/>
+                <!-- Seta quebrada: step6 para step11 -->
+                <line class="flow-arrow" x1="970" y1="340" x2="1200" y2="340"/>
+                <line class="flow-arrow" x1="1200" y1="340" x2="1240" y2="340"/>
+                <line class="flow-arrow" x1="1370" y1="340" x2="1410" y2="340"/>
+
+                <!-- Fase 5 -->
+                <!-- Seta quebrada: step12 para step13 -->
+                <line class="flow-arrow" x1="1540" y1="340" x2="1580" y2="340"/>
+                <line class="flow-arrow" x1="1580" y1="340" x2="1580" y2="700"/>
+                <line class="flow-arrow" x1="1580" y1="700" x2="1640" y2="700"/>
+                <!-- Seta quebrada: step10a/10b para step14 -->
+                <line class="flow-arrow" x1="1370" y1="580" x2="1790" y2="580"/>
+                <line class="flow-arrow" x1="1920" y1="580" x2="1940" y2="580"/>
+                <line class="flow-arrow" x1="2070" y1="580" x2="2175" y2="580"/>
+
+                <!-- Labels de decisão -->
+                <text class="flow-label" x="620" y="270">SIM</text>
+                <text class="flow-label" x="450" y="270">NÃO</text>
+                <text class="flow-label" x="980" y="450">SIM</text>
+                <text class="flow-label" x="850" y="450">NÃO</text>
+                <text class="flow-label" x="1170" y="550">FILIAL</text>
+                <text class="flow-label" x="1170" y="610">FRANQUIA</text>
+            </svg>VIÇO (CRÍTICO)</text>
+
+                <!-- FASE 5: ATIVAÇÃO -->
+                <!-- Ativação B.A -->
+                <rect id="step13" class="flow-element flow-process" x="1320" y="565" width="120" height="40" rx="5" onclick="showInfo('step13')"/>
+                <text class="flow-text" x="1380" y="580">ATIVAÇÃO</text>
+                <text class="flow-text" x="1380" y="592">MONITORAMENTO B.A</text>
+
+                <!-- Bonificações (Gestor) -->
+                <rect id="step14" class="flow-element flow-process" x="1460" y="465" width="120" height="40" rx="5" onclick="showInfo('step14')"/>
+                <text class="flow-text" x="1520" y="475">LANÇAR</text>
+                <text class="flow-text" x="1520" y="485">BONIFICAÇÕES</text>
+                <text class="flow-text" x="1520" y="495">(SE NECESSÁRIO)</text>
+
+                <!-- Concluir Ticket -->
+                <rect id="step15" class="flow-element flow-process" x="1600" y="465" width="120" height="40" rx="5" onclick="showInfo('step15')"/>
+                <text class="flow-text" x="1660" y="480">CONCLUIR</text>
+                <text class="flow-text" x="1660" y="492">TICKET</text>
+
+                <!-- End -->
+                <circle id="end" class="flow-element flow-end" cx="1750" cy="485" r="20" onclick="showInfo('end')"/>
+                <text class="flow-text" x="1750" y="490">FIM</text>
+
+                <!-- SETAS DO FLUXO PRINCIPAL -->
+                <!-- Fase 1 -->
+                <line class="flow-arrow" x1="70" y1="85" x2="100" y2="85"/>
+                <line class="flow-arrow" x1="220" y1="85" x2="250" y2="85"/>
+                <line class="flow-arrow" x1="310" y1="105" x2="380" y2="165"/>
+
+                <!-- Fase 2 -->
+                <line class="flow-arrow" x1="440" y1="185" x2="460" y2="185"/>
+                <line class="flow-arrow" x1="580" y1="185" x2="580" y2="185"/>
+                <line class="flow-arrow" x1="630" y1="205" x2="380" y2="215"/>
+                <line class="flow-arrow" x1="440" y1="235" x2="780" y2="265"/>
+
+                <!-- Fase 3 -->
+                <line class="flow-arrow" x1="840" y1="285" x2="860" y2="285"/>
+                <line class="flow-arrow" x1="920" y1="305" x2="720" y2="365"/>
+                <line class="flow-arrow" x1="770" y1="385" x2="820" y2="385"/>
+                <line class="flow-arrow" x1="880" y1="405" x2="780" y2="465"/>
+                <line class="flow-arrow" x1="840" y1="485" x2="810" y2="485"/>
+
+                <!-- Fase 4 -->
+                <line class="flow-arrow" x1="910" y1="475" x2="1020" y2="465"/>
+                <line class="flow-arrow" x1="910" y1="495" x2="1020" y2="505"/>
+                <line class="flow-arrow" x1="780" y1="305" x2="1020" y2="285"/>
+                <line class="flow-arrow" x1="1140" y1="285" x2="1180" y2="285"/>
+
+                <!-- Fase 5 -->
+                <line class="flow-arrow" x1="1300" y1="285" x2="1380" y2="565"/>
+                <line class="flow-arrow" x1="1140" y1="485" x2="1460" y2="485"/>
+                <line class="flow-arrow" x1="1580" y1="485" x2="1600" y2="485"/>
+                <line class="flow-arrow" x1="1720" y1="485" x2="1730" y2="485"/>
+
+                <!-- Labels de decisão -->
+                <text class="flow-label" x="550" y="200">SIM</text>
+                <text class="flow-label" x="700" y="160">NÃO</text>
+                <text class="flow-label" x="795" y="400">SIM</text>
+                <text class="flow-label" x="650" y="400">NÃO</text>
+                <text class="flow-label" x="965" y="455">FILIAL</text>
+                <text class="flow-label" x="965" y="515">FRANQUIA</text>
+            </svg>" rx="5" onclick="showInfo('step2')"/>
                 <text class="flow-text" x="320" y="120">TICKET ABERTO</text>
                 <text class="flow-text" x="320" y="135">AUTOMATICAMENTE</text>
 
@@ -821,13 +1231,12 @@
         let animationRunning = false;
         let animationStep = 0;
         let animationInterval;
-        let isZoomed = false;
 
-        // Sequência de animação baseada no fluxo
+        // Sequência de animação baseada no fluxo matricial
         const animationSequence = [
             'start', 'step1', 'step2', 'step3', 'step4', 'decision1', 'step5', 
             'step6', 'step7', 'decision2', 'step8', 'step9', 'decision3', 
-            'step10a', 'step11', 'step12', 'step13', 'step14', 'step15', 'end'
+            'step10a', 'step10b', 'step11', 'step12', 'step13', 'step14', 'step15', 'end'
         ];
 
         // Mostrar informações do elemento
@@ -874,8 +1283,9 @@
                     // Marcar anterior como completado
                     if (animationStep > 0) {
                         const prevElement = animationSequence[animationStep - 1];
-                        document.getElementById(prevElement).classList.remove('active');
-                        document.getElementById(prevElement).classList.add('completed');
+                        const prevEl = document.getElementById(prevElement);
+                        prevEl.classList.remove('active');
+                        prevEl.classList.add('completed');
                     }
                     
                     // Ativar elemento atual
@@ -893,7 +1303,7 @@
                     // Animação finalizada
                     pauseAnimation();
                 }
-            }, 2000); // 2 segundos por etapa
+            }, 2500); // 2.5 segundos por etapa
         }
 
         // Pausar animação
@@ -937,20 +1347,6 @@
             }, 1000);
         }
 
-        // Toggle zoom
-        function toggleZoom() {
-            const svg = document.getElementById('flowchartSvg');
-            if (isZoomed) {
-                svg.style.transform = 'scale(1)';
-                svg.style.transformOrigin = 'center';
-                isZoomed = false;
-            } else {
-                svg.style.transform = 'scale(1.5)';
-                svg.style.transformOrigin = 'center';
-                isZoomed = true;
-            }
-        }
-
         // Funções de navegação por teclado
         document.addEventListener('keydown', function(e) {
             switch(e.key) {
@@ -966,10 +1362,6 @@
                 case 'Escape':
                     resetAnimation();
                     break;
-                case 'z':
-                case 'Z':
-                    toggleZoom();
-                    break;
             }
         });
 
@@ -980,14 +1372,14 @@
             criticalElement.style.strokeWidth = '4';
             criticalElement.style.stroke = '#e74c3c';
             
-            // Adicionar brilho
+            // Adicionar brilho pulsante sutil
             setInterval(() => {
                 if (!criticalElement.classList.contains('active')) {
-                    criticalElement.style.filter = criticalElement.style.filter === 'drop-shadow(0 0 10px #e74c3c)' 
+                    criticalElement.style.filter = criticalElement.style.filter === 'drop-shadow(0 0 8px #e74c3c)' 
                         ? 'none' 
-                        : 'drop-shadow(0 0 10px #e74c3c)';
+                        : 'drop-shadow(0 0 8px #e74c3c)';
                 }
-            }, 2000);
+            }, 3000);
         }
 
         // Auto-inicialização
@@ -1012,14 +1404,37 @@
         // Responsividade para mobile
         function handleResize() {
             const svg = document.getElementById('flowchartSvg');
-            const container = document.querySelector('.flowchart-container');
+            const width = window.innerWidth;
             
-            if (window.innerWidth < 768) {
-                svg.setAttribute('viewBox', '0 0 1200 1000');
+            if (width < 480) {
+                svg.setAttribute('viewBox', '0 0 2400 1000');
                 svg.style.height = '400px';
+            } else if (width < 768) {
+                svg.setAttribute('viewBox', '0 0 2400 950');
+                svg.style.height = '500px';
+            } else if (width < 1024) {
+                svg.setAttribute('viewBox', '0 0 2400 900');
+                svg.style.height = '600px';
+            } else if (width < 1200) {
+                svg.setAttribute('viewBox', '0 0 2400 900');
+                svg.style.height = '700px';
             } else {
-                svg.setAttribute('viewBox', '0 0 1200 800');
+                svg.setAttribute('viewBox', '0 0 2400 900');
                 svg.style.height = '800px';
+            }
+            
+            // Ajustar info panel para mobile
+            const infoPanel = document.getElementById('infoPanel');
+            if (width < 1024) {
+                infoPanel.style.position = 'static';
+                infoPanel.style.width = '100%';
+                infoPanel.style.transform = 'none';
+                infoPanel.style.opacity = '1';
+                infoPanel.style.marginTop = '20px';
+            } else {
+                infoPanel.style.position = 'absolute';
+                infoPanel.style.width = '300px';
+                infoPanel.style.marginTop = '0';
             }
         }
 
@@ -1066,12 +1481,15 @@
         document.addEventListener('DOMContentLoaded', function() {
             const controls = document.querySelector('.flowchart-controls');
             const exportBtn = document.createElement('button');
-            exportBtn.className = 'control-btn zoom-btn';
+            exportBtn.className = 'control-btn play-btn';
             exportBtn.innerHTML = '📥 Exportar';
             exportBtn.onclick = exportFlowchart;
             controls.appendChild(exportBtn);
 
             addTooltips();
+            
+            // Inicializar responsividade
+            handleResize();
         });
 
         // Analytics simples de interação
