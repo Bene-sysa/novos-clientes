@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documentação - Processo Faturamento Novos Clientes</title>
     <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea, #764ba2);
+            --accent-color: #4299e1;
+            --success-color: #48bb78;
+            --warning-color: #ed8936;
+            --danger-color: #e53e3e;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text-primary: #2d3748;
+            --text-secondary: #718096;
+            --sidebar-bg: rgba(255, 255, 255, 0.98);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,107 +24,136 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--primary-gradient);
             min-height: 100vh;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        .wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            animation: slideDown 0.5s ease;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: var(--text-primary);
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .nav-pills {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-pill {
+            padding: 0.625rem 1.25rem;
+            background: rgba(102, 126, 234, 0.1);
+            color: var(--accent-color);
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .nav-pill:hover {
+            background: var(--primary-gradient);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-pill.active {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         }
 
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 2rem;
             display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 30px;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
+            align-items: start;
         }
 
-        /* Header */
-        .header {
-            grid-column: 1 / -1;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        .header h1 {
-            color: #2c3e50;
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-
-        .header .subtitle {
-            color: #7f8c8d;
-            font-size: 1.2em;
-            margin-bottom: 20px;
-        }
-
-        .nav-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .nav-link {
-            padding: 12px 24px;
-            background: linear-gradient(45deg, #3498db, #2980b9);
-            color: white;
-            text-decoration: none;
-            border-radius: 25px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
-        }
-
-        .nav-link:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
-        }
-
-        .nav-link.active {
-            background: linear-gradient(45deg, #e74c3c, #c0392b);
-        }
-
-        /* Sidebar */
         .sidebar {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            height: fit-content;
             position: sticky;
-            top: 20px;
+            top: 140px;
+            background: var(--sidebar-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            animation: fadeInLeft 0.6s ease;
         }
 
         .search-box {
             width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
+            padding: 0.875rem 1rem;
+            border: 2px solid rgba(102, 126, 234, 0.2);
             border-radius: 25px;
-            font-size: 14px;
-            margin-bottom: 25px;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
             transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.8);
         }
 
         .search-box:focus {
             outline: none;
-            border-color: #3498db;
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
         }
 
         .sidebar h3 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-            font-size: 1.3em;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 8px;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
         }
 
         .sidebar-menu {
@@ -120,297 +161,312 @@
         }
 
         .sidebar-menu li {
-            margin-bottom: 8px;
+            margin-bottom: 0.5rem;
         }
 
         .sidebar-menu a {
             display: block;
-            padding: 12px 15px;
-            color: #555;
+            padding: 0.75rem 1rem;
+            color: var(--text-secondary);
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 12px;
             transition: all 0.3s ease;
             font-weight: 500;
+            font-size: 0.95rem;
         }
 
         .sidebar-menu a:hover {
-            background: linear-gradient(45deg, #3498db, #2980b9);
+            background: var(--primary-gradient);
             color: white;
             transform: translateX(5px);
         }
 
         .sidebar-menu a.active {
-            background: linear-gradient(45deg, #3498db, #2980b9);
+            background: var(--primary-gradient);
             color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         }
 
-        /* Main Content */
         .main-content {
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--card-bg);
             backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 40px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            min-height: 800px;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            min-height: 600px;
+            animation: fadeInUp 0.6s ease;
         }
 
         .content-section {
             display: none;
-            animation: fadeInUp 0.6s ease forwards;
         }
 
         .content-section.active {
             display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .breadcrumb {
+            background: rgba(66, 153, 225, 0.1);
+            padding: 0.75rem 1.25rem;
+            border-radius: 25px;
+            margin-bottom: 2rem;
+            color: var(--accent-color);
+            font-weight: 600;
+            font-size: 0.9rem;
         }
 
         .content-section h2 {
-            color: #2c3e50;
-            font-size: 2.2em;
-            margin-bottom: 25px;
-            border-bottom: 3px solid #3498db;
-            padding-bottom: 15px;
+            color: var(--text-primary);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid;
+            border-image: var(--primary-gradient) 1;
         }
 
         .content-section h3 {
-            color: #34495e;
-            font-size: 1.6em;
-            margin: 30px 0 15px 0;
-            border-left: 4px solid #3498db;
-            padding-left: 15px;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem 0;
+            font-weight: 700;
         }
 
         .content-section h4 {
-            color: #2c3e50;
-            font-size: 1.3em;
-            margin: 25px 0 12px 0;
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            margin: 1.5rem 0 0.75rem 0;
             font-weight: 600;
         }
 
+        .content-section p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
         .process-step {
-            background: #f8f9fa;
-            border-left: 4px solid #3498db;
-            padding: 20px;
-            margin: 15px 0;
-            border-radius: 0 8px 8px 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+            border-left: 4px solid var(--accent-color);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 0 12px 12px 0;
             transition: all 0.3s ease;
         }
 
         .process-step:hover {
-            background: #e3f2fd;
-            transform: translateX(10px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            transform: translateX(8px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
         }
 
         .step-header {
             display: flex;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 0.75rem;
         }
 
         .step-number {
-            background: linear-gradient(45deg, #3498db, #2980b9);
+            background: var(--primary-gradient);
             color: white;
-            width: 35px;
-            height: 35px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            margin-right: 15px;
+            font-weight: 700;
+            margin-right: 1rem;
+            font-size: 0.9rem;
         }
 
         .step-responsible {
             font-weight: 700;
-            color: #2c3e50;
-            font-size: 1.1em;
+            color: var(--text-primary);
+            font-size: 1.05rem;
         }
 
         .step-action {
-            color: #555;
-            margin-left: 50px;
-            font-size: 1em;
-            line-height: 1.5;
+            color: var(--text-secondary);
+            margin-left: 2.75rem;
+            line-height: 1.6;
         }
 
         .alert {
-            padding: 20px;
-            border-radius: 12px;
-            margin: 20px 0;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
             border-left: 5px solid;
         }
 
         .alert-warning {
-            background: linear-gradient(45deg, #fff3cd, #ffeaa7);
-            border-left-color: #f39c12;
-            color: #856404;
+            background: linear-gradient(135deg, rgba(237, 137, 54, 0.1), rgba(255, 235, 205, 0.2));
+            border-left-color: var(--warning-color);
         }
 
         .alert-info {
-            background: linear-gradient(45deg, #d1ecf1, #74b9ff);
-            border-left-color: #3498db;
-            color: #0c5460;
+            background: linear-gradient(135deg, rgba(66, 153, 225, 0.1), rgba(209, 236, 241, 0.2));
+            border-left-color: var(--accent-color);
         }
 
         .alert-success {
-            background: linear-gradient(45deg, #d4edda, #00b894);
-            border-left-color: #27ae60;
-            color: #155724;
+            background: linear-gradient(135deg, rgba(72, 187, 120, 0.1), rgba(212, 237, 218, 0.2));
+            border-left-color: var(--success-color);
         }
 
         .alert-title {
             font-weight: 700;
-            margin-bottom: 10px;
-            font-size: 1.1em;
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .team-badge {
+        .alert-warning .alert-title { color: var(--warning-color); }
+        .alert-info .alert-title { color: var(--accent-color); }
+        .alert-success .alert-title { color: var(--success-color); }
+
+        .alert-content {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .badge {
             display: inline-block;
-            padding: 6px 12px;
-            border-radius: 15px;
+            padding: 0.4rem 0.875rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
             font-weight: 600;
-            margin: 3px;
-            font-size: 0.85em;
+            margin: 0.25rem;
         }
 
-        .team-matriz {
-            background: linear-gradient(45deg, #e74c3c, #c0392b);
-            color: white;
-        }
-
-        .team-filial {
-            background: linear-gradient(45deg, #27ae60, #229954);
-            color: white;
-        }
-
-        .team-logistica {
-            background: linear-gradient(45deg, #f39c12, #e67e22);
-            color: white;
-        }
-
-        .team-juridico {
-            background: linear-gradient(45deg, #9b59b6, #8e44ad);
-            color: white;
-        }
-
-        .team-ba {
-            background: linear-gradient(45deg, #34495e, #2c3e50);
-            color: white;
-        }
+        .badge-matriz { background: rgba(231, 76, 60, 0.15); color: #c0392b; }
+        .badge-filial { background: rgba(39, 174, 96, 0.15); color: #27ae60; }
+        .badge-logistica { background: rgba(243, 156, 18, 0.15); color: #e67e22; }
+        .badge-juridico { background: rgba(155, 89, 182, 0.15); color: #8e44ad; }
+        .badge-ba { background: rgba(52, 73, 94, 0.15); color: #2c3e50; }
 
         .faq-item {
             background: white;
-            border-radius: 8px;
-            margin: 15px 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            margin: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
             overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
         .faq-question {
-            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
-            padding: 20px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+            padding: 1.25rem;
             cursor: pointer;
             font-weight: 600;
-            color: #2c3e50;
+            color: var(--text-primary);
             transition: all 0.3s ease;
-            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .faq-question:hover {
-            background: linear-gradient(45deg, #3498db, #2980b9);
+            background: var(--primary-gradient);
             color: white;
         }
 
+        .faq-question::after {
+            content: '▼';
+            font-size: 0.8rem;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-question.active::after {
+            transform: rotate(180deg);
+        }
+
         .faq-answer {
-            padding: 0 20px;
+            padding: 0 1.25rem;
             max-height: 0;
             overflow: hidden;
             transition: all 0.3s ease;
             background: white;
+            color: var(--text-secondary);
         }
 
         .faq-answer.active {
-            padding: 20px;
+            padding: 1.25rem;
             max-height: 500px;
         }
 
-        .calendar-table {
+        .data-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
+            margin: 1.5rem 0;
             background: white;
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
         }
 
-        .calendar-table th {
-            background: linear-gradient(45deg, #3498db, #2980b9);
+        .data-table th {
+            background: var(--primary-gradient);
             color: white;
-            padding: 15px;
+            padding: 1rem;
             text-align: left;
             font-weight: 600;
+            font-size: 0.95rem;
         }
 
-        .calendar-table td {
-            padding: 15px;
-            border-bottom: 1px solid #e0e0e0;
-            transition: background 0.3s ease;
+        .data-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            color: var(--text-secondary);
         }
 
-        .calendar-table tr:hover td {
-            background: #f8f9fa;
+        .data-table tr:hover td {
+            background: rgba(102, 126, 234, 0.05);
         }
 
         .highlight {
-            background: linear-gradient(45deg, #fff3cd, #ffeaa7);
-            padding: 3px 6px;
-            border-radius: 4px;
-            font-weight: 600;
+            background: linear-gradient(120deg, #ffd89b 0%, #19547b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
         }
 
         .code-block {
-            background: #2c3e50;
-            color: #ecf0f1;
-            padding: 20px;
-            border-radius: 8px;
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 12px;
             font-family: 'Courier New', monospace;
-            margin: 15px 0;
+            margin: 1rem 0;
             overflow-x: auto;
+            font-size: 0.9rem;
         }
 
-        .breadcrumb {
-            background: rgba(52, 152, 219, 0.1);
-            padding: 12px 20px;
-            border-radius: 25px;
-            margin-bottom: 25px;
-            color: #3498db;
-            font-weight: 600;
-        }
-
-        @media (max-width: 1024px) {
-            .container {
-                grid-template-columns: 1fr;
-                gap: 20px;
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
             }
-            
-            .sidebar {
-                position: static;
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
-        @media (max-width: 768px) {
-            .nav-links {
-                flex-direction: column;
-                align-items: center;
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
             }
-            
-            .main-content {
-                padding: 25px;
-            }
-            
-            .header h1 {
-                font-size: 2em;
+            to {
+                opacity: 1;
+                transform: translateX(0);
             }
         }
 
@@ -425,752 +481,689 @@
             }
         }
 
-        .no-results {
-            text-align: center;
-            padding: 40px;
-            color: #7f8c8d;
-            font-size: 1.2em;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.75rem;
+            }
+
+            .nav-pills {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .main-content {
+                padding: 1.5rem;
+            }
+        }
+
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        ul li, ol li {
+            margin-bottom: 0.5rem;
+        }
+
+        strong {
+            color: var(--text-primary);
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>📖 Documentação</h1>
-            <p class="subtitle">Processo de Faturamento - Novos Clientes</p>
-            
-            <div class="nav-links">
-                <a href="index.html" class="nav-link">🏠 Treinamento</a>
-                <a href="documentacao.html" class="nav-link active">📖 Documentação</a>
-                <a href="matriz-raci.html" class="nav-link">📊 Matriz RACI</a>
-                <a href="pocs-setoriais.html" class="nav-link">🎯 POCs Setoriais</a>
+    <div id="particles-js"></div>
+
+    <div class="wrapper">
+        <header class="header">
+            <div class="header-content">
+                <h1>Documentação Completa</h1>
+                <p class="subtitle">Processo de Faturamento - Novos Clientes</p>
+                
+                <div class="nav-pills">
+                    <a href="index.html" class="nav-pill">Home</a>
+                    <a href="fluxograma.html" class="nav-pill">Fluxograma</a>
+                    <a href="documentacao.html" class="nav-pill active">Documentação</a>
+                    <a href="matriz-raci.html" class="nav-pill">Matriz RACI</a>
+                    <a href="pocs-setoriais.html" class="nav-pill">POCs Setoriais</a>
+                </div>
             </div>
-        </div>
+        </header>
 
-        <div class="sidebar">
-            <input type="text" class="search-box" placeholder="🔍 Buscar na documentação..." id="searchBox">
-            
-            <h3>📋 Navegação</h3>
-            <ul class="sidebar-menu">
-                <li><a href="#overview" onclick="showSection('overview')" class="active">📋 Visão Geral</a></li>
-                <li><a href="#processo-venda" onclick="showSection('processo-venda')">🛒 Processo de Venda</a></li>
-                <li><a href="#cronograma-faturamento" onclick="showSection('cronograma-faturamento')">📅 Cronograma Faturamento</a></li>
-                <li><a href="#responsabilidades" onclick="showSection('responsabilidades')">👥 Responsabilidades</a></li>
-                <li><a href="#sistemas" onclick="showSection('sistemas')">💻 Sistemas Utilizados</a></li>
-                <li><a href="#troubleshooting" onclick="showSection('troubleshooting')">🔧 Solução de Problemas</a></li>
-                <li><a href="#faq" onclick="showSection('faq')">❓ Perguntas Frequentes</a></li>
-                <li><a href="#contatos" onclick="showSection('contatos')">📞 Contatos Importantes</a></li>
-            </ul>
-        </div>
-
-        <div class="main-content">
-            <!-- Overview Section -->
-            <div class="content-section active" id="overview">
-                <div class="breadcrumb">📍 Início > Documentação > Visão Geral</div>
+        <div class="container">
+            <aside class="sidebar">
+                <input type="text" class="search-box" placeholder="Buscar na documentação..." id="searchBox">
                 
-                <h2>📋 Visão Geral do Processo</h2>
-                
-                <div class="alert alert-info">
-                    <div class="alert-title">ℹ️ Sobre esta Documentação</div>
-                    <p>Esta documentação serve como guia de referência permanente para o processo de faturamento de novos clientes. Use a busca ou navegação lateral para encontrar informações específicas rapidamente.</p>
-                </div>
-
-                <h3>🎯 Objetivo Principal</h3>
-                <p>Estabelecer um fluxo padronizado e rastreável para o faturamento de novos clientes, eliminando o gap existente entre a operação técnica e o registro adequado no sistema.</p>
-
-                <h3>🔄 Principais Mudanças</h3>
-                <div class="alert alert-warning">
-                    <div class="alert-title">⚠️ Gap Identificado</div>
-                    <p>Anteriormente, quando o processo chegava ao time técnico para implantação, as informações não eram registradas corretamente no sistema, causando perda de rastreabilidade e dificultando o faturamento.</p>
-                </div>
-
-                <div class="alert alert-success">
-                    <div class="alert-title">✅ Solução Implementada</div>
-                    <p>Com o novo processo, a filial deve obrigatoriamente <span class="highlight">"ENTREGAR O SERVIÇO"</span> no ERP informando a data de agendamento da ativação do monitoramento, garantindo o registro adequado para faturamento.</p>
-                </div>
-
-                <h3>👥 Equipes Envolvidas</h3>
-                <p><span class="team-badge team-matriz">🏢 Matriz - BackOffice</span> Responsável pelo faturamento e pagamento das filiais</p>
-                <p><span class="team-badge team-filial">🏭 Filiais - Operação</span> Responsável pela operação completa, ponta final do processo</p>
-
-                <h3>📊 Métricas de Sucesso</h3>
-                <ul style="margin-left: 20px; margin-top: 15px;">
-                    <li>100% dos novos clientes com registro correto no sistema</li>
-                    <li>Redução de 90% nos tickets de correção manual</li>
-                    <li>Faturamento processado dentro do prazo (dia 15)</li>
-                    <li>Zero clientes ativos sem cobrança por falha de processo</li>
+                <h3>Navegação</h3>
+                <ul class="sidebar-menu">
+                    <li><a href="#overview" onclick="showSection('overview')" class="active">Visão Geral</a></li>
+                    <li><a href="#processo-venda" onclick="showSection('processo-venda')">Processo de Venda</a></li>
+                    <li><a href="#cronograma" onclick="showSection('cronograma')">Cronograma</a></li>
+                    <li><a href="#responsabilidades" onclick="showSection('responsabilidades')">Responsabilidades</a></li>
+                    <li><a href="#sistemas" onclick="showSection('sistemas')">Sistemas</a></li>
+                    <li><a href="#troubleshooting" onclick="showSection('troubleshooting')">Problemas</a></li>
+                    <li><a href="#faq" onclick="showSection('faq')">FAQ</a></li>
+                    <li><a href="#contatos" onclick="showSection('contatos')">Contatos</a></li>
                 </ul>
-            </div>
+            </aside>
 
-            <!-- Processo de Venda Section -->
-            <div class="content-section" id="processo-venda">
-                <div class="breadcrumb">📍 Início > Documentação > Processo de Venda</div>
-                
-                <h2>🛒 Processo de Nova Venda</h2>
-                
-                <h3>📝 Etapas Detalhadas</h3>
-                
-                <div class="process-step">
-                    <div class="step-header">
-                        <div class="step-number">1</div>
-                        <div class="step-responsible">Filial <span class="team-badge team-filial">Operação</span></div>
+            <main class="main-content">
+                <!-- Overview Section -->
+                <section class="content-section active" id="overview">
+                    <div class="breadcrumb">Início > Documentação > Visão Geral</div>
+                    
+                    <h2>Visão Geral do Processo</h2>
+                    
+                    <div class="alert alert-info">
+                        <div class="alert-title">Sobre esta Documentação</div>
+                        <div class="alert-content">
+                            Esta documentação serve como guia de referência permanente para o processo de faturamento de novos clientes. Use a busca ou navegação lateral para encontrar informações específicas rapidamente.
+                        </div>
                     </div>
-                    <div class="step-action">
-                        <strong>FECHAMENTO DO ORÇAMENTO</strong><br>
-                        A filial finaliza a negociação e fecha o orçamento com o cliente no sistema.
-                    </div>
-                </div>
 
-                <div class="process-step">
-                    <div class="step-header">
-                        <div class="step-number">2</div>
-                        <div class="step-responsible">Sistema <span class="team-badge team-ba">Automático</span></div>
-                    </div>
-                    <div class="step-action">
-                        <strong>TICKET ABERTO AUTOMATICAMENTE</strong><br>
-                        O sistema gera automaticamente um ticket após o fechamento da venda.
-                    </div>
-                </div>
+                    <h3>Objetivo Principal</h3>
+                    <p>Estabelecer um fluxo padronizado e rastreável para o faturamento de novos clientes, eliminando o gap existente entre a operação técnica e o registro adequado no sistema.</p>
 
-                <div class="process-step">
-                    <div class="step-header">
-                        <div class="step-number">3</div>
-                        <div class="step-responsible">Jurídico <span class="team-badge team-juridico">Matriz</span></div>
+                    <h3>Principais Mudanças</h3>
+                    <div class="alert alert-warning">
+                        <div class="alert-title">Gap Identificado</div>
+                        <div class="alert-content">
+                            Anteriormente, quando o processo chegava ao time técnico para implantação, as informações não eram registradas corretamente no sistema, causando perda de rastreabilidade e dificultando o faturamento.
+                        </div>
                     </div>
-                    <div class="step-action">
-                        <strong>LIBERAÇÃO DO ORÇAMENTO</strong><br>
-                        O departamento jurídico analisa e libera o orçamento para prosseguimento.
-                    </div>
-                </div>
 
-                <div class="process-step">
-                    <div class="step-header">
-                        <div class="step-number">4</div>
-                        <div class="step-responsible">Jurídico <span class="team-badge team-juridico">Matriz</span></div>
+                    <div class="alert alert-success">
+                        <div class="alert-title">Solução Implementada</div>
+                        <div class="alert-content">
+                            Com o novo processo, a filial deve obrigatoriamente <span class="highlight">"ENTREGAR O SERVIÇO"</span> no ERP informando a data de agendamento da ativação do monitoramento, garantindo o registro adequado para faturamento.
+                        </div>
                     </div>
-                    <div class="step-action">
-                        <strong>ENVIO DO CONTRATO PARA ASSINATURA</strong><br>
-                        Envio do contrato para o cliente via sistema de assinatura digital.
-                    </div>
-                </div>
 
-                <div class="process-step">
-                    <div class="step-header">
-                        <div class="step-number">5</div>
-                        <div class="step-responsible">Sistema <span class="team-badge team-ba">Automático</span></div>
-                    </div>
-                    <div class="step-action">
-                        <strong>NOTIFICAÇÃO DE ASSINATURA VIA E-MAIL</strong><br>
-                        Sistema envia notificação automática quando o contrato é assinado.
-                    </div>
-                </div>
+                    <h3>Equipes Envolvidas</h3>
+                    <p><span class="badge badge-matriz">Matriz - BackOffice</span> Responsável pelo faturamento e pagamento das filiais</p>
+                    <p><span class="badge badge-filial">Filiais - Operação</span> Responsável pela operação completa, ponta final do processo</p>
 
-                <div class="process-step">
-                    <div class="step-header">
-                        <div class="step-number">6</div>
-                        <div class="step-responsible">Jurídico <span class="team-badge team-juridico">Matriz</span></div>
-                    </div>
-                    <div class="step-action">
-                        <strong>BAIXA CONTRATO COMO ASSINADO NO SERVICE</strong><br>
-                        Registro no sistema de que o contrato foi devidamente assinado.
-                    </div>
-                </div>
-
-                <div class="alert alert-info">
-                    <div class="alert-title">🏗️ Início da Fase Operacional</div>
-                    <p>A partir deste ponto, inicia-se a fase operacional com a filial assumindo a execução da obra.</p>
-                </div>
-
-                <div class="process-step">
-                    <div class="step-header">
-                        <div class="step-number">7</div>
-                        <div class="step-responsible">Filial <span class="team-badge team-filial">Operação</span></div>
-                    </div>
-                    <div class="step-action">
-                        <strong>INÍCIO DA OBRA</strong><br>
-                        A filial dá início aos trabalhos de implantação no cliente.
-                    </div>
-                </div>
-
-                <div class="process-step">
-                    <div class="step-header">
-                        <div class="step-number">8</div>
-                        <div class="step-responsible">Filial <span class="team-badge team-filial">Operação</span></div>
-                    </div>
-                    <div class="step-action">
-                        <strong>ABERTURA DO TICKET DE SOLICITAÇÃO DOS EQUIPAMENTOS</strong><br>
-                        Solicitação feita conforme cronograma de obras da unidade.
-                    </div>
-                </div>
-
-                <div class="process-step">
-                    <div class="step-header">
-                        <div class="step-number">9</div>
-                        <div class="step-responsible">Logística <span class="team-badge team-logistica">Matriz</span></div>
-                    </div>
-                    <div class="step-action">
-                        <strong>ABERTURA DE OS E ENTREGA DE EQUIPAMENTOS</strong><br>
-                        Logística processa a solicitação e realiza a entrega dos equipamentos.
-                    </div>
-                </div>
-
-                <div class="process-step">
-                    <div class="step-header">
-                        <div class="step-number">10</div>
-                        <div class="step-responsible">Logística <span class="team-badge team-logistica">Matriz</span></div>
-                    </div>
-                    <div class="step-action">
-                        <strong>FECHAR O.S</strong><br>
-                        Finalização da ordem de serviço após entrega dos equipamentos.
-                    </div>
-                </div>
-
-                <div class="alert alert-warning">
-                    <div class="alert-title">🎯 Ponto Crítico do Processo</div>
-                    <p>A partir da etapa 11, inicia-se o processo de faturamento. É fundamental que todas as informações estejam corretas no sistema.</p>
-                </div>
-
-                <!-- Continuação dos passos 11-21... -->
-                <!-- (Todos os outros passos seguem o mesmo padrão) -->
-            </div>
-
-            <!-- Cronograma Faturamento Section -->
-            <div class="content-section" id="cronograma-faturamento">
-                <div class="breadcrumb">📍 Início > Documentação > Cronograma de Faturamento</div>
-                
-                <h2>📅 Cronograma Mensal de Faturamento</h2>
-                
-                <div class="alert alert-info">
-                    <div class="alert-title">📋 Cronograma Fixo</div>
-                    <p>O faturamento segue um cronograma mensal fixo que deve ser rigorosamente seguido para garantir o recebimento dentro do prazo.</p>
-                </div>
-
-                <table class="calendar-table">
-                    <thead>
-                        <tr>
-                            <th>Data</th>
-                            <th>Responsável</th>
-                            <th>Atividade</th>
-                            <th>Observações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><span class="highlight">Dia 10</span></td>
-                            <td><span class="team-badge team-matriz">Faturamento</span></td>
-                            <td>Conferência de novos clientes e bonificações</td>
-                            <td>Verificação de todos os lançamentos do mês</td>
-                        </tr>
-                        <tr>
-                            <td><span class="highlight">Dias 11-12</span></td>
-                            <td><span class="team-badge team-matriz">Faturamento</span></td>
-                            <td>Processamento das bonificações</td>
-                            <td>Execução dos ajustes de valores</td>
-                        </tr>
-                        <tr>
-                            <td><span class="highlight">Dia 13</span></td>
-                            <td><span class="team-badge team-matriz">Faturamento</span></td>
-                            <td>Geração de relatórios para gestores</td>
-                            <td>Envio dos valores mensais para ciência</td>
-                        </tr>
-                        <tr>
-                            <td><span class="highlight">Dia 15</span></td>
-                            <td><span class="team-badge team-matriz">Faturamento</span></td>
-                            <td>Processamento final e envio de cobranças</td>
-                            <td>Data limite para faturamento do mês</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h3>⚠️ Pontos de Atenção</h3>
-                <div class="alert alert-warning">
-                    <div class="alert-title">🕐 Prazos Críticos</div>
-                    <ul style="margin-left: 20px; margin-top: 10px;">
-                        <li>Novos clientes devem estar registrados até o <strong>dia 9</strong></li>
-                        <li>Bonificações devem estar lançadas até o <strong>dia 10</strong></li>
-                        <li>Qualquer ajuste após o dia 13 impacta o faturamento do mês seguinte</li>
+                    <h3>Métricas de Sucesso</h3>
+                    <ul>
+                        <li>100% dos novos clientes com registro correto no sistema</li>
+                        <li>Redução de 90% nos tickets de correção manual</li>
+                        <li>Faturamento processado dentro do prazo (dia 15)</li>
+                        <li>Zero clientes ativos sem cobrança por falha de processo</li>
                     </ul>
-                </div>
-            </div>
+                </section>
 
-            <!-- FAQ Section -->
-            <div class="content-section" id="faq">
-                <div class="breadcrumb">📍 Início > Documentação > Perguntas Frequentes</div>
-                
-                <h2>❓ Perguntas Frequentes</h2>
-                
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        🤔 O que fazer se o cliente assinar o contrato após o dia 9?
+                <!-- Processo de Venda Section -->
+                <section class="content-section" id="processo-venda">
+                    <div class="breadcrumb">Início > Documentação > Processo de Venda</div>
+                    
+                    <h2>Processo de Nova Venda</h2>
+                    
+                    <h3>Etapas Detalhadas</h3>
+                    
+                    <div class="process-step">
+                        <div class="step-header">
+                            <div class="step-number">1</div>
+                            <div class="step-responsible">Filial <span class="badge badge-filial">Operação</span></div>
+                        </div>
+                        <div class="step-action">
+                            <strong>FECHAMENTO DO ORÇAMENTO</strong><br>
+                            A filial finaliza a negociação e fecha o orçamento com o cliente no sistema.
+                        </div>
                     </div>
-                    <div class="faq-answer">
-                        <p>Se o contrato for assinado após o dia 9, o cliente será incluído no faturamento do mês seguinte. É importante comunicar ao cliente sobre esta situação para evitar expectativas incorretas sobre o início da cobrança.</p>
-                    </div>
-                </div>
 
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        🔧 Como proceder se a filial esquecer de "entregar o serviço"?
+                    <div class="process-step">
+                        <div class="step-header">
+                            <div class="step-number">2</div>
+                            <div class="step-responsible">Sistema <span class="badge badge-ba">Automático</span></div>
+                        </div>
+                        <div class="step-action">
+                            <strong>TICKET ABERTO AUTOMATICAMENTE</strong><br>
+                            O sistema gera automaticamente um ticket após o fechamento da venda.
+                        </div>
                     </div>
-                    <div class="faq-answer">
-                        <p>A matriz deve entrar em contato imediatamente com a filial para regularizar a situação. Se estiver dentro do prazo (até dia 9), pode ser corrigido no mesmo mês. Caso contrário, será necessário aguardar o próximo ciclo de faturamento.</p>
-                    </div>
-                </div>
 
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        💰 Quando usar bonificações?
+                    <div class="process-step">
+                        <div class="step-header">
+                            <div class="step-number">3</div>
+                            <div class="step-responsible">Jurídico <span class="badge badge-juridico">Matriz</span></div>
+                        </div>
+                        <div class="step-action">
+                            <strong>LIBERAÇÃO DO ORÇAMENTO</strong><br>
+                            O departamento jurídico analisa e libera o orçamento para prosseguimento.
+                        </div>
                     </div>
-                    <div class="faq-answer">
-                        <p>Bonificações devem ser usadas quando: (1) Ativação parcial do condomínio, (2) Negociação especial durante a venda, (3) Ajustes de valores por características específicas do cliente. Sempre devem ser lançadas pelo gestor da filial.</p>
-                    </div>
-                </div>
 
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        📊 Como acompanhar o status de um novo cliente?
+                    <div class="process-step">
+                        <div class="step-header">
+                            <div class="step-number">4</div>
+                            <div class="step-responsible">Jurídico <span class="badge badge-juridico">Matriz</span></div>
+                        </div>
+                        <div class="step-action">
+                            <strong>ENVIO DO CONTRATO PARA ASSINATURA</strong><br>
+                            Envio do contrato para o cliente via sistema de assinatura digital.
+                        </div>
                     </div>
-                    <div class="faq-answer">
-                        <p>Utilize o sistema de tickets para acompanhar cada etapa. Cada responsável deve atualizar o status conforme executa sua parte do processo. A matriz pode consultar o andamento a qualquer momento através do painel de controle.</p>
-                    </div>
-                </div>
 
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        🚨 O que fazer em caso de urgência no faturamento?
+                    <div class="alert alert-info">
+                        <div class="alert-title">Início da Fase Operacional</div>
+                        <div class="alert-content">
+                            A partir deste ponto, inicia-se a fase operacional com a filial assumindo a execução da obra.
+                        </div>
                     </div>
-                    <div class="faq-answer">
-                        <p>Em casos excepcionais, entre em contato direto com o coordenador de faturamento da matriz. Tenha em mãos: número do contrato, dados do cliente, justificativa da urgência e aprovação do gestor da filial.</p>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Responsabilidades Section -->
-            <div class="content-section" id="responsabilidades">
-                <div class="breadcrumb">📍 Início > Documentação > Responsabilidades</div>
-                
-                <h2>👥 Matriz de Responsabilidades</h2>
-                
-                <h3>🏢 Matriz - BackOffice</h3>
-                <div class="process-step">
-                    <div class="step-header">
-                        <div class="step-number">⚖️</div>
-                        <div class="step-responsible">Jurídico <span class="team-badge team-juridico">Matriz</span></div>
+                    <div class="process-step">
+                        <div class="step-header">
+                            <div class="step-number">5</div>
+                            <div class="step-responsible">Filial <span class="badge badge-filial">Operação</span></div>
+                        </div>
+                        <div class="step-action">
+                            <strong>INÍCIO DA OBRA</strong><br>
+                            A filial dá início aos trabalhos de implantação no cliente.
+                        </div>
                     </div>
-                    <div class="step-action">
-                        <strong>Responsabilidades:</strong><br>
-                        • Liberação de orçamentos<br>
-                        • Envio de contratos para assinatura<br>
-                        • Registro de contratos assinados no sistema<br>
-                        • Compliance e aspectos legais
-                    </div>
-                </div>
 
-                <div class="process-step">
-                    <div class="step-header">
-                        <div class="step-number">📦</div>
-                        <div class="step-responsible">Logística <span class="team-badge team-logistica">Matriz</span></div>
+                    <div class="process-step">
+                        <div class="step-header">
+                            <div class="step-number">6</div>
+                            <div class="step-responsible">Logística <span class="badge badge-logistica">Matriz</span></div>
+                        </div>
+                        <div class="step-action">
+                            <strong>ENTREGA DE EQUIPAMENTOS</strong><br>
+                            Logística processa a solicitação e realiza a entrega dos equipamentos.
+                        </div>
                     </div>
-                    <div class="step-action">
-                        <strong>Responsabilidades:</strong><br>
-                        • Abertura de OS para equipamentos<br>
-                        • Entrega de equipamentos conforme cronograma<br>
-                        • Fechamento de OS após entrega<br>
-                        • Controle de estoque e distribuição
+
+                    <div class="alert alert-warning">
+                        <div class="alert-title">Ponto Crítico do Processo</div>
+                        <div class="alert-content">
+                            A partir da etapa seguinte, inicia-se o processo de faturamento. É fundamental que todas as informações estejam corretas no sistema.
+                        </div>
                     </div>
-                </div>
 
-                <div class="process-step">
-                    <div class="step-header">
-                        <div class="step-number">💰</div>
-                        <div class="step-responsible">Faturamento <span class="team-badge team-matriz">Matriz</span></div>
+                    <div class="process-step" style="border-left-color: var(--danger-color);">
+                        <div class="step-header">
+                            <div class="step-number" style="background: var(--danger-color);">7</div>
+                            <div class="step-responsible">Filial <span class="badge badge-filial">Técnico</span></div>
+                        </div>
+                        <div class="step-action">
+                            <strong>ENTREGAR SERVIÇO (CRÍTICO)</strong><br>
+                            A filial DEVE executar "ENTREGAR SERVIÇO" no ERP informando a data de agendamento da ativação do monitoramento. Esta é a principal mudança do novo processo!
+                        </div>
                     </div>
-                    <div class="step-action">
-                        <strong>Responsabilidades:</strong><br>
-                        • Parametrização do faturamento em lote<br>
-                        • Processamento de licenças e serviços<br>
-                        • Conferência de bonificações<br>
-                        • Geração de relatórios<br>
-                        • Envio de cobranças
+                </section>
+
+                <!-- Cronograma Section -->
+                <section class="content-section" id="cronograma">
+                    <div class="breadcrumb">Início > Documentação > Cronograma</div>
+                    
+                    <h2>Cronograma Mensal de Faturamento</h2>
+                    
+                    <div class="alert alert-info">
+                        <div class="alert-title">Cronograma Fixo</div>
+                        <div class="alert-content">
+                            O faturamento segue um cronograma mensal fixo que deve ser rigorosamente seguido para garantir o recebimento dentro do prazo.
+                        </div>
                     </div>
-                </div>
 
-                <h3>🏭 Filiais - Operação</h3>
-                <div class="process-step">
-                    <div class="step-header">
-                        <div class="step-number">🤝</div>
-                        <div class="step-responsible">Vendas <span class="team-badge team-filial">Filial</span></div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Responsável</th>
+                                <th>Atividade</th>
+                                <th>Observações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="highlight">Dia 10</span></td>
+                                <td><span class="badge badge-matriz">Faturamento</span></td>
+                                <td>Conferência de novos clientes e bonificações</td>
+                                <td>Verificação de todos os lançamentos do mês</td>
+                            </tr>
+                            <tr>
+                                <td><span class="highlight">Dias 11-12</span></td>
+                                <td><span class="badge badge-matriz">Faturamento</span></td>
+                                <td>Processamento das bonificações</td>
+                                <td>Execução dos ajustes de valores</td>
+                            </tr>
+                            <tr>
+                                <td><span class="highlight">Dia 13</span></td>
+                                <td><span class="badge badge-matriz">Faturamento</span></td>
+                                <td>Geração de relatórios para gestores</td>
+                                <td>Envio dos valores mensais para ciência</td>
+                            </tr>
+                            <tr>
+                                <td><span class="highlight">Dia 15</span></td>
+                                <td><span class="badge badge-matriz">Faturamento</span></td>
+                                <td>Processamento final e envio de cobranças</td>
+                                <td>Data limite para faturamento do mês</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Pontos de Atenção</h3>
+                    <div class="alert alert-warning">
+                        <div class="alert-title">Prazos Críticos</div>
+                        <div class="alert-content">
+                            <ul>
+                                <li>Novos clientes devem estar registrados até o <strong>dia 9</strong></li>
+                                <li>Bonificações devem estar lançadas até o <strong>dia 10</strong></li>
+                                <li>Qualquer ajuste após o dia 13 impacta o faturamento do mês seguinte</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="step-action">
-                        <strong>Responsabilidades:</strong><br>
-                        • Fechamento de orçamentos<br>
-                        • Relacionamento com cliente<br>
-                        • Acompanhamento da assinatura<br>
-                        • Comunicação de prazos ao cliente
+                </section>
+
+                <!-- Responsabilidades Section -->
+               <section class="content-section" id="responsabilidades">
+                    <div class="breadcrumb">Início > Documentação > Responsabilidades</div>
+                    
+                    <h2>Matriz de Responsabilidades</h2>
+                    
+                    <h3>Matriz - BackOffice</h3>
+                    <div class="process-step">
+                        <div class="step-header">
+                            <div class="step-number">⚖️</div>
+                            <div class="step-responsible">Jurídico <span class="badge badge-juridico">Matriz</span></div>
+                        </div>
+                        <div class="step-action">
+                            <strong>Responsabilidades:</strong><br>
+                            • Liberação de orçamentos<br>
+                            • Envio de contratos para assinatura<br>
+                            • Registro de contratos assinados no sistema<br>
+                            • Compliance e aspectos legais
+                        </div>
                     </div>
-                </div>
 
-                <div class="process-step">
-                    <div class="step-header">
-                        <div class="step-number">🔧</div>
-                        <div class="step-responsible">Técnico <span class="team-badge team-filial">Filial</span></div>
+                    <div class="process-step">
+                        <div class="step-header">
+                            <div class="step-number">📦</div>
+                            <div class="step-responsible">Logística <span class="badge badge-logistica">Matriz</span></div>
+                        </div>
+                        <div class="step-action">
+                            <strong>Responsabilidades:</strong><br>
+                            • Abertura de OS para equipamentos<br>
+                            • Entrega de equipamentos conforme cronograma<br>
+                            • Fechamento de OS após entrega<br>
+                            • Controle de estoque e distribuição
+                        </div>
                     </div>
-                    <div class="step-action">
-                        <strong>Responsabilidades:</strong><br>
-                        • Execução da obra de implantação<br>
-                        • Solicitação de equipamentos no cronograma correto<br>
-                        • Finalização da obra<br>
-                        • <span class="highlight">ENTREGAR SERVIÇO no sistema com data correta</span>
+
+                    <div class="process-step">
+                        <div class="step-header">
+                            <div class="step-number">💰</div>
+                            <div class="step-responsible">Faturamento <span class="badge badge-matriz">Matriz</span></div>
+                        </div>
+                        <div class="step-action">
+                            <strong>Responsabilidades:</strong><br>
+                            • Parametrização do faturamento em lote<br>
+                            • Processamento de licenças e serviços<br>
+                            • Conferência de bonificações<br>
+                            • Geração de relatórios<br>
+                            • Envio de cobranças
+                        </div>
                     </div>
-                </div>
 
-                <div class="process-step">
-                    <div class="step-header">
-                        <div class="step-number">👔</div>
-                        <div class="step-responsible">Gestor <span class="team-badge team-filial">Filial</span></div>
+                    <h3>Filiais - Operação</h3>
+                    <div class="process-step">
+                        <div class="step-header">
+                            <div class="step-number">🤝</div>
+                            <div class="step-responsible">Vendas <span class="badge badge-filial">Filial</span></div>
+                        </div>
+                        <div class="step-action">
+                            <strong>Responsabilidades:</strong><br>
+                            • Fechamento de orçamentos<br>
+                            • Relacionamento com cliente<br>
+                            • Acompanhamento da assinatura<br>
+                            • Comunicação de prazos ao cliente
+                        </div>
                     </div>
-                    <div class="step-action">
-                        <strong>Responsabilidades:</strong><br>
-                        • Supervisão geral do processo<br>
-                        • Lançamento de bonificações quando necessário<br>
-                        • Aprovação de ajustes especiais<br>
-                        • Interface com a matriz para questões excepcionais
+
+                    <div class="process-step">
+                        <div class="step-header">
+                            <div class="step-number">🔧</div>
+                            <div class="step-responsible">Técnico <span class="badge badge-filial">Filial</span></div>
+                        </div>
+                        <div class="step-action">
+                            <strong>Responsabilidades:</strong><br>
+                            • Execução da obra de implantação<br>
+                            • Solicitação de equipamentos no cronograma correto<br>
+                            • Finalização da obra<br>
+                            • <span class="highlight">ENTREGAR SERVIÇO no sistema com data correta</span>
+                        </div>
                     </div>
-                </div>
 
-                <h3>🎯 B.A (Business Analyst)</h3>
-                <div class="process-step">
-                    <div class="step-header">
-                        <div class="step-number">📊</div>
-                        <div class="step-responsible">B.A <span class="team-badge team-ba">Suporte</span></div>
+                    <div class="process-step">
+                        <div class="step-header">
+                            <div class="step-number">👔</div>
+                            <div class="step-responsible">Gestor <span class="badge badge-filial">Filial</span></div>
+                        </div>
+                        <div class="step-action">
+                            <strong>Responsabilidades:</strong><br>
+                            • Supervisão geral do processo<br>
+                            • Lançamento de bonificações quando necessário<br>
+                            • Aprovação de ajustes especiais<br>
+                            • Interface com a matriz para questões excepcionais
+                        </div>
                     </div>
-                    <div class="step-action">
-                        <strong>Responsabilidades:</strong><br>
-                        • Ativação de condomínios no sistema de monitoramento<br>
-                        • Configuração de parâmetros de cobrança<br>
-                        • Suporte técnico ao processo<br>
-                        • Manutenção de automações
+
+                    <h3>Business Analyst</h3>
+                    <div class="process-step">
+                        <div class="step-header">
+                            <div class="step-number">📊</div>
+                            <div class="step-responsible">B.A <span class="badge badge-ba">Suporte</span></div>
+                        </div>
+                        <div class="step-action">
+                            <strong>Responsabilidades:</strong><br>
+                            • Ativação de condomínios no sistema de monitoramento<br>
+                            • Configuração de parâmetros de cobrança<br>
+                            • Suporte técnico ao processo<br>
+                            • Manutenção de automações
+                        </div>
                     </div>
-                </div>
-            </div>
+                </section>
 
-            <!-- Sistemas Section -->
-            <div class="content-section" id="sistemas">
-                <div class="breadcrumb">📍 Início > Documentação > Sistemas Utilizados</div>
-                
-                <h2>💻 Sistemas e Ferramentas</h2>
-                
-                <h3>🖥️ Sistema ERP Principal</h3>
-                <div class="alert alert-info">
-                    <div class="alert-title">📋 Funcionalidades Principais</div>
-                    <p>Sistema central onde são registradas todas as vendas, contratos e processos de faturamento.</p>
-                </div>
+                <!-- Sistemas Section -->
+                <section class="content-section" id="sistemas">
+                    <div class="breadcrumb">Início > Documentação > Sistemas</div>
+                    
+                    <h2>Sistemas e Ferramentas</h2>
+                    
+                    <h3>Sistema ERP Principal</h3>
+                    <div class="alert alert-info">
+                        <div class="alert-title">Funcionalidades Principais</div>
+                        <div class="alert-content">
+                            Sistema central onde são registradas todas as vendas, contratos e processos de faturamento.
+                        </div>
+                    </div>
 
-                <div class="code-block">
-                    <strong>Ações Críticas no ERP:</strong><br>
-                    1. Fechamento de orçamento (Filial)<br>
-                    2. Parametrização de faturamento (Matriz)<br>
-                    3. "ENTREGAR SERVIÇO" (Filial) ⭐ CRUCIAL<br>
-                    4. Lançamento de bonificações (Gestor)
-                </div>
+                    <div class="code-block">
+Ações Críticas no ERP:
+1. Fechamento de orçamento (Filial)
+2. Parametrização de faturamento (Matriz)
+3. "ENTREGAR SERVIÇO" (Filial) ⭐ CRUCIAL
+4. Lançamento de bonificações (Gestor)
+                    </div>
 
-                <h3>🎫 Sistema de Tickets</h3>
-                <p>Utilizado para acompanhar todo o fluxo do processo, desde a venda até a ativação.</p>
-                
-                <h4>Estados dos Tickets:</h4>
-                <ul style="margin-left: 20px; margin-top: 10px;">
-                    <li><strong>Aberto:</strong> Ticket criado automaticamente após fechamento da venda</li>
-                    <li><strong>Em Andamento:</strong> Processo em execução pela equipe responsável</li>
-                    <li><strong>Pendente:</strong> Aguardando ação de outra área</li>
-                    <li><strong>Concluído:</strong> Processo finalizado com sucesso</li>
-                </ul>
-
-                <h3>📧 Sistema de Assinatura Digital</h3>
-                <p>Plataforma para envio e assinatura de contratos de forma eletrônica.</p>
-
-                <h3>📊 Sistema de Monitoramento</h3>
-                <p>Onde são ativados os condomínios para início efetivo da prestação de serviços.</p>
-
-                <div class="alert alert-warning">
-                    <div class="alert-title">🔐 Acessos e Permissões</div>
-                    <p>Cada usuário possui acesso específico conforme sua função. Em caso de problemas de acesso, entre em contato com o administrador do sistema de sua área.</p>
-                </div>
-            </div>
-
-            <!-- Troubleshooting Section -->
-            <div class="content-section" id="troubleshooting">
-                <div class="breadcrumb">📍 Início > Documentação > Solução de Problemas</div>
-                
-                <h2>🔧 Solução de Problemas Comuns</h2>
-                
-                <h3>🚨 Problemas Críticos</h3>
-                
-                <div class="alert alert-warning">
-                    <div class="alert-title">⚠️ Cliente não aparece no faturamento</div>
-                    <p><strong>Possíveis Causas:</strong></p>
-                    <ul style="margin-left: 20px;">
-                        <li>Filial não executou "ENTREGAR SERVIÇO" no ERP</li>
-                        <li>Data de entrega incorreta</li>
-                        <li>Contrato não baixado como assinado</li>
-                        <li>Ticket não foi concluído adequadamente</li>
+                    <h3>Sistema de Tickets</h3>
+                    <p>Utilizado para acompanhar todo o fluxo do processo, desde a venda até a ativação.</p>
+                    
+                    <h4>Estados dos Tickets:</h4>
+                    <ul>
+                        <li><strong>Aberto:</strong> Ticket criado automaticamente após fechamento da venda</li>
+                        <li><strong>Em Andamento:</strong> Processo em execução pela equipe responsável</li>
+                        <li><strong>Pendente:</strong> Aguardando ação de outra área</li>
+                        <li><strong>Concluído:</strong> Processo finalizado com sucesso</li>
                     </ul>
-                    <p><strong>Solução:</strong> Verificar cada etapa no sistema de tickets e corrigir a pendência identificada.</p>
-                </div>
 
-                <div class="alert alert-warning">
-                    <div class="alert-title">⚠️ Valores incorretos no faturamento</div>
-                    <p><strong>Possíveis Causas:</strong></p>
-                    <ul style="margin-left: 20px;">
-                        <li>Bonificações não foram lançadas</li>
-                        <li>Parametrização incorreta do contrato</li>
-                        <li>Ativação parcial não comunicada</li>
-                    </ul>
-                    <p><strong>Solução:</strong> Verificar bonificações lançadas e parametrização do contrato. Se necessário, ajustar para o próximo ciclo.</p>
-                </div>
+                    <h3>Sistema de Assinatura Digital</h3>
+                    <p>Plataforma para envio e assinatura de contratos de forma eletrônica.</p>
 
-                <h3>⚙️ Problemas Operacionais</h3>
-                
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        🔄 Ticket não foi criado automaticamente
+                    <h3>Sistema de Monitoramento</h3>
+                    <p>Onde são ativados os condomínios para início efetivo da prestação de serviços.</p>
+
+                    <div class="alert alert-warning">
+                        <div class="alert-title">Acessos e Permissões</div>
+                        <div class="alert-content">
+                            Cada usuário possui acesso específico conforme sua função. Em caso de problemas de acesso, entre em contato com o administrador do sistema de sua área.
+                        </div>
                     </div>
-                    <div class="faq-answer">
-                        <p><strong>Verificar:</strong> Se o orçamento foi realmente fechado no sistema. Em caso negativo, refazer o fechamento. Se positivo, abrir chamado para o suporte técnico informando o número do orçamento.</p>
+                </section>
+
+                <!-- Troubleshooting Section -->
+                <section class="content-section" id="troubleshooting">
+                    <div class="breadcrumb">Início > Documentação > Solução de Problemas</div>
+                    
+                    <h2>Solução de Problemas Comuns</h2>
+                    
+                    <h3>Problemas Críticos</h3>
+                    
+                    <div class="alert alert-warning">
+                        <div class="alert-title">Cliente não aparece no faturamento</div>
+                        <div class="alert-content">
+                            <p><strong>Possíveis Causas:</strong></p>
+                            <ul>
+                                <li>Filial não executou "ENTREGAR SERVIÇO" no ERP</li>
+                                <li>Data de entrega incorreta</li>
+                                <li>Contrato não baixado como assinado</li>
+                                <li>Ticket não foi concluído adequadamente</li>
+                            </ul>
+                            <p><strong>Solução:</strong> Verificar cada etapa no sistema de tickets e corrigir a pendência identificada.</p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        📧 Notificação de assinatura não chegou
+                    <div class="alert alert-warning">
+                        <div class="alert-title">Valores incorretos no faturamento</div>
+                        <div class="alert-content">
+                            <p><strong>Possíveis Causas:</strong></p>
+                            <ul>
+                                <li>Bonificações não foram lançadas</li>
+                                <li>Parametrização incorreta do contrato</li>
+                                <li>Ativação parcial não comunicada</li>
+                            </ul>
+                            <p><strong>Solução:</strong> Verificar bonificações lançadas e parametrização do contrato. Se necessário, ajustar para o próximo ciclo.</p>
+                        </div>
                     </div>
-                    <div class="faq-answer">
-                        <p><strong>Passos:</strong> (1) Verificar spam/lixo eletrônico, (2) Confirmar e-mail cadastrado no sistema, (3) Consultar status na plataforma de assinatura, (4) Reenviar notificação se necessário.</p>
+
+                    <h3>Escalation e Contatos de Emergência</h3>
+                    <div class="alert alert-info">
+                        <div class="alert-title">Quando Escalar</div>
+                        <div class="alert-content">
+                            Escale para o nível superior quando: (1) Problema impacta prazo de faturamento, (2) Cliente externo está sendo afetado, (3) Solução requer aprovação gerencial, (4) Problema persiste após 24h sem resolução.
+                        </div>
                     </div>
-                </div>
+                </section>
 
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        📦 Equipamentos não foram entregues no prazo
+                <!-- FAQ Section -->
+                <section class="content-section" id="faq">
+                    <div class="breadcrumb">Início > Documentação > FAQ</div>
+                    
+                    <h2>Perguntas Frequentes</h2>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            O que fazer se o cliente assinar o contrato após o dia 9?
+                        </div>
+                        <div class="faq-answer">
+                            <p>Se o contrato for assinado após o dia 9, o cliente será incluído no faturamento do mês seguinte. É importante comunicar ao cliente sobre esta situação para evitar expectativas incorretas sobre o início da cobrança.</p>
+                        </div>
                     </div>
-                    <div class="faq-answer">
-                        <p><strong>Ação:</strong> Entrar em contato imediatamente com a logística. Verificar status da OS e informar nova previsão à filial. Ajustar cronograma de ativação conforme nova data de entrega.</p>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            Como proceder se a filial esquecer de "entregar o serviço"?
+                        </div>
+                        <div class="faq-answer">
+                            <p>A matriz deve entrar em contato imediatamente com a filial para regularizar a situação. Se estiver dentro do prazo (até dia 9), pode ser corrigido no mesmo mês. Caso contrário, será necessário aguardar o próximo ciclo de faturamento.</p>
+                        </div>
                     </div>
-                </div>
 
-                <h3>🆘 Escalation e Contatos de Emergência</h3>
-                <div class="alert alert-info">
-                    <div class="alert-title">📞 Quando Escalar</div>
-                    <p>Escale para o nível superior quando: (1) Problema impacta prazo de faturamento, (2) Cliente externo está sendo afetado, (3) Solução requer aprovação gerencial, (4) Problema persiste após 24h sem resolução.</p>
-                </div>
-            </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            Quando usar bonificações?
+                        </div>
+                        <div class="faq-answer">
+                            <p>Bonificações devem ser usadas quando: (1) Ativação parcial do condomínio, (2) Negociação especial durante a venda, (3) Ajustes de valores por características específicas do cliente. Sempre devem ser lançadas pelo gestor da filial.</p>
+                        </div>
+                    </div>
 
-            <!-- Contatos Section -->
-            <div class="content-section" id="contatos">
-                <div class="breadcrumb">📍 Início > Documentação > Contatos Importantes</div>
-                
-                <h2>📞 Contatos Importantes</h2>
-                
-                <h3>🏢 Matriz - BackOffice</h3>
-                <table class="calendar-table">
-                    <thead>
-                        <tr>
-                            <th>Área</th>
-                            <th>Responsável</th>
-                            <th>E-mail</th>
-                            <th>Ramal</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><span class="team-badge team-juridico">Jurídico</span></td>
-                            <td>Coord. Jurídico</td>
-                            <td>juridico@empresa.com</td>
-                            <td>2001</td>
-                        </tr>
-                        <tr>
-                            <td><span class="team-badge team-logistica">Logística</span></td>
-                            <td>Coord. Logística</td>
-                            <td>logistica@empresa.com</td>
-                            <td>2002</td>
-                        </tr>
-                        <tr>
-                            <td><span class="team-badge team-matriz">Faturamento</span></td>
-                            <td>Coord. Faturamento</td>
-                            <td>faturamento@empresa.com</td>
-                            <td>2003</td>
-                        </tr>
-                        <tr>
-                            <td><span class="team-badge team-ba">Suporte Técnico</span></td>
-                            <td>Coord. TI</td>
-                            <td>suporte@empresa.com</td>
-                            <td>2004</td>
-                        </tr>
-                    </tbody>
-                </table>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            Como acompanhar o status de um novo cliente?
+                        </div>
+                        <div class="faq-answer">
+                            <p>Utilize o sistema de tickets para acompanhar cada etapa. Cada responsável deve atualizar o status conforme executa sua parte do processo. A matriz pode consultar o andamento a qualquer momento através do painel de controle.</p>
+                        </div>
+                    </div>
 
-                <h3>🏭 Filiais - Contatos Regionais</h3>
-                <div class="alert alert-info">
-                    <div class="alert-title">📋 Procedimento</div>
-                    <p>Para contato com filiais, utilize sempre o gestor regional como ponto focal. Em caso de urgência, contate diretamente o coordenador técnico da filial.</p>
-                </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            O que fazer em caso de urgência no faturamento?
+                        </div>
+                        <div class="faq-answer">
+                            <p>Em casos excepcionais, entre em contato direto com o coordenador de faturamento da matriz. Tenha em mãos: número do contrato, dados do cliente, justificativa da urgência e aprovação do gestor da filial.</p>
+                        </div>
+                    </div>
+                </section>
 
-                <h3>🆘 Emergências</h3>
-                <div class="alert alert-warning">
-                    <div class="alert-title">⚠️ Plantão 24h</div>
-                    <p><strong>Telefone:</strong> (11) 9999-9999<br>
-                    <strong>E-mail:</strong> emergencia@empresa.com<br>
-                    <strong>Usar apenas para:</strong> Problemas que impedem faturamento ou afetam clientes ativos</p>
-                </div>
+                <!-- Contatos Section -->
+                <section class="content-section" id="contatos">
+                    <div class="breadcrumb">Início > Documentação > Contatos</div>
+                    
+                    <h2>Contatos Importantes</h2>
+                    
+                    <h3>Matriz - BackOffice</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Área</th>
+                                <th>Responsável</th>
+                                <th>E-mail</th>
+                                <th>Ramal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="badge badge-juridico">Jurídico</span></td>
+                                <td>Coord. Jurídico</td>
+                                <td>juridico@empresa.com</td>
+                                <td>2001</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge badge-logistica">Logística</span></td>
+                                <td>Coord. Logística</td>
+                                <td>logistica@empresa.com</td>
+                                <td>2002</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge badge-matriz">Faturamento</span></td>
+                                <td>Coord. Faturamento</td>
+                                <td>faturamento@empresa.com</td>
+                                <td>2003</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge badge-ba">Suporte Técnico</span></td>
+                                <td>Coord. TI</td>
+                                <td>suporte@empresa.com</td>
+                                <td>2004</td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-                <h3>📱 Grupos de WhatsApp</h3>
-                <ul style="margin-left: 20px; margin-top: 15px;">
-                    <li><strong>Faturamento Matriz:</strong> Discussões sobre processo de faturamento</li>
-                    <li><strong>Gestores Filiais:</strong> Comunicação com gestores regionais</li>
-                    <li><strong>Suporte Técnico:</strong> Problemas e dúvidas técnicas</li>
-                    <li><strong>Coordenação Geral:</strong> Alinhamentos estratégicos</li>
-                </ul>
-            </div>
+                    <h3>Emergências</h3>
+                    <div class="alert alert-warning">
+                        <div class="alert-title">Plantão 24h</div>
+                        <div class="alert-content">
+                            <p><strong>Telefone:</strong> (11) 9999-9999<br>
+                            <strong>E-mail:</strong> emergencia@empresa.com<br>
+                            <strong>Usar apenas para:</strong> Problemas que impedem faturamento ou afetam clientes ativos</p>
+                        </div>
+                    </div>
+                </section>
+            </main>
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // Navegação entre seções
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 60, density: { enable: true, value_area: 800 } },
+                color: { value: '#ffffff' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.3, random: false },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#ffffff',
+                    opacity: 0.2,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 1.5,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    resize: true
+                }
+            },
+            retina_detect: true
+        });
+
         function showSection(sectionId) {
-            // Hide all sections
             document.querySelectorAll('.content-section').forEach(section => {
                 section.classList.remove('active');
             });
             
-            // Show selected section
             document.getElementById(sectionId).classList.add('active');
             
-            // Update sidebar menu
             document.querySelectorAll('.sidebar-menu a').forEach(link => {
                 link.classList.remove('active');
             });
             
             document.querySelector(`a[href="#${sectionId}"]`).classList.add('active');
             
-            // Scroll to top
-            window.scrollTo(0, 0);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Toggle FAQ items
         function toggleFaq(element) {
             const answer = element.nextElementSibling;
             const isActive = answer.classList.contains('active');
             
-            // Close all FAQ items
             document.querySelectorAll('.faq-answer').forEach(item => {
                 item.classList.remove('active');
             });
             
-            // Open clicked item if it wasn't active
+            document.querySelectorAll('.faq-question').forEach(item => {
+                item.classList.remove('active');
+            });
+            
             if (!isActive) {
                 answer.classList.add('active');
+                element.classList.add('active');
             }
         }
 
-        // Search functionality
         document.getElementById('searchBox').addEventListener('input', function(e) {
             const searchTerm = e.target.value.toLowerCase();
             const sections = document.querySelectorAll('.content-section');
-            let hasResults = false;
             
             if (searchTerm === '') {
-                // Show all sections
-                sections.forEach(section => {
-                    section.style.display = 'block';
-                });
+                sections.forEach(section => section.style.display = 'block');
                 return;
             }
             
             sections.forEach(section => {
                 const content = section.textContent.toLowerCase();
-                if (content.includes(searchTerm)) {
-                    section.style.display = 'block';
-                    hasResults = true;
-                } else {
-                    section.style.display = 'none';
-                }
+                section.style.display = content.includes(searchTerm) ? 'block' : 'none';
             });
-            
-            // Show no results message if needed
-            if (!hasResults) {
-                const noResults = document.querySelector('.no-results');
-                if (!noResults) {
-                    const message = document.createElement('div');
-                    message.className = 'no-results';
-                    message.innerHTML = '🔍 Nenhum resultado encontrado para "' + searchTerm + '"';
-                    document.querySelector('.main-content').appendChild(message);
-                }
-            } else {
-                const noResults = document.querySelector('.no-results');
-                if (noResults) {
-                    noResults.remove();
-                }
-            }
-        });
-
-        // Keyboard shortcuts
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && e.key === 'f') {
-                e.preventDefault();
-                document.getElementById('searchBox').focus();
-            }
-        });
-
-        // Auto-highlight search terms
-        function highlightSearchTerms() {
-            const searchBox = document.getElementById('searchBox');
-            const searchTerm = searchBox.value.toLowerCase();
-            
-            if (searchTerm) {
-                const walker = document.createTreeWalker(
-                    document.querySelector('.main-content'),
-                    NodeFilter.SHOW_TEXT,
-                    null,
-                    false
-                );
-                
-                const textNodes = [];
-                let node;
-                
-                while (node = walker.nextNode()) {
-                    textNodes.push(node);
-                }
-                
-                textNodes.forEach(textNode => {
-                    const text = textNode.textContent;
-                    const highlightedText = text.replace(
-                        new RegExp(searchTerm, 'gi'),
-                        match => `<mark style="background: #ffeb3b; padding: 2px 4px; border-radius: 3px;">${match}</mark>`
-                    );
-                    
-                    if (highlightedText !== text) {
-                        const wrapper = document.createElement('span');
-                        wrapper.innerHTML = highlightedText;
-                        textNode.parentNode.replaceChild(wrapper, textNode);
-                    }
-                });
-            }
-        }
-
-        // Print functionality
-        function printSection() {
-            window.print();
-        }
-        
-        // Add print button to header
-        document.addEventListener('DOMContentLoaded', function() {
-            const header = document.querySelector('.header .nav-links');
-            const printBtn = document.createElement('button');
-            printBtn.innerHTML = '🖨️ Imprimir';
-            printBtn.className = 'nav-link';
-            printBtn.style.border = 'none';
-            printBtn.style.cursor = 'pointer';
-            printBtn.onclick = printSection;
-            header.appendChild(printBtn);
         });
     </script>
 </body>
