@@ -430,7 +430,7 @@
         }
 
         .highlight {
-            background: linear-gradient(120deg, #ffd89b 0%, #19547b 100%);
+            background: linear-gradient(120deg, #f39c12 0%, #e74c3c 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -552,14 +552,14 @@
                 
                 <h3>Navegação</h3>
                 <ul class="sidebar-menu">
-                    <li><a href="#overview" onclick="showSection('overview')" class="active">Visão Geral</a></li>
-                    <li><a href="#processo-venda" onclick="showSection('processo-venda')">Processo de Venda</a></li>
-                    <li><a href="#cronograma" onclick="showSection('cronograma')">Cronograma</a></li>
-                    <li><a href="#responsabilidades" onclick="showSection('responsabilidades')">Responsabilidades</a></li>
-                    <li><a href="#sistemas" onclick="showSection('sistemas')">Sistemas</a></li>
-                    <li><a href="#troubleshooting" onclick="showSection('troubleshooting')">Problemas</a></li>
-                    <li><a href="#faq" onclick="showSection('faq')">FAQ</a></li>
-                    <li><a href="#contatos" onclick="showSection('contatos')">Contatos</a></li>
+                    <li><a href="#overview" onclick="showSection('overview'); return false;" class="active">Visão Geral</a></li>
+                    <li><a href="#processo-venda" onclick="showSection('processo-venda'); return false;">Processo de Venda</a></li>
+                    <li><a href="#cronograma" onclick="showSection('cronograma'); return false;">Cronograma</a></li>
+                    <li><a href="#responsabilidades" onclick="showSection('responsabilidades'); return false;">Responsabilidades</a></li>
+                    <li><a href="#sistemas" onclick="showSection('sistemas'); return false;">Sistemas</a></li>
+                    <li><a href="#troubleshooting" onclick="showSection('troubleshooting'); return false;">Problemas</a></li>
+                    <li><a href="#faq" onclick="showSection('faq'); return false;">FAQ</a></li>
+                    <li><a href="#contatos" onclick="showSection('contatos'); return false;">Contatos</a></li>
                 </ul>
             </aside>
 
@@ -1164,6 +1164,44 @@ Ações Críticas no ERP:
                 const content = section.textContent.toLowerCase();
                 section.style.display = content.includes(searchTerm) ? 'block' : 'none';
             });
+        });
+
+        // Scroll tracking para atualizar menu lateral
+        let isScrolling = false;
+        
+        window.addEventListener('scroll', function() {
+            if (!isScrolling) {
+                isScrolling = true;
+                
+                setTimeout(function() {
+                    const sections = document.querySelectorAll('.content-section.active');
+                    const menuLinks = document.querySelectorAll('.sidebar-menu a');
+                    
+                    if (sections.length === 0) return;
+                    
+                    const mainContent = document.querySelector('.main-content');
+                    const scrollPosition = window.pageYOffset + 250;
+                    
+                    // Encontra qual seção está visível
+                    sections.forEach(section => {
+                        const sectionTop = section.offsetTop + mainContent.offsetTop;
+                        const sectionBottom = sectionTop + section.offsetHeight;
+                        
+                        if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                            const sectionId = section.getAttribute('id');
+                            
+                            menuLinks.forEach(link => {
+                                link.classList.remove('active');
+                                if (link.getAttribute('href') === '#' + sectionId) {
+                                    link.classList.add('active');
+                                }
+                            });
+                        }
+                    });
+                    
+                    isScrolling = false;
+                }, 100);
+            }
         });
     </script>
 </body>
