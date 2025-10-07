@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Hub de Treinamento Porter</title>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Partículas animadas */
+        .particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+            50% { transform: translateY(-30px) rotate(180deg); opacity: 0.6; }
+        }
+
+        .login-container {
+            position: relative;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 3rem;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 450px;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2.5rem;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .logo p {
+            color: #718096;
+            font-size: 0.95rem;
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
+            margin: 2rem 0;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border-left: 4px solid #667eea;
+            padding: 1.25rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .info-box h3 {
+            color: #667eea;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-box p {
+            color: #4a5568;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            margin-bottom: 1.5rem;
+        }
+
+        .login-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+        }
+
+        .login-button:active {
+            transform: translateY(-1px);
+        }
+
+        .features {
+            list-style: none;
+            margin-top: 2rem;
+        }
+
+        .features li {
+            color: #4a5568;
+            padding: 0.75rem 0;
+            padding-left: 2rem;
+            position: relative;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .features li:last-child {
+            border-bottom: none;
+        }
+
+        .features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #48bb78;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .status-message {
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+
+        .status-message.success {
+            background: rgba(72, 187, 120, 0.2);
+            color: #276749;
+            border: 2px solid #48bb78;
+        }
+
+        .status-message.error {
+            background: rgba(229, 62, 62, 0.2);
+            color: #742a2a;
+            border: 2px solid #e53e3e;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            color: #667eea;
+            font-weight: 600;
+            padding: 1rem;
+        }
+
+        .spinner {
+            border: 3px solid #e2e8f0;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 0.5rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .login-container {
+                padding: 2rem;
+                margin: 1rem;
+            }
+
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+
+    <div class="login-container">
+        <div class="logo">
+            <div class="logo-icon">🔐</div>
+            <h1>Hub de Treinamento</h1>
+            <p>Porter Group</p>
+        </div>
+
+        <div class="divider"></div>
+
+        <div id="statusMessage" class="status-message"></div>
+        
+        <div id="loadingIndicator" class="loading">
+            <div class="spinner"></div>
+            Verificando autenticação...
+        </div>
+
+        <div class="info-box">
+            <h3>🏢 Acesso Restrito</h3>
+            <p>Este conteúdo é exclusivo para colaboradores Porter. Use seu e-mail corporativo @portergroup.com.br para acessar.</p>
+        </div>
+
+        <button class="login-button" onclick="handleLogin()">
+            🚀 Fazer Login com E-mail Corporativo
+        </button>
+
+        <ul class="features">
+            <li>Acesso aos materiais de treinamento</li>
+            <li>Documentação completa dos processos</li>
+            <li>Matriz RACI e POCs setoriais</li>
+            <li>Base de conhecimento integrada</li>
+        </ul>
+    </div>
+
+    <div class="footer">
+        <p>Sistema de Treinamento Porter Group © 2025</p>
+        <p style="font-size: 0.8rem; margin-top: 0.5rem; opacity: 0.8;">
+            Plataforma segura e exclusiva para colaboradores
+        </p>
+    </div>
+
+    <script>
+        // Criar partículas animadas
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Mostrar mensagem de status
+        function showStatus(message, type) {
+            const statusDiv = document.getElementById('statusMessage');
+            statusDiv.textContent = message;
+            statusDiv.className = `status-message ${type}`;
+            statusDiv.style.display = 'block';
+            
+            if (type === 'success') {
+                setTimeout(() => {
+                    statusDiv.style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        // Mostrar/ocultar loading
+        function setLoading(show) {
+            document.getElementById('loadingIndicator').style.display = show ? 'block' : 'none';
+        }
+
+        // Função de login
+        function handleLogin() {
+            netlifyIdentity.open('login');
+        }
+
+        // Verificar se usuário já está logado
+        function checkUser() {
+            setLoading(true);
+            const user = netlifyIdentity.currentUser();
+            
+            if (user) {
+                const email = user.email;
+                
+                // Verificar se é email @portergroup.com.br
+                if (email.endsWith('@portergroup.com.br')) {
+                    showStatus('✓ Login realizado com sucesso! Redirecionando...', 'success');
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1500);
+                } else {
+                    showStatus('✗ Apenas e-mails @portergroup.com.br são permitidos', 'error');
+                    netlifyIdentity.logout();
+                }
+            }
+            
+            setLoading(false);
+        }
+
+        // Event listeners do Netlify Identity
+        netlifyIdentity.on('init', user => {
+            checkUser();
+        });
+
+        netlifyIdentity.on('login', user => {
+            const email = user.email;
+            
+            if (email.endsWith('@portergroup.com.br')) {
+                showStatus('✓ Login realizado com sucesso! Redirecionando...', 'success');
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+            } else {
+                showStatus('✗ Apenas e-mails @portergroup.com.br são permitidos', 'error');
+                netlifyIdentity.logout();
+            }
+        });
+
+        netlifyIdentity.on('logout', () => {
+            showStatus('Você foi desconectado', 'error');
+        });
+
+        netlifyIdentity.on('error', err => {
+            showStatus('Erro ao fazer login. Tente novamente.', 'error');
+            console.error('Error:', err);
+        });
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            netlifyIdentity.init();
+        });
+    </script>
+</body>
+</html>
