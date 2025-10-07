@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POCs Setoriais - Processo Faturamento</title>
+    <title>POCs Setoriais - Novos Clientes, do fechamento ao monitoramento!</title>
     <style>
         :root {
             --primary-gradient: linear-gradient(135deg, #667eea, #764ba2);
@@ -398,11 +398,11 @@
     <div class="wrapper">
         <header class="header">
             <div class="header-content">
-                <h1>POCs Setoriais</h1>
+                <h1>POCs Setoriais do processo de Novos Clientes</h1>
                 <p class="subtitle">Procedimentos Operacionais por Setor</p>
                 
                 <div class="nav-pills">
-                    <a href="index.html" class="nav-pill">Home</a>
+                    <a href="home.html" class="nav-pill">Home</a>
                     <a href="fluxograma.html" class="nav-pill">Fluxograma</a>
                     <a href="documentacao.html" class="nav-pill">Documentação</a>
                     <a href="matriz-raci.html" class="nav-pill">Matriz RACI</a>
@@ -469,7 +469,7 @@
                     <div class="checklist-item" onclick="toggleCheck(this)">
                         <div class="checkbox"></div>
                         <div class="checklist-text">
-                            <strong>Criar orçamento no ERP</strong><br>
+                            <strong>Criar orçamento no Portal do Consultor</strong><br>
                             <small>Incluir todos os equipamentos, serviços e valores negociados</small>
                         </div>
                     </div>
@@ -501,7 +501,6 @@
                     <div class="alert-content">
                         • Certifique-se de que todos os dados cadastrais do cliente estão corretos<br>
                         • Valide o CNPJ e documentação fiscal antes do fechamento<br>
-                        • Orçamentos fechados após dia 13 entram no faturamento do mês seguinte
                     </div>
                 </div>
 
@@ -514,14 +513,14 @@
             <!-- POC Técnico -->
             <div id="poc-tecnico" class="poc-content">
                 <div class="poc-header">
-                    <h2>🔧 POC: Técnico</h2>
+                    <h2>🔧 POC: Técnica</h2>
                     <p style="color: var(--text-secondary);">Procedimentos para execução de obra e entrega de serviço</p>
                 </div>
 
                 <div class="alert alert-warning">
-                    <div class="alert-title">🎯 Etapa Crítica do Processo</div>
+                    <div class="alert-title">🎯 Atenção nas datas!</div>
                     <div class="alert-content">
-                        A <span class="highlight">"ENTREGA DO SERVIÇO"</span> no ERP é OBRIGATÓRIA e dispara todo o fluxo de faturamento. Sem ela, o cliente não será cobrado!
+                        A <span class="highlight">"ENTREGA DO SERVIÇO"</span> no ERP indica que o cliente começou a utilizar nossos serviços, isso dispara todo o fluxo de faturamento. Sem ela, o cliente não será cobrado!
                     </div>
                 </div>
 
@@ -561,28 +560,29 @@
                     <div class="checklist-item" onclick="toggleCheck(this)">
                         <div class="checkbox"></div>
                         <div class="checklist-text">
-                            <strong>⚠️ ENTREGAR SERVIÇO NO ERP (CRÍTICO)</strong><br>
-                            <small>Executar função no ERP informando a data de ativação do monitoramento</small>
+                            <strong>Finalizar OS de implantação</strong><br>
+                            <small>Fechar ordem de serviço com todas as informações da obra</small>
                         </div>
                     </div>
                     <div class="checklist-item" onclick="toggleCheck(this)">
                         <div class="checkbox"></div>
                         <div class="checklist-text">
-                            <strong>Finalizar OS de implantação</strong><br>
-                            <small>Fechar ordem de serviço com todas as informações da obra</small>
+                            <strong>⚠️ ENTREGAR SERVIÇO NO ERP</strong><br>
+                            <small>Executar função no ERP informando a data de ativação do monitoramento</small>
                         </div>
                     </div>
+
                 </div>
 
                 <div class="alert alert-success">
                     <div class="alert-title">✅ Como Entregar o Serviço</div>
                     <div class="alert-content">
                         <strong>Passo a passo no ERP:</strong><br>
-                        1. Acesse a OS de implantação do cliente<br>
-                        2. Clique em "Entregar Serviço"<br>
+                        1. Acesse o menu "Andamento de Orçamentos" na etapa "Clientes aguardando Entrega do Serviço"<br>
+                        2. Clique em "Entregar Serviço do Cliente"<br>
                         3. Informe a DATA DA ATIVAÇÃO DO MONITORAMENTO<br>
                         4. Confirme a entrega<br>
-                        5. O sistema criará automaticamente ticket para Faturamento
+                        5. ✅ O cliente entrou na esteira do faturamento!
                     </div>
                 </div>
             </div>
@@ -695,7 +695,7 @@
                         <div class="checkbox"></div>
                         <div class="checklist-text">
                             <strong>Analisar documentação do cliente</strong><br>
-                            <small>Verificar CNPJ, ata de assemb leia e documentação fiscal</small>
+                            <small>Verificar CNPJ, ata de assembleia e documentação contratual.</small>
                         </div>
                     </div>
                     <div class="checklist-item" onclick="toggleCheck(this)">
@@ -767,7 +767,7 @@
                         <div class="checkbox"></div>
                         <div class="checklist-text">
                             <strong>Receber tickets de novos clientes</strong><br>
-                            <small>Sistema envia após "ENTREGA DO SERVIÇO" pelo Técnico</small>
+                            <small>Sistema envia após "Ativação do Monitoramento" pela BA</small>
                         </div>
                     </div>
                     <div class="checklist-item" onclick="toggleCheck(this)">
@@ -835,8 +835,7 @@
                 <div class="step-box">
                     <h4>🔄 Parametrização de Filial vs Franquia</h4>
                     <p>
-                        <strong>Filial:</strong> Faturamento parametrizado em lote pela própria filial<br>
-                        <strong>Franquia:</strong> Faturamento parametrizado pela Matriz
+                        <strong>Matriz:</strong> Parametriza o Faturamento dos clientes em ambas empresas, Filial e Matriz!<br>
                     </p>
                 </div>
 
@@ -927,3 +926,4 @@
     </script>
 </body>
 </html>
+
