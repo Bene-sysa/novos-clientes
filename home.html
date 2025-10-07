@@ -14,6 +14,7 @@
             --card-bg: rgba(255, 255, 255, 0.95);
             --text-primary: #2d3748;
             --text-secondary: #718096;
+            --info-color: #3182ce;
         }
 
         * {
@@ -144,6 +145,14 @@
             transform: scaleX(1);
         }
 
+        .module-card.external {
+            border: 2px solid var(--info-color);
+        }
+
+        .module-card.external::before {
+            background: linear-gradient(135deg, #3182ce, #2c5282);
+        }
+
         .card-icon {
             font-size: 3.5rem;
             margin-bottom: 1.5rem;
@@ -203,6 +212,20 @@
             box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
         }
 
+        .card-button.external {
+            background: linear-gradient(135deg, #3182ce, #2c5282);
+            box-shadow: 0 4px 15px rgba(49, 130, 206, 0.3);
+        }
+
+        .card-button.external:hover {
+            box-shadow: 0 6px 20px rgba(49, 130, 206, 0.4);
+        }
+
+        .external-icon {
+            font-size: 0.8rem;
+            margin-left: 0.3rem;
+        }
+
         .alert-box {
             background: var(--card-bg);
             backdrop-filter: blur(10px);
@@ -230,7 +253,7 @@
         }
 
         .highlight-text {
-            background: linear-gradient(120deg, #ffd89b 0%, #19547b 100%);
+            background: linear-gradient(120deg, #f39c12 0%, #e74c3c 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -313,6 +336,11 @@
             background: rgba(237, 137, 54, 0.2);
             color: #7c2d12;
         }
+
+        .badge-info {
+            background: rgba(49, 130, 206, 0.2);
+            color: #2c5282;
+        }
     </style>
 </head>
 <body>
@@ -321,24 +349,24 @@
     <div class="container">
         <header class="header">
             <h1>Processo de Novos Clientes, da Venda ao Monitoramento!</h1>
-            <p class="subtitle">Entenda o fluxo de ativação de um novo clientes Porter!</p>
+            <p class="subtitle">Entenda o fluxo de ativação de um novo cliente Porter!</p>
             
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-number">5</div>
-                    <div class="stat-label">Materiais Completos sobre o Process.</div>
+                    <div class="stat-label">Materiais Completos sobre o Processo</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-number">6</div>
-                    <div class="stat-label">Setores Envolvidos no processo.</div>
+                    <div class="stat-label">Setores Envolvidos no processo</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-number">TODOS</div>
-                    <div class="stat-label">Alinhados sobre como um novo cliente é ativado.</div>
+                    <div class="stat-label">Alinhados sobre como um novo cliente é ativado</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-number">100%</div>
-                    <div class="stat-label">Rastreabilidade da carteira.</div>
+                    <div class="stat-label">Rastreabilidade da carteira</div>
                 </div>
             </div>
         </header>
@@ -348,7 +376,7 @@
                 ⚠️ Lacuna Processual Resolvida
             </div>
             <div class="alert-content">
-                O novo processo trata a lacuna identificada entre a operação e o nregistro da informação. Agora devemos realizar a <span class="highlight-text">"ENTREGA DO SERVIÇO"</span> no ERP informando a data de ativação do monitoramento, garantindo rastreabilidade completa do fechamento da venda até a ativação do monitoramento.
+                O novo processo trata a lacuna identificada entre a operação e o registro da informação. Agora devemos realizar a <span class="highlight-text">"ENTREGA DO SERVIÇO"</span> no ERP informando a data de ativação do monitoramento, garantindo rastreabilidade completa do fechamento da venda até a ativação do monitoramento.
             </div>
         </div>
 
@@ -425,6 +453,24 @@
                 <br><br>
                 <button class="card-button">Acessar POCs</button>
             </div>
+
+            <div class="module-card external" onclick="window.open('https://atendimento.insidesistemas.com.br/kb/pt-br', '_blank')">
+                <span class="card-icon">💡</span>
+                <h2 class="card-title">Base de Conhecimento Inside</h2>
+                <p class="card-description">
+                    Tutoriais técnicos passo a passo do sistema ERP com prints e vídeos explicativos.
+                </p>
+                <ul class="card-features">
+                    <li>Tutoriais com capturas de tela</li>
+                    <li>Passo a passo técnico detalhado</li>
+                    <li>Artigos sempre atualizados</li>
+                    <li>Vídeos demonstrativos</li>
+                </ul>
+                <span class="badge badge-info">Recurso Externo</span>
+                <span class="badge badge-warning">Tutoriais</span>
+                <br><br>
+                <button class="card-button external">Acessar Base de Conhesimento Inside <span class="external-icon">↗</span></button>
+            </div>
         </div>
 
         <div class="alert-box" style="border-left-color: var(--success-color);">
@@ -488,4 +534,3 @@
     </script>
 </body>
 </html>
-
