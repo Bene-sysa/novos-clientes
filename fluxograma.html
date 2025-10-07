@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fluxograma - Processo Faturamento</title>
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea, #764ba2);
+            --accent-color: #4299e1;
+            --success-color: #48bb78;
+            --warning-color: #ed8936;
+            --danger-color: #e53e3e;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text-primary: #2d3748;
+            --text-secondary: #718096;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--primary-gradient);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        .wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            animation: slideDown 0.5s ease;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: var(--text-primary);
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .nav-pills {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-pill {
+            padding: 0.625rem 1.25rem;
+            background: rgba(102, 126, 234, 0.1);
+            color: var(--accent-color);
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-pill:hover {
+            background: var(--primary-gradient);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-pill.active {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .controls-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .control-group {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--accent-color);
+            border: 2px solid var(--accent-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .phase-filters {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .phase-btn {
+            padding: 0.5rem 1rem;
+            background: white;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-secondary);
+        }
+
+        .phase-btn.active {
+            background: var(--primary-gradient);
+            color: white;
+            border-color: transparent;
+        }
+
+        .flowchart-container {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .flowchart-wrapper {
+            width: 100%;
+            height: 600px;
+            position: relative;
+            overflow: hidden;
+            cursor: grab;
+            background: linear-gradient(to bottom, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .flowchart-wrapper:active {
+            cursor: grabbing;
+        }
+
+        .flowchart-canvas {
+            position: absolute;
+            transform-origin: 0 0;
+            transition: transform 0.1s ease-out;
+            will-change: transform;
+        }
+
+        .minimap {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 200px;
+            height: 150px;
+            background: white;
+            border: 2px solid var(--accent-color);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .minimap-canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        .minimap-viewport {
+            position: absolute;
+            border: 2px solid var(--danger-color);
+            background: rgba(231, 76, 60, 0.2);
+            pointer-events: none;
+        }
+
+        .zoom-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .zoom-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: white;
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .zoom-btn:hover {
+            background: var(--accent-color);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .legend {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .legend-box {
+            width: 30px;
+            height: 20px;
+            border-radius: 4px;
+        }
+
+        .legend-vendas { background: linear-gradient(135deg, #3498db, #2980b9); }
+        .legend-juridico { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
+        .legend-tecnico { background: linear-gradient(135deg, #27ae60, #229954); }
+        .legend-logistica { background: linear-gradient(135deg, #f39c12, #e67e22); }
+        .legend-faturamento { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+        .legend-ba { background: linear-gradient(135deg, #34495e, #2c3e50); }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            border-left: 5px solid var(--accent-color);
+            background: linear-gradient(135deg, rgba(66, 153, 225, 0.1), rgba(209, 236, 241, 0.2));
+        }
+
+        .alert-content {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .flow-step {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .flow-step:hover rect,
+        .flow-step:hover circle {
+            filter: brightness(1.15);
+        }
+
+        .flow-step.active rect,
+        .flow-step.active circle {
+            filter: brightness(1.3) drop-shadow(0 0 10px rgba(102, 126, 234, 0.8));
+        }
+
+        .flow-critical {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .info-tooltip {
+            position: fixed;
+            background: white;
+            padding: 1.25rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            max-width: 350px;
+            z-index: 1000;
+            display: none;
+            pointer-events: none;
+            border: 2px solid var(--accent-color);
+        }
+
+        .info-tooltip.show {
+            display: block;
+            animation: tooltipFadeIn 0.2s ease;
+        }
+
+        @keyframes tooltipFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tooltip-title {
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .tooltip-content {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.75rem;
+            }
+
+            .nav-pills {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .flowchart-wrapper {
+                height: 400px;
+            }
+
+            .minimap {
+                width: 120px;
+                height: 90px;
+            }
+
+            .info-tooltip {
+                max-width: 90%;
+                left: 5% !important;
+                right: 5% !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+
+    <div class="wrapper">
+        <header class="header">
+            <div class="header-content">
+                <h1>Fluxograma do Processo</h1>
+                <p class="subtitle">Visualização Interativa - Faturamento de Novos Clientes</p>
+                
+                <div class="nav-pills">
+                    <a href="index.html" class="nav-pill">Home</a>
+                    <a href="fluxograma.html" class="nav-pill active">Fluxograma</a>
+                    <a href="documentacao.html" class="nav-pill">Documentação</a>
+                    <a href="matriz-raci.html" class="nav-pill">Matriz RACI</a>
+                    <a href="pocs-setoriais.html" class="nav-pill">POCs Setoriais</a>
+                </div>
+            </div>
+        </header>
+
+        <div class="container">
+            <div class="alert">
+                <div class="alert-content">
+                    💡 <strong>Dica:</strong> Arraste para navegar, use os botões para zoom, ou clique nos elementos para ver detalhes. Use os filtros por fase para focar em partes específicas do processo.
+                </div>
+            </div>
+
+            <div class="controls-card">
+                <div class="controls">
+                    <div class="control-group">
+                        <button class="btn btn-primary" onclick="resetView()">🔄 Resetar Visualização</button>
+                        <button class="btn btn-secondary" onclick="fitToScreen()">📐 Ajustar à Tela</button>
+                    </div>
+                    <div class="phase-filters">
+                        <button class="phase-btn active" onclick="filterPhase('all')">Todas</button>
+                        <button class="phase-btn" onclick="filterPhase('fase1')">Fase 1: Venda</button>
+                        <button class="phase-btn" onclick="filterPhase('fase2')">Fase 2: Contrato</button>
+                        <button class="phase-btn" onclick="filterPhase('fase3')">Fase 3: Execução</button>
+                        <button class="phase-btn" onclick="filterPhase('fase4')">Fase 4: Entrega</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flowchart-container">
+                <div class="flowchart-wrapper" id="flowchartWrapper">
+                    <div class="flowchart-canvas" id="flowchartCanvas">
+                        <svg width="1600" height="950" viewBox="0 0 1600 950" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                    <polygon points="0 0, 10 3.5, 0 7" fill="#2c3e50"/>
+                                </marker>
+                                
+                                <linearGradient id="grad-vendas" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#3498db;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#2980b9;stop-opacity:1" />
+                                </linearGradient>
+                                <linearGradient id="grad-juridico" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#9b59b6;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#8e44ad;stop-opacity:1" />
+                                </linearGradient>
+                                <linearGradient id="grad-tecnico" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#27ae60;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#229954;stop-opacity:1" />
+                                </linearGradient>
+                                <linearGradient id="grad-logistica" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#f39c12;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#e67e22;stop-opacity:1" />
+                                </linearGradient>
+                                <linearGradient id="grad-faturamento" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#e74c3c;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#c0392b;stop-opacity:1" />
+                                </linearGradient>
+                                <linearGradient id="grad-ba" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#34495e;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#2c3e50;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+
+                            <!-- Labels de Setores -->
+                            <text x="10" y="80" font-size="14" font-weight="bold" fill="#2c3e50">Vendas</text>
+                            <text x="10" y="230" font-size="14" font-weight="bold" fill="#2c3e50">Jurídico</text>
+                            <text x="10" y="380" font-size="14" font-weight="bold" fill="#2c3e50">Técnico</text>
+                            <text x="10" y="530" font-size="14" font-weight="bold" fill="#2c3e50">Logística</text>
+                            <text x="10" y="680" font-size="14" font-weight="bold" fill="#2c3e50">Faturamento</text>
+                            <text x="10" y="830" font-size="14" font-weight="bold" fill="#2c3e50">B.A</text>
+
+                            <!-- Linhas de separação -->
+                            <line x1="0" y1="150" x2="1600" y2="150" stroke="#ddd" stroke-width="2" stroke-dasharray="5,5"/>
+                            <line x1="0" y1="300" x2="1600" y2="300" stroke="#ddd" stroke-width="2" stroke-dasharray="5,5"/>
+                            <line x1="0" y1="450" x2="1600" y2="450" stroke="#ddd" stroke-width="2" stroke-dasharray="5,5"/>
+                            <line x1="0" y1="600" x2="1600" y2="600" stroke="#ddd" stroke-width="2" stroke-dasharray="5,5"/>
+                            <line x1="0" y1="750" x2="1600" y2="750" stroke="#ddd" stroke-width="2" stroke-dasharray="5,5"/>
+
+                            <!-- INÍCIO -->
+                            <circle cx="80" cy="80" r="25" fill="url(#grad-vendas)"/>
+                            <text x="80" y="87" text-anchor="middle" fill="white" font-size="12" font-weight="bold">INÍCIO</text>
+
+                            <!-- FASE 1: VENDA -->
+                            <g class="flow-step" data-fase="fase1" data-info="Criação de Orçamento|Vendas elabora proposta técnica e comercial com todos os equipamentos e serviços">
+                                <rect x="140" y="50" width="140" height="60" rx="8" fill="url(#grad-vendas)"/>
+                                <text x="210" y="75" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Criação de</text>
+                                <text x="210" y="90" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Orçamento</text>
+                            </g>
+
+                            <g class="flow-step" data-fase="fase1" data-info="Fechamento do Orçamento|Vendas fecha negócio após aprovação do gestor. Sistema gera ticket automaticamente">
+                                <rect x="320" y="50" width="140" height="60" rx="8" fill="url(#grad-vendas)"/>
+                                <text x="390" y="75" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Fechamento</text>
+                                <text x="390" y="90" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Orçamento</text>
+                            </g>
+
+                            <!-- Setas Fase 1 -->
+                            <line x1="105" y1="80" x2="140" y2="80" stroke="#2c3e50" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <line x1="280" y1="80" x2="320" y2="80" stroke="#2c3e50" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+                            <!-- FASE 2: CONTRATO -->
+                            <g class="flow-step" data-fase="fase2" data-info="Liberação do Orçamento|Jurídico valida documentação do cliente e libera orçamento para envio de contrato">
+                                <rect x="500" y="200" width="140" height="60" rx="8" fill="url(#grad-juridico)"/>
+                                <text x="570" y="220" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Liberação do</text>
+                                <text x="570" y="235" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Orçamento</text>
+                            </g>
+
+                            <g class="flow-step" data-fase="fase2" data-info="Envio do Contrato|Jurídico envia contrato para assinatura digital através da plataforma">
+                                <rect x="680" y="200" width="140" height="60" rx="8" fill="url(#grad-juridico)"/>
+                                <text x="750" y="220" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Envio do</text>
+                                <text x="750" y="235" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Contrato</text>
+                            </g>
+
+                            <g class="flow-step" data-fase="fase2" data-info="Contrato Assinado|Jurídico registra contrato assinado no sistema. Libera início da obra">
+                                <rect x="860" y="200" width="140" height="60" rx="8" fill="url(#grad-juridico)"/>
+                                <text x="930" y="220" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Contrato</text>
+                                <text x="930" y="235" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Assinado</text>
+                            </g>
+
+                            <!-- Seta de Vendas para Jurídico -->
+                            <path d="M 390 110 L 390 180 L 570 180 L 570 200" stroke="#2c3e50" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+                            
+                            <!-- Setas Fase 2 -->
+                            <line x1="640" y1="230" x2="680" y2="230" stroke="#2c3e50" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <line x1="820" y1="230" x2="860" y2="230" stroke="#2c3e50" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+                            <!-- FASE 3: EXECUÇÃO -->
+                            <g class="flow-step" data-fase="fase3" data-info="Início da Obra|Técnico inicia implantação no condomínio seguindo projeto aprovado">
+                                <rect x="860" y="350" width="140" height="60" rx="8" fill="url(#grad-tecnico)"/>
+                                <text x="930" y="375" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Início da</text>
+                                <text x="930" y="390" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Obra</text>
+                            </g>
+
+                            <g class="flow-step" data-fase="fase3" data-info="Solicitação de Equipamentos|Gestor abre ticket solicitando equipamentos Porter para a Logística">
+                                <rect x="860" y="500" width="140" height="60" rx="8" fill="url(#grad-logistica)"/>
+                                <text x="930" y="520" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Solicitação</text>
+                                <text x="930" y="535" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Equipamentos</text>
+                            </g>
+
+                            <g class="flow-step" data-fase="fase3" data-info="Envio dos Equipamentos|Logística processa pedido e envia equipamentos para a filial">
+                                <rect x="1040" y="500" width="140" height="60" rx="8" fill="url(#grad-logistica)"/>
+                                <text x="1110" y="520" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Envio dos</text>
+                                <text x="1110" y="535" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Equipamentos</text>
+                            </g>
+
+                            <g class="flow-step" data-fase="fase3" data-info="Finalização da Obra|Técnico finaliza implantação e testa todos os equipamentos">
+                                <rect x="1220" y="350" width="140" height="60" rx="8" fill="url(#grad-tecnico)"/>
+                                <text x="1290" y="375" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Finalização</text>
+                                <text x="1290" y="390" text-anchor="middle" fill="white" font-size="11" font-weight="bold">da Obra</text>
+                            </g>
+
+                            <!-- Seta de Jurídico para Técnico -->
+                            <path d="M 930 260 L 930 350" stroke="#2c3e50" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+                            
+                            <!-- Setas Fase 3 -->
+                            <line x1="930" y1="410" x2="930" y2="500" stroke="#2c3e50" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <line x1="1000" y1="530" x2="1040" y2="530" stroke="#2c3e50" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <path d="M 1000 380 L 1220 380" stroke="#2c3e50" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+
+                            <!-- FASE 4: ENTREGA (CRÍTICA) -->
+                            <g class="flow-step flow-critical" data-fase="fase4" data-info="⚠️ ENTREGAR SERVIÇO - CRÍTICO|Técnico DEVE registrar no ERP a data de agendamento/ativação do monitoramento. SEM ESTA ETAPA O CLIENTE NÃO SERÁ FATURADO!">
+                                <rect x="1400" y="335" width="160" height="90" rx="8" fill="url(#grad-faturamento)" stroke="#c0392b" stroke-width="4"/>
+                                <text x="1480" y="360" text-anchor="middle" fill="white" font-size="12" font-weight="bold">⚠️ ENTREGAR</text>
+                                <text x="1480" y="380" text-anchor="middle" fill="white" font-size="12" font-weight="bold">SERVIÇO</text>
+                                <text x="1480" y="400" text-anchor="middle" fill="white" font-size="10">(CRÍTICO)</text>
+                                <text x="1480" y="415" text-anchor="middle" fill="white" font-size="9">Registrar data no ERP</text>
+                            </g>
+
+                            <g class="flow-step" data-fase="fase4" data-info="Ativação do Monitoramento|Base de Atendimento ativa o condomínio no sistema de monitoramento">
+                                <rect x="1220" y="800" width="140" height="60" rx="8" fill="url(#grad-ba)"/>
+                                <text x="1290" y="825" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Ativação</text>
+                                <text x="1290" y="840" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Monitoramento</text>
+                            </g>
+
+                            <g class="flow-step" data-fase="fase4" data-info="Parametrização do Faturamento|Matriz parametriza o faturamento do cliente com valores e vencimentos">
+                                <rect x="1400" y="650" width="140" height="60" rx="8" fill="url(#grad-faturamento)"/>
+                                <text x="1470" y="670" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Parametrização</text>
+                                <text x="1470" y="685" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Faturamento</text>
+                            </g>
+
+                            <!-- Setas Fase 4 -->
+                            <line x1="1360" y1="380" x2="1400" y2="380" stroke="#2c3e50" stroke-width="3" marker-end="url(#arrowhead)"/>
+                            <path d="M 1480 425 L 1480 520 L 1290 520 L 1290 800" stroke="#2c3e50" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+                            <path d="M 1480 425 L 1480 650" stroke="#2c3e50" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+
+                            <!-- FIM -->
+                            <circle cx="1540" cy="680" r="30" fill="url(#grad-faturamento)"/>
+                            <text x="1540" y="690" text-anchor="middle" fill="white" font-size="12" font-weight="bold">FIM</text>
+                            <line x1="1540" y1="680" x2="1570" y2="680" stroke="#2c3e50" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+                            <!-- Anotações e Labels de Fase -->
+                            <text x="300" y="30" font-size="13" font-weight="bold" fill="#3498db">FASE 1: Venda</text>
+                            <text x="700" y="180" font-size="13" font-weight="bold" fill="#9b59b6">FASE 2: Contrato</text>
+                            <text x="1100" y="330" font-size="13" font-weight="bold" fill="#27ae60">FASE 3: Execução</text>
+                            <text x="1350" y="620" font-size="13" font-weight="bold" fill="#e74c3c">FASE 4: Entrega</text>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Minimap -->
+                <div class="minimap">
+                    <canvas class="minimap-canvas" id="minimapCanvas" width="200" height="150"></canvas>
+                    <div class="minimap-viewport" id="minimapViewport"></div>
+                </div>
+
+                <!-- Zoom Controls -->
+                <div class="zoom-controls">
+                    <button class="zoom-btn" onclick="zoomIn()">+</button>
+                    <button class="zoom-btn" onclick="zoomOut()">−</button>
+                </div>
+            </div>
+
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-box legend-vendas"></div>
+                    <span>Vendas</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box legend-juridico"></div>
+                    <span>Jurídico</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box legend-tecnico"></div>
+                    <span>Técnico</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box legend-logistica"></div>
+                    <span>Logística</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box legend-faturamento"></div>
+                    <span>Faturamento</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box legend-ba"></div>
+                    <span>B.A</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tooltip Info -->
+        <div class="info-tooltip" id="infoTooltip">
+            <div class="tooltip-title" id="tooltipTitle"></div>
+            <div class="tooltip-content" id="tooltipContent"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Inicialização de Particles.js
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 60, density: { enable: true, value_area: 800 } },
+                color: { value: '#ffffff' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.3, random: false },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#ffffff',
+                    opacity: 0.2,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 1.5,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    resize: true
+                }
+            },
+            retina_detect: true
+        });
+
+        // Variáveis do Fluxograma
+        let scale = 1;
+        let translateX = 0;
+        let translateY = 0;
+        let isDragging = false;
+        let startX = 0;
+        let startY = 0;
+
+        const wrapper = document.getElementById('flowchartWrapper');
+        const canvas = document.getElementById('flowchartCanvas');
+        const tooltip = document.getElementById('infoTooltip');
+
+        // Função de Zoom In
+        function zoomIn() {
+            scale = Math.min(scale + 0.1, 2);
+            updateTransform();
+            updateMinimap();
+        }
+
+        // Função de Zoom Out
+        function zoomOut() {
+            scale = Math.max(scale - 0.1, 0.5);
+            updateTransform();
+            updateMinimap();
+        }
+
+        // Resetar Visualização
+        function resetView() {
+            scale = 1;
+            translateX = 0;
+            translateY = 0;
+            updateTransform();
+            updateMinimap();
+        }
+
+        // Ajustar à Tela
+        function fitToScreen() {
+            const wrapperWidth = wrapper.offsetWidth;
+            const wrapperHeight = wrapper.offsetHeight;
+            const svgWidth = 1600;
+            const svgHeight = 950;
+            
+            const scaleX = wrapperWidth / svgWidth;
+            const scaleY = wrapperHeight / svgHeight;
+            scale = Math.min(scaleX, scaleY) * 0.95;
+            
+            translateX = (wrapperWidth - svgWidth * scale) / 2;
+            translateY = (wrapperHeight - svgHeight * scale) / 2;
+            
+            updateTransform();
+            updateMinimap();
+        }
+
+        // Atualizar Transformação
+        function updateTransform() {
+            canvas.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+        }
+
+        // Pan e Drag
+        wrapper.addEventListener('mousedown', (e) => {
+            if (e.target === wrapper || e.target.closest('.flowchart-canvas')) {
+                isDragging = true;
+                startX = e.clientX - translateX;
+                startY = e.clientY - translateY;
+            }
+        });
+
+        wrapper.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                translateX = e.clientX - startX;
+                translateY = e.clientY - startY;
+                updateTransform();
+                updateMinimap();
+            }
+        });
+
+        wrapper.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        wrapper.addEventListener('mouseleave', () => {
+            isDragging = false;
+        });
+
+        // Zoom com scroll do mouse
+        wrapper.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            const delta = e.deltaY > 0 ? -0.05 : 0.05;
+            scale = Math.max(0.5, Math.min(2, scale + delta));
+            updateTransform();
+            updateMinimap();
+        });
+
+        // Touch events para mobile
+        let touchStartDistance = 0;
+        let initialScale = 1;
+
+        wrapper.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 2) {
+                touchStartDistance = Math.hypot(
+                    e.touches[0].pageX - e.touches[1].pageX,
+                    e.touches[0].pageY - e.touches[1].pageY
+                );
+                initialScale = scale;
+            } else if (e.touches.length === 1) {
+                isDragging = true;
+                startX = e.touches[0].clientX - translateX;
+                startY = e.touches[0].clientY - translateY;
+            }
+        });
+
+        wrapper.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            if (e.touches.length === 2) {
+                const distance = Math.hypot(
+                    e.touches[0].pageX - e.touches[1].pageX,
+                    e.touches[0].pageY - e.touches[1].pageY
+                );
+                scale = Math.max(0.5, Math.min(2, initialScale * (distance / touchStartDistance)));
+                updateTransform();
+                updateMinimap();
+            } else if (e.touches.length === 1 && isDragging) {
+                translateX = e.touches[0].clientX - startX;
+                translateY = e.touches[0].clientY - startY;
+                updateTransform();
+                updateMinimap();
+            }
+        });
+
+        wrapper.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+
+        // Filtro por Fase
+        function filterPhase(phase) {
+            const steps = document.querySelectorAll('.flow-step');
+            const buttons = document.querySelectorAll('.phase-btn');
+            
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            steps.forEach(step => {
+                if (phase === 'all') {
+                    step.style.opacity = '1';
+                } else {
+                    if (step.getAttribute('data-fase') === phase) {
+                        step.style.opacity = '1';
+                    } else {
+                        step.style.opacity = '0.2';
+                    }
+                }
+            });
+        }
+
+        // Tooltips interativos
+        const flowSteps = document.querySelectorAll('.flow-step');
+        
+        flowSteps.forEach(step => {
+            step.addEventListener('click', (e) => {
+                const info = step.getAttribute('data-info');
+                if (info) {
+                    const [title, content] = info.split('|');
+                    document.getElementById('tooltipTitle').textContent = title;
+                    document.getElementById('tooltipContent').textContent = content;
+                    
+                    // Posicionar tooltip
+                    const rect = step.getBoundingClientRect();
+                    tooltip.style.left = rect.left + rect.width / 2 + 'px';
+                    tooltip.style.top = rect.bottom + 10 + 'px';
+                    tooltip.classList.add('show');
+                    
+                    // Remover active de outros
+                    flowSteps.forEach(s => s.classList.remove('active'));
+                    step.classList.add('active');
+                }
+            });
+        });
+
+        // Fechar tooltip ao clicar fora
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.flow-step')) {
+                tooltip.classList.remove('show');
+                flowSteps.forEach(s => s.classList.remove('active'));
+            }
+        });
+
+        // Minimap
+        function updateMinimap() {
+            const minimapCanvas = document.getElementById('minimapCanvas');
+            const ctx = minimapCanvas.getContext('2d');
+            const viewport = document.getElementById('minimapViewport');
+            
+            // Limpar canvas
+            ctx.clearRect(0, 0, 200, 150);
+            
+            // Desenhar representação simplificada
+            ctx.fillStyle = '#e0e0e0';
+            ctx.fillRect(0, 0, 200, 150);
+            
+            // Desenhar retângulos representando as etapas
+            ctx.fillStyle = '#3498db';
+            ctx.fillRect(10, 10, 15, 8);
+            ctx.fillRect(30, 10, 15, 8);
+            
+            ctx.fillStyle = '#9b59b6';
+            ctx.fillRect(60, 25, 15, 8);
+            ctx.fillRect(80, 25, 15, 8);
+            
+            ctx.fillStyle = '#27ae60';
+            ctx.fillRect(110, 45, 15, 8);
+            ctx.fillRect(130, 45, 15, 8);
+            
+            ctx.fillStyle = '#e74c3c';
+            ctx.fillRect(160, 65, 20, 12);
+            
+            // Atualizar viewport
+            const viewportWidth = wrapper.offsetWidth / (1600 * scale) * 200;
+            const viewportHeight = wrapper.offsetHeight / (950 * scale) * 150;
+            const viewportX = -translateX / (1600 * scale) * 200;
+            const viewportY = -translateY / (950 * scale) * 150;
+            
+            viewport.style.width = viewportWidth + 'px';
+            viewport.style.height = viewportHeight + 'px';
+            viewport.style.left = viewportX + 'px';
+            viewport.style.top = viewportY + 'px';
+        }
+
+        // Inicializar
+        window.addEventListener('load', () => {
+            fitToScreen();
+            updateMinimap();
+        });
+
+        window.addEventListener('resize', () => {
+            updateMinimap();
+        });
+    </script>
+</body>
+</html>
