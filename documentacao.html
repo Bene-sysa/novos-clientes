@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documentação - Processo de Faturamento</title>
@@ -1154,9 +1155,40 @@
             }
         });
     </script>
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script>
+    function protectRoute() {
+        const user = netlifyIdentity.currentUser();
+        if (!user) {
+            window.location.href = 'login.html';
+            return;
+        }
+        const email = user.email;
+        if (!email.endsWith('@portergroup.com.br')) {
+            alert('Acesso negado. Apenas e-mails @portergroup.com.br são permitidos.');
+            netlifyIdentity.logout();
+            window.location.href = 'login.html';
+        }
+    }
+
+    netlifyIdentity.on('init', user => { protectRoute(); });
+    netlifyIdentity.on('logout', () => { window.location.href = 'login.html'; });
+    netlifyIdentity.init();
+    
+    // Botão de logout
+    window.addEventListener('load', () => {
+        const user = netlifyIdentity.currentUser();
+        if (user) {
+            const btn = document.createElement('button');
+            btn.textContent = '🚪 Sair';
+            btn.style.cssText = 'position:fixed;top:20px;right:20px;padding:0.75rem 1.5rem;background:linear-gradient(135deg,#667eea,#764ba2);color:white;border:none;border-radius:25px;font-weight:600;cursor:pointer;box-shadow:0 4px 15px rgba(102,126,234,0.3);z-index:1000;';
+            btn.onclick = () => { if(confirm('Deseja sair?')) netlifyIdentity.logout(); };
+            document.body.appendChild(btn);
+        }
+    });
+</script>
 </body>
 </html>
+
 
 
 
