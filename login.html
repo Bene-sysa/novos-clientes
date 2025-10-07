@@ -187,11 +187,15 @@
             font-weight: bold;
             font-size: 1.1rem;
         }
-
+        
+        /* CÓDIGO AJUSTADO ABAIXO */
         .footer {
+            position: absolute; /* Remove o rodapé do fluxo de centralização do flex */
+            bottom: 2rem;       /* Posiciona a 2rem da parte inferior da página */
+            left: 0;            /* Alinha à esquerda */
+            width: 100%;        /* Faz com que ocupe a largura total */
             text-align: center;
             color: white;
-            margin-top: 2rem;
             font-size: 0.9rem;
             opacity: 0.9;
         }
