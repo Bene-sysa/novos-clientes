@@ -831,6 +831,13 @@
                     <div class="breadcrumb">Início > Documentação > Responsabilidades</div>
                     
                     <h2>Matriz de Responsabilidades</h2>
+
+                    <div class="alert alert-info">
+                        <div class="alert-title">📌 Referência Rápida</div>
+                        <div class="alert-content">
+                            As responsabilidades abaixo estão alinhadas com as <strong>6 etapas do processo de nova venda</strong> no Odoo. Cada setor atua em etapas específicas do kanban.
+                        </div>
+                    </div>
                     
                     <h3>Matriz - BackOffice</h3>
                     <div class="process-step">
@@ -839,11 +846,10 @@
                             <div class="step-responsible">Jurídico <span class="badge badge-juridico">Matriz</span></div>
                         </div>
                         <div class="step-action">
-                            <strong>Responsabilidades:</strong><br>
-                            • Liberação de orçamentos<br>
-                            • Envio de contratos para assinatura<br>
-                            • Registro de contratos assinados no sistema<br>
-                            • Compliance e aspectos legais
+                            <strong>Responsabilidades:</strong> <em>(Etapa 2 — Contrato)</em><br>
+                            • Elaboração da minuta do contrato com base nos dados do orçamento (contrato único para ambos orçamentos)<br>
+                            • Envio do contrato para assinatura via Odoo, elencando testemunhas e assinantes<br>
+                            • Check final nos documentos assinados antes de concluir sua participação
                         </div>
                     </div>
 
@@ -853,26 +859,27 @@
                             <div class="step-responsible">Logística <span class="badge badge-logistica">Matriz</span></div>
                         </div>
                         <div class="step-action">
-                            <strong>Responsabilidades:</strong><br>
-                            • Abertura de OS para equipamentos Porter<br>
-                            • Entrega de equipamentos conforme cronograma<br>
-                            • Fechamento de OS após entrega<br>
-                            • Controle de estoque e distribuição
+                            <strong>Responsabilidades:</strong> <em>(Etapa 4 — Implantação/Equipamentos)</em><br>
+                            • Visualizar e executar a etapa <span class="highlight">"Aguardando Envio"</span> no orçamento da Matriz<br>
+                            • Separação dos produtos de licenciamento solicitados pela filial<br>
+                            • Envio dos produtos ao destino da obra<br>
+                            • Controle de estoque e distribuição de licenças
                         </div>
                     </div>
 
                     <div class="process-step">
                         <div class="step-header">
                             <div class="step-number">💰</div>
-                            <div class="step-responsible">Faturamento<span class="badge badge-matriz">Matriz</span></div>
+                            <div class="step-responsible">Financeiro <span class="badge badge-matriz">Matriz</span></div>
                         </div>
                         <div class="step-action">
-                            <strong>Responsabilidades:</strong><br>
-                            • Parametrização do faturamento em lote dos novos Clientes<br>
-                            • Parametrização de Distratos<br>
-                            • Conferência de bonificações<br>
-                            • Envio de Relatórios de Faturamento aos Gestores<br>
-                            • Envio de Cobranças aos clientes
+                            <strong>Responsabilidades:</strong> <em>(Etapa 5 — Parametrização do Faturamento)</em><br>
+                            • Validação minuciosa dos dados do contrato (valores, condições, dados fiscais)<br>
+                            • Parametrização da cobrança recorrente do novo cliente<br>
+                            • Parametrização de distratos<br>
+                            • Conferência de bonificações lançadas<br>
+                            • Avançar o card para <span class="highlight">"Aguardando Ativação"</span> após finalizar<br>
+                            • Envio de relatórios de faturamento e cobranças aos clientes
                         </div>
                     </div>
 
@@ -880,41 +887,42 @@
                     <div class="process-step">
                         <div class="step-header">
                             <div class="step-number">🤝</div>
-                            <div class="step-responsible">Vendas<span class="badge badge-filial">Filial</span></div>
+                            <div class="step-responsible">Vendas <span class="badge badge-filial">Filial</span></div>
                         </div>
                         <div class="step-action">
-                            <strong>Responsabilidades:</strong><br>
-                            • Elaborar e apresentar propostas<br>
-                            • Fechamento de orçamentos<br>
-                            • Acompanhamento da assinatura<br>
-                            • Comunicação inicial com o cliente
+                            <strong>Responsabilidades:</strong> <em>(Etapa 1 — Elaborar/Fechar Orçamento)</em><br>
+                            • Elaborar e apresentar propostas ao cliente<br>
+                            • Fechamento do orçamento da filial no Odoo (serviços + itens de implantação)<br>
+                            • O fechamento propaga automaticamente para o orçamento da Matriz<br>
+                            • Comunicação inicial com o cliente e acompanhamento da assinatura
                         </div>
                     </div>
 
                     <div class="process-step">
                         <div class="step-header">
                             <div class="step-number">🔧</div>
-                            <div class="step-responsible">Técnico<span class="badge badge-filial">Filial</span></div>
+                            <div class="step-responsible">Técnico <span class="badge badge-filial">Filial</span></div>
                         </div>
                         <div class="step-action">
-                            <strong>Responsabilidades:</strong><br>
-                            • Execução da obra de implantação<br>
-                            • Solicitação de equipamentos no cronograma correto<br>
-                            • Finalização da obra<br>
-                            • <span class="highlight">ENTREGAR SERVIÇO no sistema com data da ativação de monitoramento</span>
+                            <strong>Responsabilidades:</strong> <em>(Etapas 3, 4 e 6)</em><br>
+                            • Acessar o orçamento "Assinado" e clicar em <span class="highlight">"Iniciar Implantação"</span> (Etapa 3)<br>
+                            • Executar o projeto de implantação e as tarefas criadas automaticamente pelo sistema<br>
+                            • Gerenciar a transferência de estoque gerada para a obra<br>
+                            • Solicitar equipamentos/licenças à Matriz clicando em <span class="highlight">"Solicitar Equipamentos/Licenças"</span> (Etapa 4)<br>
+                            • <span class="highlight">Ativar o condomínio</span> após concluir o checklist de ativação com a B.A (Etapa 6)
                         </div>
                     </div>
 
                     <div class="process-step">
                         <div class="step-header">
                             <div class="step-number">👔</div>
-                            <div class="step-responsible">Gestor<span class="badge badge-filial">Filial</span></div>
+                            <div class="step-responsible">Gestor <span class="badge badge-filial">Filial</span></div>
                         </div>
                         <div class="step-action">
-                            <strong>Responsabilidades:</strong><br>
-                            • Supervisão geral do processo<br>
-                            • Lançamento de bonificações quando necessário<br>
-                            • Aprovação de ajustes especiais<br>
+                            <strong>Responsabilidades:</strong> <em>(Transversal)</em><br>
+                            • Supervisão geral do processo na unidade<br>
+                            • Lançamento de bonificações quando necessário (atraso em obras, negociações especiais)<br>
+                            • Aprovação de ajustes especiais no orçamento<br>
                             • Interface com a matriz para questões excepcionais
                         </div>
                     </div>
@@ -926,8 +934,21 @@
                             <div class="step-responsible">B.A <span class="badge badge-ba">Suporte</span></div>
                         </div>
                         <div class="step-action">
-                            <strong>Responsabilidades:</strong><br>
-                            • Ativação de condomínios no sistema de monitoramento
+                            <strong>Responsabilidades:</strong> <em>(Etapa 6 — Ativar Condomínio)</em><br>
+                            • Executar o checklist de ativação junto com a filial<br>
+                            • Ativação do condomínio no sistema de monitoramento<br>
+                            • Confirmar que a prestação de serviços está operacional
+                        </div>
+                    </div>
+
+                    <div class="alert alert-warning">
+                        <div class="alert-title">⚠️ Lembrete: Gatilhos de Cobrança Diferentes</div>
+                        <div class="alert-content">
+                            <span class="badge badge-matriz">Matriz</span> Cobrança inicia com o <strong>envio dos produtos de licenciamento</strong> (Etapa 4).
+                            <br>
+                            <span class="badge badge-filial">Filial</span> Cobrança inicia somente com a <strong>ativação do condomínio</strong> (Etapa 6).
+                            <br><br>
+                            Em caso de atraso nas obras, o gestor deve lançar bonificações para evitar cobranças indevidas.
                         </div>
                     </div>
                 </section>
