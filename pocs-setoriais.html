@@ -432,11 +432,11 @@
                 <div class="sector-card" onclick="showPOC('juridico')">
                     <div class="sector-icon">⚖️</div>
                     <div class="sector-title">Jurídico</div>
-                    <div class="sector-desc">Contratos e liberações</div>
+                    <div class="sector-desc">Elaboração e envio de contratos</div>
                 </div>
-                <div class="sector-card" onclick="showPOC('faturamento')">
+                <div class="sector-card" onclick="showPOC('financeiro')">
                     <div class="sector-icon">💰</div>
-                    <div class="sector-title">Faturamento</div>
+                    <div class="sector-title">Financeiro</div>
                     <div class="sector-desc">Parametrização e cobrança</div>
                 </div>
             </div>
@@ -445,18 +445,18 @@
             <div id="poc-vendas" class="poc-content active">
                 <div class="poc-header">
                     <h2>🤝 POC: Vendas</h2>
-                    <p style="color: var(--text-secondary);">Procedimentos para criação e fechamento de orçamentos</p>
+                    <p style="color: var(--text-secondary);">Procedimentos para elaboração e fechamento de orçamentos no Odoo</p>
                 </div>
 
                 <div class="alert alert-info">
-                    <div class="alert-title">Objetivo</div>
+                    <div class="alert-title">Conceito: Dois Orçamentos Vinculados</div>
                     <div class="alert-content">
-                        Garantir que todos os orçamentos sejam criados, apresentados e fechados corretamente no ERP, gerando automaticamente o fluxo de trabalho para as próximas etapas.
+                        No Odoo, cada venda gera <strong>dois orçamentos</strong>: o da <strong>Filial</strong> (serviços + itens de implantação) e o da <strong>Matriz</strong> (licenças e produtos de licenciamento). Vendas realiza todas as ações no orçamento da Filial — ao fechar, o da Matriz fecha automaticamente.
                     </div>
                 </div>
 
                 <div class="checklist">
-                    <div class="checklist-title">📋 Checklist: Criação de Orçamento</div>
+                    <div class="checklist-title">📋 Checklist: Etapa 1 — Elaborar/Fechar Orçamento</div>
                     <div class="progress-bar">
                         <div class="progress-fill" style="width: 0%">0%</div>
                     </div>
@@ -470,8 +470,8 @@
                     <div class="checklist-item" onclick="toggleCheck(this)">
                         <div class="checkbox"></div>
                         <div class="checklist-text">
-                            <strong>Criar orçamento no Portal do Consultor</strong><br>
-                            <small>Incluir todos os equipamentos, serviços e valores negociados</small>
+                            <strong>Elaborar orçamento no Odoo</strong><br>
+                            <small>Incluir todos os equipamentos, serviços e valores negociados no orçamento da Filial</small>
                         </div>
                     </div>
                     <div class="checklist-item" onclick="toggleCheck(this)">
@@ -491,8 +491,8 @@
                     <div class="checklist-item" onclick="toggleCheck(this)">
                         <div class="checkbox"></div>
                         <div class="checklist-text">
-                            <strong>Fechar orçamento no ERP</strong><br>
-                            <small>Executar função de fechamento que dispara ticket automático para Jurídico</small>
+                            <strong>Fechar orçamento no Odoo</strong><br>
+                            <small>O fechamento avança o kanban e o orçamento da Matriz é fechado automaticamente</small>
                         </div>
                     </div>
                 </div>
@@ -502,12 +502,13 @@
                     <div class="alert-content">
                         • Certifique-se de que todos os dados cadastrais do cliente estão corretos<br>
                         • Valide o CNPJ e documentação fiscal antes do fechamento<br>
+                        • Ao fechar, a venda avança para o Jurídico no kanban do Odoo
                     </div>
                 </div>
 
                 <div class="step-box">
                     <h4>📍 Após o Fechamento</h4>
-                    <p>O sistema gera automaticamente um ticket para o Jurídico liberar o orçamento e enviar o contrato para assinatura. Acompanhe o status pelo Movidesk.</p>
+                    <p>A venda avança no kanban do Odoo para a fase do Jurídico (Etapa 2 — Contrato). Acompanhe o status diretamente pelo kanban de vendas.</p>
                 </div>
             </div>
 
@@ -515,33 +516,40 @@
             <div id="poc-tecnico" class="poc-content">
                 <div class="poc-header">
                     <h2>🔧 POC: Técnica</h2>
-                    <p style="color: var(--text-secondary);">Procedimentos para execução de obra e entrega de serviço</p>
+                    <p style="color: var(--text-secondary);">Procedimentos para implantação, solicitação de equipamentos e ativação</p>
                 </div>
 
-                <div class="alert alert-warning">
-                    <div class="alert-title">🎯 Atenção nas datas!</div>
+                <div class="alert alert-info">
+                    <div class="alert-title">🎯 Atuação em 3 Etapas</div>
                     <div class="alert-content">
-                        A <span class="highlight">"ENTREGA DO SERVIÇO"</span> no ERP indica que o cliente começou a utilizar nossos serviços, isso dispara todo o fluxo de faturamento. Sem ela, o cliente não será cobrado!
+                        O time técnico é protagonista nas Etapas 3 (Preparação/Obras), 4 (Implantação/Equipamentos) e 6 (Ativar Condomínio). Cada etapa possui botões específicos no Odoo.
                     </div>
                 </div>
 
                 <div class="checklist">
-                    <div class="checklist-title">📋 Checklist: Execução da Obra</div>
+                    <div class="checklist-title">📋 Checklist: Etapa 3 — Preparação/Obras</div>
                     <div class="progress-bar">
                         <div class="progress-fill" style="width: 0%">0%</div>
                     </div>
                     <div class="checklist-item" onclick="toggleCheck(this)">
                         <div class="checkbox"></div>
                         <div class="checklist-text">
-                            <strong>Participar do Kickoff</strong><br>
-                            <small>Reunião de alinhamento com cliente e gestor sobre escopo e cronograma</small>
+                            <strong>Acessar orçamento no status "Assinado"</strong><br>
+                            <small>Contrato concluído pelo Jurídico na Etapa 2</small>
                         </div>
                     </div>
                     <div class="checklist-item" onclick="toggleCheck(this)">
                         <div class="checkbox"></div>
                         <div class="checklist-text">
-                            <strong>Executar a implantação</strong><br>
-                            <small>Realizar toda a instalação conforme projeto aprovado</small>
+                            <strong>Clicar em "Iniciar Implantação"</strong><br>
+                            <small>Sistema cria projeto de obra + transferência de estoque automaticamente</small>
+                        </div>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <div class="checkbox"></div>
+                        <div class="checklist-text">
+                            <strong>Executar o projeto de implantação</strong><br>
+                            <small>Seguir as tarefas criadas automaticamente pelo sistema</small>
                         </div>
                     </div>
                     <div class="checklist-item" onclick="toggleCheck(this)">
@@ -551,39 +559,47 @@
                             <small>Garantir que câmeras, controles de acesso e alarmes funcionam perfeitamente</small>
                         </div>
                     </div>
-                    <div class="checklist-item" onclick="toggleCheck(this)">
-                        <div class="checkbox"></div>
-                        <div class="checklist-text">
-                            <strong>Agendar ativação do monitoramento com B.A</strong><br>
-                            <small>Definir data para que a Base de Atendimento ative o condomínio</small>
-                        </div>
-                    </div>
-                    <div class="checklist-item" onclick="toggleCheck(this)">
-                        <div class="checkbox"></div>
-                        <div class="checklist-text">
-                            <strong>Finalizar OS de implantação</strong><br>
-                            <small>Fechar ordem de serviço com todas as informações da obra</small>
-                        </div>
-                    </div>
-                    <div class="checklist-item" onclick="toggleCheck(this)">
-                        <div class="checkbox"></div>
-                        <div class="checklist-text">
-                            <strong>⚠️ ENTREGAR SERVIÇO NO ERP</strong><br>
-                            <small>Executar função no ERP informando a data de ativação do monitoramento</small>
-                        </div>
-                    </div>
-
                 </div>
 
-                <div class="alert alert-success">
-                    <div class="alert-title">✅ Como Entregar o Serviço</div>
+                <div class="checklist">
+                    <div class="checklist-title">📋 Checklist: Etapa 4 — Solicitar Equipamentos</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%">0%</div>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <div class="checkbox"></div>
+                        <div class="checklist-text">
+                            <strong>Clicar em "Solicitar Equipamentos/Licenças"</strong><br>
+                            <small>Filial → "Parametrização do Faturamento" / Matriz → "Aguardando Envio"</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-warning">
+                    <div class="alert-title">⚠️ Gatilho de Cobrança da Matriz</div>
                     <div class="alert-content">
-                        <strong>Passo a passo no ERP:</strong><br>
-                        1. Acesse o menu "Andamento de Orçamentos" na etapa "Clientes aguardando Entrega do Serviço"<br>
-                        2. Clique em "Entregar Serviço do Cliente"<br>
-                        3. Informe a DATA DA ATIVAÇÃO DO MONITORAMENTO<br>
-                        4. Confirme a entrega<br>
-                        5. ✅ O cliente entrou na esteira do faturamento!
+                        O envio dos produtos de licenciamento pela Matriz já dispara a cobrança! Se a obra não terminou, comunique o Gestor para lançar bonificações.
+                    </div>
+                </div>
+
+                <div class="checklist">
+                    <div class="checklist-title">📋 Checklist: Etapa 6 — Ativar Condomínio</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%">0%</div>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <div class="checkbox"></div>
+                        <div class="checklist-text">
+                            <strong>Finalizar checklist de ativação com a B.A</strong><br>
+                            <small>Validar que todos os equipamentos e serviços estão operacionais</small>
+                        </div>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <div class="checkbox"></div>
+                        <div class="checklist-text">
+                            <strong>Ativar o condomínio no Odoo</strong><br>
+                            <small>Dispara cobrança da Filial — cliente entra no ciclo de faturamento</small>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -592,13 +608,13 @@
             <div id="poc-gestor" class="poc-content">
                 <div class="poc-header">
                     <h2>👔 POC: Gestor da Filial</h2>
-                    <p style="color: var(--text-secondary);">Procedimentos para supervisão e lançamento de bonificações</p>
+                    <p style="color: var(--text-secondary);">Procedimentos para supervisão, aprovação de orçamentos e bonificações</p>
                 </div>
 
                 <div class="alert alert-info">
                     <div class="alert-title">Responsabilidades do Gestor</div>
                     <div class="alert-content">
-                        O gestor é responsável pela supervisão geral do processo, validação de orçamentos, solicitação de equipamentos e principalmente o <strong>lançamento de bonificações até o dia 10</strong> de cada mês.
+                        O gestor supervisiona o processo, valida orçamentos, acompanha obras e é responsável pela <strong>solicitação de bonificações</strong> quando necessário.
                     </div>
                 </div>
 
@@ -610,64 +626,57 @@
                     <div class="checklist-item" onclick="toggleCheck(this)">
                         <div class="checkbox"></div>
                         <div class="checklist-text">
-                            <strong>Aprovar orçamentos</strong><br>
-                            <small>Validar condições comerciais antes do fechamento pela equipe de vendas</small>
-                        </div>
-                    </div>
-                    <div class="checklist-item" onclick="toggleCheck(this)">
-                        <div class="checkbox"></div>
-                        <div class="checklist-text">
-                            <strong>Solicitar equipamentos Porter</strong><br>
-                            <small>Abrir ticket para Logística conforme cronograma de obra</small>
+                            <strong>Aprovar orçamentos antes do fechamento</strong><br>
+                            <small>Validar condições comerciais, valores e escopo no Odoo</small>
                         </div>
                     </div>
                     <div class="checklist-item" onclick="toggleCheck(this)">
                         <div class="checkbox"></div>
                         <div class="checklist-text">
                             <strong>Acompanhar andamento das obras</strong><br>
-                            <small>Monitorar prazos e garantir qualidade da execução</small>
+                            <small>Monitorar projeto de implantação criado automaticamente pelo Odoo</small>
                         </div>
                     </div>
                     <div class="checklist-item" onclick="toggleCheck(this)">
                         <div class="checkbox"></div>
                         <div class="checklist-text">
-                            <strong>Conferir novos clientes até dia 10</strong><br>
-                            <small>Verificar quais clientes entrarão no faturamento do mês</small>
-                        </div>
-                    </div>
-                    <div class="checklist-item" onclick="toggleCheck(this)">
-                        <div class="checkbox"></div>
-                        <div class="checklist-text">
-                            <strong>Lançar bonificações até dia 10</strong><br>
-                            <small>Registrar descontos, ativações parciais ou ajustes comerciais</small>
+                            <strong>Solicitar bonificação na Assinatura (se necessário)</strong><br>
+                            <small>Agendar ação "Aprovar Bonificação de Novo Cliente" na assinatura do Odoo</small>
                         </div>
                     </div>
                     <div class="checklist-item" onclick="toggleCheck(this)">
                         <div class="checkbox"></div>
                         <div class="checklist-text">
                             <strong>Analisar relatório de reajustes (dia 11)</strong><br>
-                            <small>Revisar reajustes aplicados e lançar bonificações se necessário</small>
+                            <small>Revisar reajustes e solicitar bonificações se necessário</small>
+                        </div>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <div class="checkbox"></div>
+                        <div class="checklist-text">
+                            <strong>Conferir relatório de faturamento (dia 12)</strong><br>
+                            <small>Validar que os valores do lote estão corretos</small>
                         </div>
                     </div>
                 </div>
 
                 <div class="alert alert-warning">
-                    <div class="alert-title">⏰ Cronograma do Gestor</div>
+                    <div class="alert-title">⏰ Fluxo de Bonificação no Odoo</div>
                     <div class="alert-content">
-                        <strong>Dia 10:</strong> Prazo final para bonificações de novos clientes<br>
-                        <strong>Dia 11:</strong> Matriz envia relatório de reajustes<br>
-                        <strong>Dia 12:</strong> Prazo para bonificações de reajustes<br>
-                        <strong>Dia 13:</strong> Início do faturamento - ajustes só no próximo mês
+                        <strong>1.</strong> Gestor agenda ação na Assinatura →
+                        <strong>2.</strong> Gestor de Área aprova →
+                        <strong>3.</strong> Financeiro lança a bonificação<br><br>
+                        Prazo: <strong>até o dia 10</strong> para entrar no ciclo de faturamento.
                     </div>
                 </div>
 
                 <div class="step-box">
-                    <h4>💡 Quando Usar Bonificações</h4>
+                    <h4>💡 Quando Solicitar Bonificações</h4>
                     <p>
-                        • Ativação parcial do condomínio (nem todas as câmeras instaladas)<br>
-                        • Negociações comerciais especiais (descontos temporários)<br>
-                        • Atrasos na obra por questões externas<br>
-                        • Cortesias ou períodos de teste gratuito<br>
+                        • Carência negociada na venda<br>
+                        • Atraso em obras (Matriz já enviou licenciamento = cobrança ativa)<br>
+                        • Desconto comercial temporário<br>
+                        • Ativação parcial do condomínio<br>
                         • Reajustes que não devem ser aplicados naquele mês
                     </p>
                 </div>
@@ -677,54 +686,54 @@
             <div id="poc-juridico" class="poc-content">
                 <div class="poc-header">
                     <h2>⚖️ POC: Jurídico</h2>
-                    <p style="color: var(--text-secondary);">Procedimentos para liberação de orçamentos e contratos</p>
+                    <p style="color: var(--text-secondary);">Procedimentos para elaboração, envio e validação de contratos no Odoo</p>
+                </div>
+
+                <div class="alert alert-info">
+                    <div class="alert-title">Etapa 2: Kanban de Contratos</div>
+                    <div class="alert-content">
+                        O Jurídico atua em 3 sub-etapas: <strong>Elaboração do Contrato</strong> → <strong>Envio para Assinatura</strong> → <strong>Assinado</strong>. Contrato único para ambos os orçamentos (Filial + Matriz).
+                    </div>
                 </div>
 
                 <div class="checklist">
-                    <div class="checklist-title">📋 Checklist: Processamento de Contratos</div>
+                    <div class="checklist-title">📋 Checklist: Etapa 2 — Contrato</div>
                     <div class="progress-bar">
                         <div class="progress-fill" style="width: 0%">0%</div>
                     </div>
                     <div class="checklist-item" onclick="toggleCheck(this)">
                         <div class="checkbox"></div>
                         <div class="checklist-text">
-                            <strong>Receber ticket de novo orçamento</strong><br>
-                            <small>Sistema envia automaticamente após fechamento pela Vendas</small>
+                            <strong>Receber venda no kanban (Elaboração)</strong><br>
+                            <small>Venda chega após fechamento do orçamento pela Filial</small>
                         </div>
                     </div>
                     <div class="checklist-item" onclick="toggleCheck(this)">
                         <div class="checkbox"></div>
                         <div class="checklist-text">
                             <strong>Analisar documentação do cliente</strong><br>
-                            <small>Verificar CNPJ, ata de assembleia e documentação contratual.</small>
+                            <small>Verificar CNPJ, ata de assembleia e documentação contratual</small>
                         </div>
                     </div>
                     <div class="checklist-item" onclick="toggleCheck(this)">
                         <div class="checkbox"></div>
                         <div class="checklist-text">
-                            <strong>Liberar orçamento no ERP</strong><br>
-                            <small>Aprovar seguimento do processo após validações</small>
+                            <strong>Gerar minuta do contrato</strong><br>
+                            <small>Contrato único contemplando ambos os orçamentos</small>
                         </div>
                     </div>
                     <div class="checklist-item" onclick="toggleCheck(this)">
                         <div class="checkbox"></div>
                         <div class="checklist-text">
-                            <strong>Enviar contrato para assinatura digital</strong><br>
-                            <small>Utilizar plataforma de assinatura eletrônica</small>
+                            <strong>Enviar contrato para assinatura via Odoo</strong><br>
+                            <small>Elencar testemunhas e assinantes dentro do sistema</small>
                         </div>
                     </div>
                     <div class="checklist-item" onclick="toggleCheck(this)">
                         <div class="checkbox"></div>
                         <div class="checklist-text">
-                            <strong>Aguardar assinatura do cliente</strong><br>
-                            <small>Sistema notifica automaticamente quando assinado</small>
-                        </div>
-                    </div>
-                    <div class="checklist-item" onclick="toggleCheck(this)">
-                        <div class="checkbox"></div>
-                        <div class="checklist-text">
-                            <strong>Baixar contrato como assinado no ERP</strong><br>
-                            <small>Registrar conclusão para liberação da obra pela Filial</small>
+                            <strong>Realizar check final nos documentos assinados</strong><br>
+                            <small>Validar conformidade e concluir participação no processo</small>
                         </div>
                     </div>
                 </div>
@@ -740,22 +749,64 @@
                 </div>
 
                 <div class="step-box">
-                    <h4>📍 Comunicação com a Filial</h4>
-                    <p>Informar imediatamente a Filial sobre qualquer pendência documental que impeça a liberação do orçamento. Utilizar o Movidesk para registro das tratativas.</p>
+                    <h4>📍 Após a Conclusão</h4>
+                    <p>Com o contrato "Assinado", a Filial pode clicar em "Iniciar Implantação" (Etapa 3). Comunique pendências diretamente pela venda no Odoo.</p>
                 </div>
             </div>
 
-            <!-- POC Faturamento -->
-            <div id="poc-faturamento" class="poc-content">
+            <!-- POC Financeiro -->
+            <div id="poc-financeiro" class="poc-content">
                 <div class="poc-header">
-                    <h2>💰 POC: Faturamento</h2>
-                    <p style="color: var(--text-secondary);">Procedimentos para parametrização e processamento de cobranças</p>
+                    <h2>💰 POC: Financeiro</h2>
+                    <p style="color: var(--text-secondary);">Procedimentos para parametrização, bonificações e cobranças</p>
                 </div>
 
                 <div class="alert alert-info">
-                    <div class="alert-title">Objetivo</div>
+                    <div class="alert-title">Etapa 5: Parametrização do Faturamento</div>
                     <div class="alert-content">
-                        Parametrizar corretamente novos clientes, processar bonificações, executar reajustes e gerar cobranças dentro do cronograma mensal estabelecido.
+                        O Financeiro atua quando a venda chega no estágio <strong>"Parametrização de Faturamento"</strong>. Valida dados, parametriza cobrança e avança para <strong>"Aguardando Ativação"</strong>. Também lança bonificações aprovadas e acompanha descontos vigentes.
+                    </div>
+                </div>
+
+                <div class="checklist">
+                    <div class="checklist-title">📋 Checklist: Etapa 5 — Parametrização</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%">0%</div>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <div class="checkbox"></div>
+                        <div class="checklist-text">
+                            <strong>Acessar vendas em "Parametrização do Faturamento"</strong><br>
+                            <small>Chegam após Filial solicitar equipamentos/licenças (Etapa 4)</small>
+                        </div>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <div class="checkbox"></div>
+                        <div class="checklist-text">
+                            <strong>Validar dados do contrato</strong><br>
+                            <small>Conferir valores, condições contratuais e dados fiscais</small>
+                        </div>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <div class="checkbox"></div>
+                        <div class="checklist-text">
+                            <strong>Parametrizar cobrança recorrente</strong><br>
+                            <small>Configurar valores, vencimentos e dados de faturamento</small>
+                        </div>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <div class="checkbox"></div>
+                        <div class="checklist-text">
+                            <strong>Lançar bonificações aprovadas (se houver)</strong><br>
+                            <small>Tarefa automática da aprovação do Gestor de Área</small>
+                        </div>
+                    </div>
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <div class="checkbox"></div>
+                        <div class="checklist-text">
+                            <strong>Avançar para "Aguardando Ativação"</strong><br>
+                            <small>Parametrização concluída</small>
+                        </div>
                     </div>
                 </div>
 
@@ -767,89 +818,43 @@
                     <div class="checklist-item" onclick="toggleCheck(this)">
                         <div class="checkbox"></div>
                         <div class="checklist-text">
-                            <strong>Receber tickets de novos clientes</strong><br>
-                            <small>Sistema envia após "Ativação do Monitoramento" pela BA</small>
-                        </div>
-                    </div>
-                    <div class="checklist-item" onclick="toggleCheck(this)">
-                        <div class="checkbox"></div>
-                        <div class="checklist-text">
-                            <strong>Parametrizar faturamento dos novos clientes</strong><br>
-                            <small>Configurar valores, vencimentos e dados fiscais no ERP</small>
-                        </div>
-                    </div>
-                    <div class="checklist-item" onclick="toggleCheck(this)">
-                        <div class="checkbox"></div>
-                        <div class="checklist-text">
-                            <strong>Processar bonificações até dia 10</strong><br>
-                            <small>Validar e aplicar todas as bonificações lançadas pelos Gestores</small>
+                            <strong>Conferir bonificações (até dia 10)</strong><br>
+                            <small>Validar que todas as bonificações foram aplicadas</small>
                         </div>
                     </div>
                     <div class="checklist-item" onclick="toggleCheck(this)">
                         <div class="checkbox"></div>
                         <div class="checklist-text">
                             <strong>Executar reajustes contratuais (dia 11)</strong><br>
-                            <small>Rodar processo de reajuste e gerar relatório para Gestores</small>
-                        </div>
-                    </div>
-                    <div class="checklist-item" onclick="toggleCheck(this)">
-                        <div class="checkbox"></div>
-                        <div class="checklist-text">
-                            <strong>Processar bonificações de reajustes (dia 12)</strong><br>
-                            <small>Aplicar bonificações informadas pelos Gestores sobre reajustes</small>
+                            <small>Rodar reajustes e enviar relatório aos Gestores</small>
                         </div>
                     </div>
                     <div class="checklist-item" onclick="toggleCheck(this)">
                         <div class="checkbox"></div>
                         <div class="checklist-text">
                             <strong>Gerar lote de faturamento (dia 13)</strong><br>
-                            <small>Processar todos os clientes ativos para o mês</small>
+                            <small>Processar todos os clientes ativos</small>
                         </div>
                     </div>
                     <div class="checklist-item" onclick="toggleCheck(this)">
                         <div class="checkbox"></div>
                         <div class="checklist-text">
-                            <strong>Emitir notas fiscais e boletos</strong><br>
-                            <small>Gerar documentos fiscais e de cobrança</small>
-                        </div>
-                    </div>
-                    <div class="checklist-item" onclick="toggleCheck(this)">
-                        <div class="checkbox"></div>
-                        <div class="checklist-text">
-                            <strong>Enviar cobranças aos clientes (dia 20)</strong><br>
-                            <small>Disparar e-mails com boletos e notas fiscais</small>
+                            <strong>Enviar cobranças (dia 20)</strong><br>
+                            <small>E-mails com boletos e notas fiscais</small>
                         </div>
                     </div>
                 </div>
 
                 <div class="alert alert-warning">
-                    <div class="alert-title">📅 Cronograma Mensal de Faturamento</div>
+                    <div class="alert-title">⚠️ Gatilhos de Cobrança</div>
                     <div class="alert-content">
-                        <strong>Dia 10:</strong> Conferência de novos clientes e bonificações<br>
-                        <strong>Dia 11:</strong> Processamento de reajustes contratuais<br>
-                        <strong>Dia 12:</strong> Retorno da Filial com bonificações de reajustes<br>
-                        <strong>Dia 13:</strong> Início do faturamento (geração de lote)<br>
-                        <strong>Dia 20:</strong> Envio de cobranças aos clientes
-                    </div>
-                </div>
-
-                <div class="step-box">
-                    <h4>🔄 Parametrização de Filial vs Franquia</h4>
-                    <p>
-                        <strong>Matriz:</strong> Parametriza o Faturamento dos clientes em ambas empresas, Filial e Matriz!<br>
-                    </p>
-                </div>
-
-                <div class="alert alert-success">
-                    <div class="alert-title">✅ Validações Importantes</div>
-                    <div class="alert-content">
-                        • Verificar se todos os novos clientes têm data de ativação informada<br>
-                        • Conferir se bonificações estão corretamente aplicadas<br>
-                        • Validar dados fiscais antes da emissão de NF<br>
-                        • Garantir que distratos foram processados corretamente
+                        <strong>Matriz:</strong> Cobrança inicia com envio de licenciamento (Etapa 4)<br>
+                        <strong>Filial:</strong> Cobrança inicia com ativação do condomínio (Etapa 6)<br><br>
+                        Acompanhe prazos de bonificação para evitar cobranças indevidas.
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -958,6 +963,3 @@
 </script>
 </body>
 </html>
-
-
-
