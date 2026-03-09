@@ -573,38 +573,51 @@
                     <div class="alert alert-info">
                         <div class="alert-title">Sobre esta Documentação</div>
                         <div class="alert-content">
-                            Esta documentação serve como guia de referência para as novas diretrizes do processo de faturamento. Use a busca ou navegação lateral para encontrar informações específicas rapidamente.
+                            Esta documentação serve como guia de referência para o processo de novas vendas no Odoo. Use a busca ou navegação lateral para encontrar informações específicas rapidamente.
                         </div>
                     </div>
 
                     <h3>Objetivo Principal</h3>
-                    <p>Estabelecer um fluxo padronizado e rastreável para o faturamento de novos clientes, reajustes, distratos e Aditivos! Eliminando as lacunas existentes entre a operação e o registro adequado no sistema.</p>
+                    <p>Estabelecer um fluxo padronizado e rastreável para a ativação de novos clientes no Odoo, desde a elaboração do orçamento até a ativação do monitoramento no condomínio, garantindo que todas as etapas estejam registradas e que o faturamento seja processado corretamente.</p>
 
-                    <h3>Principais Mudanças</h3>
+                    <h3>Conceito Fundamental</h3>
                     <div class="alert alert-warning">
-                        <div class="alert-title">Lacuna para Novos Clientes Identificado</div>
+                        <div class="alert-title">Dois Orçamentos por Venda</div>
                         <div class="alert-content">
-                            Anteriormente, após a implantação, as informações não eram registradas corretamente no sistema, causando perda de rastreabilidade e dificultando o faturamento.
+                            No Odoo, cada nova venda gera <strong>dois orçamentos vinculados</strong>:
+                            <br><br>
+                            <span class="badge badge-filial">Orçamento da Filial</span> Serviços + itens de implantação — onde a filial executa todas as ações.
+                            <br><br>
+                            <span class="badge badge-matriz">Orçamento da Matriz</span> Licenças e produtos de licenciamento — acompanha automaticamente os avanços em determinadas etapas.
                         </div>
                     </div>
 
+                    <h3>As 6 Etapas do Processo</h3>
                     <div class="alert alert-success">
-                        <div class="alert-title">Solução Implementada</div>
+                        <div class="alert-title">Fluxo Completo no Odoo</div>
                         <div class="alert-content">
-                            Com o novo processo, devemos nos atentar em realizar a função <span class="highlight">"ENTREGAR O SERVIÇO"</span> no ERP! informando a data de agendamento/ativação do monitoramento no condomínio, garantindo o registro adequado para faturamento.
+                            <strong>1.</strong> Elaborar/Fechar Orçamento (Filial) →
+                            <strong>2.</strong> Contrato (Jurídico) →
+                            <strong>3.</strong> Preparação/Obras (Filial) →
+                            <strong>4.</strong> Implantação/Equipamentos (Filial + Logística) →
+                            <strong>5.</strong> Parametrização do Faturamento (Financeiro) →
+                            <strong>6.</strong> Ativar Condomínio (Filial + B.A)
                         </div>
                     </div>
 
                     <h3>Equipes Envolvidas</h3>
-                    <p><span class="badge badge-matriz">Matriz - BackOffice</span> Responsável pelo faturamento e cobrança dos clientes.</p>
-                    <p><span class="badge badge-filial">Filiais - Linha de Frente</span> Responsável pela operação completa, ponta do processo.</p>
+                    <p><span class="badge badge-filial">Filial - Operação</span> Protagonista do processo: elabora orçamentos, executa obras, solicita equipamentos e ativa o condomínio.</p>
+                    <p><span class="badge badge-juridico">Jurídico - Matriz</span> Elabora, envia e valida contratos assinados via kanban no Odoo.</p>
+                    <p><span class="badge badge-logistica">Logística - Matriz</span> Separa e envia produtos de licenciamento quando solicitado pela filial.</p>
+                    <p><span class="badge badge-matriz">Financeiro - Matriz</span> Valida dados contratuais e parametriza o faturamento do novo cliente.</p>
+                    <p><span class="badge badge-ba">B.A - Suporte</span> Executa checklist de ativação e ativa o monitoramento do condomínio.</p>
 
                     <h3>Metas de Sucesso</h3>
                     <ul>
-                        <li>100% dos novos clientes com registro correto no sistema</li>
-                        <li>Expectativa  de 90% a menos solicitações de correção manual</li>
-                        <li>Faturamento processado dentro do prazo</li>
+                        <li>100% das vendas rastreáveis no kanban do Odoo, da elaboração à ativação</li>
+                        <li>Faturamento processado corretamente com base nos dados validados pelo Financeiro</li>
                         <li>Zero clientes ativos sem cobrança por falha de processo</li>
+                        <li>Gatilhos de cobrança respeitados: Matriz (envio de licenciamento) e Filial (ativação do serviço)</li>
                     </ul>
                 </section>
 
@@ -766,7 +779,7 @@
                     <div class="alert alert-info">
                         <div class="alert-title">Cronograma Fixo</div>
                         <div class="alert-content">
-                            O faturamento segue um cronograma mensal fixo que deve ser rigorosamente seguido para garantir o recebimento dentro do prazo.
+                            O faturamento segue um cronograma mensal fixo que deve ser rigorosamente seguido para garantir o recebimento dentro do prazo. As vendas precisam estar no estágio <span class="highlight">"Aguardando Ativação"</span> ou já ativadas para entrar no ciclo de faturamento do mês.
                         </div>
                     </div>
 
@@ -784,31 +797,31 @@
                                 <td><span class="highlight">Dia 10</span></td>
                                 <td><span class="badge badge-filial">Gestor da Filial</span></td>
                                 <td>Conferência de novos clientes e bonificações</td>
-                                <td>Lançamento das bonfiicação e aditivos que deverão ser ajustados naquele faturamento</td>
+                                <td>Lançamento de bonificações e ajustes que devem ser considerados no faturamento do mês</td>
                             </tr>
                             <tr>
                                 <td><span class="highlight">Dia 11</span></td>
-                                <td><span class="badge badge-matriz">Matriz</span></td>
+                                <td><span class="badge badge-matriz">Financeiro</span></td>
                                 <td>Reajustes Contratuais</td>
-                                <td>Matriz roda reajuste nos clientes do período e encaminha relatório aos Gestores</td>
+                                <td>Financeiro processa os reajustes de clientes em aniversário de contrato e encaminha relatório aos Gestores</td>
                             </tr>
                             <tr>
                                 <td><span class="highlight">Dia 12</span></td>
                                 <td><span class="badge badge-filial">Gestor da Filial</span></td>
                                 <td>Retorno da Filial</td>
-                                <td>Filial lança Bonificações referente aos Reajustes que não devem ser cobrados.</td>
+                                <td>Filial lança bonificações referentes aos reajustes que não devem ser cobrados</td>
                             </tr>
                             <tr>
                                 <td><span class="highlight">Dia 13</span></td>
-                                <td><span class="badge badge-matriz">Matriz</span></td>
+                                <td><span class="badge badge-matriz">Financeiro</span></td>
                                 <td>Início do Faturamento</td>
-                                <td>Gerar Lote de Faturamento, Notas Fiscais e Boletos de Cobrança</td>
+                                <td>Gerar lote de faturamento, notas fiscais e boletos de cobrança</td>
                             </tr>
                             <tr>
                                 <td><span class="highlight">Dia 20</span></td>
-                                <td><span class="badge badge-matriz">Matriz</span></td>
+                                <td><span class="badge badge-matriz">Financeiro</span></td>
                                 <td>Envio aos clientes</td>
-                                <td>Envio dos e-mails de cobrança aos clientes listados no Lote de Faturamento.</td>
+                                <td>Envio dos e-mails de cobrança aos clientes listados no lote de faturamento</td>
                             </tr>
                         </tbody>
                     </table>
@@ -819,7 +832,8 @@
                         <div class="alert-content">
                             <ul>
                                 <li>Bonificações devem estar lançadas até o <strong>dia 10</strong></li>
-                                <li>Novos clientes devem estar registrados até o <strong>dia 11</strong></li>
+                                <li>Novos clientes devem ter a <strong>Etapa 5 (Parametrização)</strong> concluída e estar em <strong>"Aguardando Ativação"</strong> ou já ativados para entrar no lote do mês</li>
+                                <li>Lembre-se: o <strong>gatilho de cobrança da Matriz</strong> (envio de licenciamento) pode disparar antes da ativação do condomínio — lance bonificações se necessário</li>
                                 <li>Qualquer ajuste após a validação do lote entrará em vigor somente no faturamento do mês seguinte</li>
                             </ul>
                         </div>
@@ -958,17 +972,71 @@
                     
                     <h2>Solução de Problemas Comuns</h2>
                     
-                    <h3>Problemas Críticos</h3>
+                    <h3>Problemas no Kanban de Vendas</h3>
                     
+                    <div class="alert alert-warning">
+                        <div class="alert-title">Orçamento da Matriz não fechou junto com o da Filial</div>
+                        <div class="alert-content">
+                            <p><strong>Possíveis Causas:</strong></p>
+                            <ul>
+                                <li>Orçamento da Matriz não estava vinculado corretamente ao da Filial</li>
+                                <li>Erro de sincronização no Odoo</li>
+                            </ul>
+                            <p><strong>Solução:</strong> Verificar o vínculo entre os dois orçamentos no Odoo. Se necessário, escalar para o time de Sistemas para verificar a parametrização.</p>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-warning">
+                        <div class="alert-title">Contrato não avança no kanban do Jurídico</div>
+                        <div class="alert-content">
+                            <p><strong>Possíveis Causas:</strong></p>
+                            <ul>
+                                <li>Dados incompletos no orçamento que impedem a geração da minuta</li>
+                                <li>Contrato enviado para assinatura mas não retornado pelo cliente</li>
+                                <li>Jurídico ainda não realizou o check final nos documentos assinados</li>
+                            </ul>
+                            <p><strong>Solução:</strong> Verificar em qual das 3 sub-etapas o contrato está parado (Elaboração → Envio → Assinado) e acionar o responsável correspondente.</p>
+                        </div>
+                    </div>
+
+                    <h3>Problemas na Fase Operacional</h3>
+
+                    <div class="alert alert-warning">
+                        <div class="alert-title">Botão "Iniciar Implantação" não aparece ou não funciona</div>
+                        <div class="alert-content">
+                            <p><strong>Possíveis Causas:</strong></p>
+                            <ul>
+                                <li>O orçamento ainda não está no status "Assinado"</li>
+                                <li>O contrato não foi movido para a etapa final pelo Jurídico</li>
+                            </ul>
+                            <p><strong>Solução:</strong> Confirmar com o Jurídico que o contrato já foi marcado como "Assinado" e que o check final foi realizado.</p>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-warning">
+                        <div class="alert-title">Projeto ou transferência de estoque não foram criados automaticamente</div>
+                        <div class="alert-content">
+                            <p><strong>Possíveis Causas:</strong></p>
+                            <ul>
+                                <li>Falha na automação ao clicar em "Iniciar Implantação"</li>
+                                <li>Produtos sem estoque configurado corretamente</li>
+                            </ul>
+                            <p><strong>Solução:</strong> Escalar para o time de Sistemas informando o número do orçamento e a ação executada.</p>
+                        </div>
+                    </div>
+
+                    <h3>Problemas de Faturamento</h3>
+
                     <div class="alert alert-warning">
                         <div class="alert-title">Cliente não aparece no faturamento</div>
                         <div class="alert-content">
                             <p><strong>Possíveis Causas:</strong></p>
                             <ul>
-                                <li>Cliente não recebeu "ENTREGA DO SERVIÇO" no ERP</li>
-                                <li>Data de entrega incorreta</li>
+                                <li>Condomínio ainda não foi ativado (Etapa 6 não concluída)</li>
+                                <li>Venda parada na etapa "Aguardando Ativação" sem que a filial tenha concluído</li>
+                                <li>Parametrização do faturamento (Etapa 5) não finalizada pelo Financeiro</li>
                             </ul>
-                            <p><strong>Solução:</strong> Entregar o serviço do cliente e comunicar o time de Faturamento via Ticket no Movidesk.</p>
+                            <p><strong>Solução:</strong> Verificar no kanban do Odoo em qual etapa a venda está parada e acionar o responsável. Se já ativado, comunicar o time Financeiro.</p>
                         </div>
                     </div>
 
@@ -977,18 +1045,21 @@
                         <div class="alert-content">
                             <p><strong>Possíveis Causas:</strong></p>
                             <ul>
-                                <li>Bonificações não foram lançadas</li>
-                                <li>Ativação parcial não comunicada</li>
+                                <li>Bonificações não foram lançadas pelo Gestor</li>
+                                <li>Dados do contrato divergem dos dados parametrizados (Etapa 5)</li>
+                                <li>Gatilho de cobrança da Matriz disparado antes do esperado (envio de licenciamento)</li>
                             </ul>
-                            <p><strong>Solução:</strong> Verificar bonificações lançadas. Se necessário, ajustar para o próximo ciclo.</p>
+                            <p><strong>Solução:</strong> Verificar bonificações lançadas e conferir a parametrização na Etapa 5. Se o problema for no gatilho da Matriz, lançar bonificação retroativa.</p>
                         </div>
                     </div>
 
-                    <h3>Contatos de Emergência</h3>
+                    <h3>Quando Escalar</h3>
                     <div class="alert alert-info">
-                        <div class="alert-title">Quando Escalar</div>
+                        <div class="alert-title">Critérios de Escalação</div>
                         <div class="alert-content">
-                            Escale para o Faturamento quando: (1) Problema impacta prazo de faturamento, (2) Cliente externo está sendo afetado, (3) Solução requer aprovação gerencial
+                            Escale para o time Financeiro quando: (1) Problema impacta prazo de faturamento, (2) Cliente está sendo cobrado indevidamente, (3) Venda travada há mais de 2 dias úteis em qualquer etapa.
+                            <br><br>
+                            Escale para o time de Sistemas quando: (1) Botões do Odoo não funcionam, (2) Automações não dispararam, (3) Erro técnico no sistema.
                         </div>
                     </div>
                 </section>
@@ -1001,37 +1072,55 @@
                     
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFaq(this)">
-                            O que fazer se o cliente assinar o contrato após o dia 9?
+                            Por que existem dois orçamentos por venda?
                         </div>
                         <div class="faq-answer">
-                            <p>Se o contrato for assinado após o dia 13, o cliente será incluído no faturamento do mês seguinte. É importante comunicar ao cliente sobre esta situação para evitar expectativas incorretas sobre o início da cobrança.</p>
+                            <p>O Odoo trabalha com dois orçamentos vinculados: o da <strong>Filial</strong> (serviços + itens de implantação) e o da <strong>Matriz</strong> (licenças e produtos de licenciamento). Isso permite que cada área gerencie seus itens de forma independente, enquanto o sistema mantém o vínculo automático entre eles. A filial realiza todas as ações no seu orçamento, e o da Matriz acompanha os avanços automaticamente em etapas-chave.</p>
                         </div>
                     </div>
 
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFaq(this)">
-                            Como proceder se a filial esquecer de "entregar o serviço"?
+                            O que acontece quando a filial clica em "Solicitar Equipamentos/Licenças"?
                         </div>
                         <div class="faq-answer">
-                            <p>A Filial deve executar a ação e entrar em contato imediatamente com a Matriz para regularizar a situação. Se estiver dentro do prazo (até dia 13), pode ser corrigido no mesmo mês. Caso contrário, será necessário aguardar o próximo ciclo de faturamento.</p>
+                            <p>Esse botão gera dois avanços simultâneos: o orçamento da <strong>Filial</strong> vai para "Parametrização do Faturamento" e o da <strong>Matriz</strong> vai para "Aguardando Envio". A logística da Matriz passa a visualizar a solicitação e realiza a separação e envio dos produtos de licenciamento. É importante saber que o envio pela Matriz já dispara o gatilho de cobrança da Matriz.</p>
                         </div>
                     </div>
 
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFaq(this)">
-                            Quando usar bonificações?
+                            Qual a diferença entre o gatilho de cobrança da Matriz e da Filial?
                         </div>
                         <div class="faq-answer">
-                            <p>Bonificações devem ser usadas quando: (1) Ativação parcial do condomínio, (2) Negociação especial durante a venda, (3) Ajustes de valores por características específicas do cliente. Sempre devem ser lançadas até o dia 10 do período.</p>
+                            <p><strong>Matriz:</strong> a cobrança é disparada com o <strong>envio dos produtos de licenciamento</strong> (Etapa 4). <strong>Filial:</strong> a cobrança só é disparada com a <strong>ativação do condomínio</strong> (Etapa 6). Se houver atraso entre o envio de licenças e a ativação, é fundamental lançar bonificações para evitar cobranças indevidas na parte da Matriz.</p>
                         </div>
                     </div>
 
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFaq(this)">
-                            Como acompanhar o status de um novo cliente?
+                            O que fazer se a filial esquecer de ativar o condomínio?
                         </div>
                         <div class="faq-answer">
-                            <p>Utilize o ERP para acompanhar a Obra. Caso queira saber todo o histórico das etapas, acesse o Movidesk. Cada responsável deve atualizar o status conforme executa sua parte do processo.</p>
+                            <p>A filial deve ativar o condomínio no Odoo o mais rápido possível e comunicar o time Financeiro. Se ainda estiver dentro do prazo do ciclo de faturamento (antes do dia 13), pode ser regularizado no mesmo mês. Caso contrário, entrará no próximo ciclo. Enquanto o condomínio não for ativado, a cobrança da filial não será disparada — mas atenção: a cobrança da Matriz já pode estar ativa se os equipamentos de licenciamento foram enviados.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            Quando usar bonificações no processo de novos clientes?
+                        </div>
+                        <div class="faq-answer">
+                            <p>Bonificações devem ser usadas quando: (1) Há atraso entre o envio de licenças pela Matriz e a ativação do condomínio, (2) Negociação especial durante a venda, (3) Ativação parcial do condomínio, (4) Período de carência negociado com o cliente. Bonificações devem ser lançadas até o <strong>dia 10</strong> do mês para entrar no ciclo de faturamento.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            Como acompanhar o status de uma venda?
+                        </div>
+                        <div class="faq-answer">
+                            <p>Acompanhe pelo <strong>kanban de vendas no Odoo</strong>. Cada venda estará em uma das 6 etapas do processo (do orçamento à ativação). O kanban mostra visualmente em qual estágio cada venda se encontra e quem é o responsável pela ação seguinte.</p>
                         </div>
                     </div>
 
@@ -1040,7 +1129,7 @@
                             O que fazer em caso de urgência no faturamento?
                         </div>
                         <div class="faq-answer">
-                            <p>Em casos excepcionais, entre em contato direto com o coordenador de faturamento da matriz. Tenha em mãos: número do Orçamento, dados do cliente e justificativa da urgência.</p>
+                            <p>Em casos excepcionais, entre em contato direto com o time Financeiro. Tenha em mãos: número do orçamento no Odoo, dados do cliente, etapa atual no kanban e justificativa da urgência.</p>
                         </div>
                     </div>
                 </section>
@@ -1075,8 +1164,8 @@
                                 <td>2002</td>
                             </tr>
                             <tr>
-                                <td><span class="badge badge-matriz">Faturamento</span></td>
-                                <td>Coord. Faturamento</td>
+                                <td><span class="badge badge-matriz">Financeiro</span></td>
+                                <td>Coord. Financeiro</td>
                                 <td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d6babfb1bfb7f8bda4b7a3a5a596a6b9a4a2b3a4b1a4b9a3a6f8b5b9bbf8b4a4">[email&#160;protected]</a></td>
                                 <td>2003</td>
                             </tr>
