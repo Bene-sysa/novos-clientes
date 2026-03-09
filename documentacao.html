@@ -555,6 +555,7 @@
                 <ul class="sidebar-menu">
                     <li><a href="#overview" onclick="showSection('overview'); return false;" class="active">Visão Geral</a></li>
                     <li><a href="#processo-venda" onclick="showSection('processo-venda'); return false;">Processo de Venda</a></li>
+                    <li><a href="#bonificacoes" onclick="showSection('bonificacoes'); return false;">Bonificações</a></li>
                     <li><a href="#cronograma" onclick="showSection('cronograma'); return false;">Cronograma</a></li>
                     <li><a href="#responsabilidades" onclick="showSection('responsabilidades'); return false;">Responsabilidades</a></li>
                     <li><a href="#troubleshooting" onclick="showSection('troubleshooting'); return false;">Problemas</a></li>
@@ -766,6 +767,104 @@
                         <div class="alert-title">✅ Processo Concluído</div>
                         <div class="alert-content">
                             Com a ativação do condomínio, o cliente entra no ciclo regular de faturamento. Todos os dados foram validados nas etapas anteriores, garantindo que a cobrança será processada corretamente no próximo lote.
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Bonificações Section -->
+                <section class="content-section" id="bonificacoes">
+                    <div class="breadcrumb">Início > Documentação > Bonificações</div>
+                    
+                    <h2>Bonificações de Clientes</h2>
+
+                    <div class="alert alert-info">
+                        <div class="alert-title">💡 O que é uma Bonificação?</div>
+                        <div class="alert-content">
+                            A bonificação é um <strong>desconto temporário</strong> aplicado sobre a mensalidade do cliente, que perdura por um período determinado. Pode ser utilizada em situações como: carência negociada na venda, atraso em obras de implantação, retenção comercial ou ajustes pontuais na cobrança.
+                            <br><br>
+                            No Odoo, o fluxo de bonificação passa por <strong>3 responsáveis</strong>: Gestor da Filial (solicitação) → Gestor de Área (aprovação) → Financeiro (lançamento e acompanhamento).
+                        </div>
+                    </div>
+
+                    <h3>Fluxo de Aprovação e Lançamento</h3>
+
+                    <!-- ETAPA 1 - Gestor solicita -->
+                    <div class="process-step">
+                        <div class="step-header">
+                            <div class="step-number">1</div>
+                            <div class="step-responsible">Gestor <span class="badge badge-filial">Filial</span></div>
+                        </div>
+                        <div class="step-action">
+                            <strong>SOLICITAR BONIFICAÇÃO</strong><br>
+                            O gestor da filial acessa a <strong>Assinatura</strong> do cliente no Odoo (a assinatura que está em andamento) e agenda a ação: <span class="highlight">"Aprovar Bonificação de Novo Cliente"</span>.
+                            <br><br>
+                            Ao agendar essa ação, o sistema <strong>notifica automaticamente</strong> o gestor de área responsável pelo desconto, para que ele possa avaliar e aprovar a solicitação.
+                        </div>
+                    </div>
+
+                    <!-- ETAPA 2 - Gestor de área aprova -->
+                    <div class="process-step">
+                        <div class="step-header">
+                            <div class="step-number">2</div>
+                            <div class="step-responsible">Gestor de Área <span class="badge badge-filial">Aprovação</span></div>
+                        </div>
+                        <div class="step-action">
+                            <strong>APROVAR BONIFICAÇÃO</strong><br>
+                            O gestor de área recebe a notificação, analisa a solicitação e realiza a aprovação do desconto.
+                            <br><br>
+                            Ao aprovar, o sistema agenda automaticamente uma <strong>nova tarefa para o time Financeiro</strong>, que será responsável pelo lançamento efetivo da bonificação.
+                        </div>
+                    </div>
+
+                    <!-- ETAPA 3 - Financeiro lança -->
+                    <div class="process-step">
+                        <div class="step-header">
+                            <div class="step-number">3</div>
+                            <div class="step-responsible">Financeiro <span class="badge badge-matriz">Matriz</span></div>
+                        </div>
+                        <div class="step-action">
+                            <strong>LANÇAR E ACOMPANHAR BONIFICAÇÃO</strong><br>
+                            O time Financeiro recebe a tarefa e realiza o lançamento da bonificação no sistema, configurando:
+                            <br><br>
+                            • <strong>Valor do desconto mensal</strong> — quanto será abatido da mensalidade<br>
+                            • <strong>Período de vigência</strong> — por quantos meses o desconto será aplicado<br>
+                            • <strong>Data de início</strong> — quando o desconto começa a valer
+                            <br><br>
+                            Além do lançamento, o Financeiro fica responsável por <strong>acompanhar o desconto</strong>, garantindo que o cliente está sendo faturado dentro dos acordos e que os <strong>prazos de desconto estão sendo respeitados</strong>.
+                        </div>
+                    </div>
+
+                    <div class="alert alert-warning">
+                        <div class="alert-title">⚠️ Prazos Importantes</div>
+                        <div class="alert-content">
+                            <strong>Bonificações devem ser lançadas até o dia 10 do mês</strong> para que entrem no ciclo de faturamento daquele período.
+                            <br><br>
+                            Bonificações não lançadas no prazo farão com que o cliente seja cobrado pelo valor integral, gerando retrabalho para todos os times envolvidos.
+                        </div>
+                    </div>
+
+                    <h3>Quando Usar Bonificações</h3>
+                    
+                    <div class="process-step">
+                        <div class="step-header">
+                            <div class="step-number">🎯</div>
+                            <div class="step-responsible">Situações Comuns</div>
+                        </div>
+                        <div class="step-action">
+                            • <strong>Carência na ativação:</strong> cliente negociou X meses sem cobrança no início do contrato<br>
+                            • <strong>Atraso em obras:</strong> equipamentos da Matriz já foram enviados (gatilho de cobrança ativo), mas o condomínio ainda não foi ativado<br>
+                            • <strong>Desconto comercial temporário:</strong> condição negociada pelo comercial por período determinado<br>
+                            • <strong>Retenção de cliente:</strong> redução temporária para evitar cancelamento<br>
+                            • <strong>Ativação parcial:</strong> condomínio ativado parcialmente enquanto obras são concluídas
+                        </div>
+                    </div>
+
+                    <div class="alert alert-success">
+                        <div class="alert-title">✅ Resumo do Fluxo</div>
+                        <div class="alert-content">
+                            <strong>Gestor da Filial</strong> agenda ação na Assinatura → <strong>Gestor de Área</strong> aprova o desconto → <strong>Financeiro</strong> lança e acompanha a bonificação.
+                            <br><br>
+                            Todo o fluxo é rastreável dentro do Odoo, com notificações automáticas entre os responsáveis.
                         </div>
                     </div>
                 </section>
