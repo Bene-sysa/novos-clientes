@@ -725,7 +725,7 @@
                         <div class="alert-content">
                             Os gatilhos de cobrança são <strong>diferentes</strong> entre matriz e filial:
                             <br><br>
-                            <span class="badge badge-matriz">Matriz</span> O <strong>envio das mercadorias de licenciamento</strong> já configura prestação de serviço ativa. A cobrança é disparada a partir deste momento.
+                            <span class="badge badge-matriz">Matriz</span> O <strong>envio das mercadorias de licenciamento</strong> já configura cobrança ativa para a matriz. O período estipulado em contrato é iniciado a partir deste momento.
                             <br><br>
                             <span class="badge badge-filial">Filial</span> Somente a <strong>ativação do serviço</strong> (Etapa 6) configura prestação de serviço ativa. A cobrança da filial só é disparada após a ativação.
                             <br><br>
@@ -1431,3 +1431,4 @@
 
     netlifyIdentity.on('init', user => { protectRoute(); });
     netlifyIdentity.on('logout', () => { window.location.href
+
