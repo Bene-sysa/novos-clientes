@@ -613,96 +613,146 @@
                     <div class="breadcrumb">Início > Documentação > Processo de Venda</div>
                     
                     <h2>Novo Cliente</h2>
+
+                    <div class="alert alert-info">
+                        <div class="alert-title">💡 Conceito Fundamental: Dois Orçamentos por Venda</div>
+                        <div class="alert-content">
+                            No Odoo, cada nova venda gera <strong>dois orçamentos vinculados</strong>:
+                            <br><br>
+                            <span class="badge badge-filial">Orçamento da Filial</span> Contempla <strong>serviços + itens de implantação</strong> — é onde a filial realiza todas as ações operacionais.
+                            <br><br>
+                            <span class="badge badge-matriz">Orçamento da Matriz</span> Contempla <strong>licenças e produtos de licenciamento</strong> — acompanha automaticamente os avanços do orçamento da filial em determinadas etapas.
+                        </div>
+                    </div>
                     
                     <h3>Etapas Detalhadas</h3>
                     
+                    <!-- ETAPA 1 -->
                     <div class="process-step">
                         <div class="step-header">
                             <div class="step-number">1</div>
                             <div class="step-responsible">Filial <span class="badge badge-filial">Operação</span></div>
                         </div>
                         <div class="step-action">
-                            <strong>FECHAMENTO DO ORÇAMENTO</strong><br>
-                            A filial finaliza a negociação e fecha o orçamento com o cliente no sistema.
+                            <strong>ELABORAR E FECHAR ORÇAMENTO</strong><br>
+                            A filial é responsável pela elaboração e fechamento dos orçamentos de novos clientes. Todas as ações são realizadas no <strong>orçamento pertencente à filial</strong> (serviços + itens de implantação).
+                            <br><br>
+                            Ao realizar o fechamento do orçamento da filial, o <strong>orçamento correspondente na matriz</strong> (licenças e produtos de licenciamento) <strong>também será fechado automaticamente</strong>.
                         </div>
                     </div>
 
+                    <!-- ETAPA 2 -->
                     <div class="process-step">
                         <div class="step-header">
                             <div class="step-number">2</div>
-                            <div class="step-responsible">Sistema <span class="badge badge-ba">Automático</span></div>
-                        </div>
-                        <div class="step-action">
-                            <strong>TICKET ABERTO AUTOMATICAMENTE</strong><br>
-                            O sistema gera automaticamente um ticket após o fechamento da venda, para o time de faturamento.
-                        </div>
-                    </div>
-
-                    <div class="process-step">
-                        <div class="step-header">
-                            <div class="step-number">3</div>
                             <div class="step-responsible">Jurídico <span class="badge badge-juridico">Matriz</span></div>
                         </div>
                         <div class="step-action">
-                            <strong>LIBERAÇÃO DO ORÇAMENTO</strong><br>
-                            O departamento jurídico analisa e libera o orçamento para prosseguimento e envio do contrato para o cliente via sistema de assinatura digital.
+                            <strong>CONTRATO</strong><br>
+                            O time jurídico conduz 3 etapas no kanban de novas vendas:
+                            <br><br>
+                            <strong>① Elaboração do Contrato</strong> — O jurídico gera a minuta com base nos dados do orçamento. É gerado <strong>apenas 1 contrato</strong> para ambos os orçamentos (filial + matriz).
+                            <br><br>
+                            <strong>② Envio para Assinatura</strong> — O envio é realizado por dentro do Odoo, onde são elencadas as testemunhas e demais assinantes.
+                            <br><br>
+                            <strong>③ Assinado</strong> — Ao ser assinado, o contrato avança automaticamente para esta etapa. O jurídico realiza um check final nos documentos e conclui sua participação no processo.
                         </div>
                     </div>
 
                     <div class="alert alert-info">
                         <div class="alert-title">Início da Fase Operacional</div>
                         <div class="alert-content">
-                            A partir deste ponto, inicia-se a fase operacional com a filial assumindo: Reunião de Projeto, Kickoff e <span class="highlight">EXECUÇÃO DA OBRA</span>
+                            A partir deste ponto, inicia-se a fase operacional. A filial acessa o orçamento no status <span class="highlight">"Assinado"</span> e clica no botão <span class="highlight">"Iniciar Implantação"</span>.
+                            <br><br>
+                            Esse botão avança a cotação da filial para o status <strong>"Em Implantação"</strong>.
                         </div>
                     </div>
 
+                    <!-- ETAPA 3 -->
                     <div class="process-step">
                         <div class="step-header">
-                            <div class="step-number">5</div>
+                            <div class="step-number">3</div>
                             <div class="step-responsible">Filial <span class="badge badge-filial">Operação</span></div>
                         </div>
                         <div class="step-action">
-                            <strong>INÍCIO DA OBRA</strong><br>
-                            A filial dá início aos trabalhos de implantação no cliente.
+                            <strong>PREPARAÇÃO E OBRAS</strong><br>
+                            Ao iniciar a implantação, o sistema cria automaticamente:
+                            <br><br>
+                            <strong>📋 Projeto de Implantação</strong> — Um projeto com tarefas bem definidas sobre a obra de implantação do condomínio.
+                            <br><br>
+                            <strong>📦 Transferência de Estoque</strong> — Uma transferência para dar saída dos produtos que precisam sair do estoque para os técnicos realizarem a obra.
+                            <br><br>
+                            A filial executa as obras conforme o planejamento do projeto criado.
                         </div>
                     </div>
 
+                    <!-- ETAPA 4 -->
                     <div class="process-step">
                         <div class="step-header">
-                            <div class="step-number">6</div>
-                            <div class="step-responsible">Gestor <span class="badge badge-filial">Filial</span></div>
+                            <div class="step-number">4</div>
+                            <div class="step-responsible">Filial <span class="badge badge-filial">Operação</span> + Logística <span class="badge badge-logistica">Matriz</span></div>
                         </div>
                         <div class="step-action">
-                            <strong>SOLICITAÇÃO DE EQUIPAMENTOS PORTER</strong><br>
-                            O Gestor da unidade abre um ticket para a Logística enviar os equipamentos contratados pelo cliente.
-                        </div>
-                    </div>
-                    <div class="process-step">
-                        <div class="step-header">
-                            <div class="step-number">7</div>
-                            <div class="step-responsible">Logística <span class="badge badge-logistica">Matriz</span></div>
-                        </div>
-                        <div class="step-action">
-                            <strong>ENTREGA DE EQUIPAMENTOS</strong><br>
-                            Logística processa a solicitação e realiza a entrega dos equipamentos.
+                            <strong>IMPLANTAÇÃO E EQUIPAMENTOS</strong><br>
+                            Durante os processos finais de obra, a filial solicita à matriz os <strong>produtos de licenciamento</strong>. Para isso, acessa a cotação e clica no botão <span class="highlight">"Solicitar Equipamentos/Licenças"</span>.
+                            <br><br>
+                            Esse botão gera dois avanços simultâneos:
+                            <br><br>
+                            <span class="badge badge-filial">Orçamento Filial</span> Avança para → <strong>"Parametrização do Faturamento"</strong>
+                            <br>
+                            <span class="badge badge-matriz">Orçamento Matriz</span> Avança para → <strong>"Aguardando Envio"</strong>
+                            <br><br>
+                            A etapa <strong>"Aguardando Envio"</strong> é visualizada e executada em paralelo pela <strong>logística da matriz</strong>, que realiza a separação e envio dos produtos de licenciamento.
                         </div>
                     </div>
 
                     <div class="alert alert-warning">
-                        <div class="alert-title">Ponto de Atenção do Processo</div>
+                        <div class="alert-title">⚠️ Gatilhos de Cobrança — Atenção!</div>
                         <div class="alert-content">
-                            Essa etapa dispara a cobrança da Matriz. É importante lançar bonificações em caso de atraso nas obras, negociações, etc..
+                            Os gatilhos de cobrança são <strong>diferentes</strong> entre matriz e filial:
+                            <br><br>
+                            <span class="badge badge-matriz">Matriz</span> O <strong>envio das mercadorias de licenciamento</strong> já configura prestação de serviço ativa. A cobrança é disparada a partir deste momento.
+                            <br><br>
+                            <span class="badge badge-filial">Filial</span> Somente a <strong>ativação do serviço</strong> (Etapa 6) configura prestação de serviço ativa. A cobrança da filial só é disparada após a ativação.
+                            <br><br>
+                            Em caso de atraso nas obras ou negociações especiais, é fundamental <strong>lançar bonificações</strong> para evitar cobranças indevidas.
                         </div>
                     </div>
 
-                    <div class="process-step" style="border-left-color: var(--danger-color);">
+                    <!-- ETAPA 5 -->
+                    <div class="process-step">
                         <div class="step-header">
-                            <div class="step-number" style="background: var(--danger-color);">8</div>
-                            <div class="step-responsible">Filial<span class="badge badge-filial">Operaçã</span></div>
+                            <div class="step-number">5</div>
+                            <div class="step-responsible">Financeiro <span class="badge badge-matriz">Matriz</span></div>
                         </div>
                         <div class="step-action">
-                            <strong>FINALIZAR OBRA E ENTREGAR SERVIÇO</strong><br>
-                            A Filial fica responsável por finalizar a OS de implantação, informando todos os dados necessários. Ao agendar a ativação do monitoramento, é IMPORTANTÍSSIMO realizar a "ENTREGA DO SERVIÇO" no ERP, informando a data de agendamento da ativação do monitoramento. Esta é a principal mudança do novo processo!
+                            <strong>PARAMETRIZAÇÃO DO FATURAMENTO</strong><br>
+                            Com a venda no estágio <strong>"Parametrização de Faturamento"</strong>, o time financeiro assume a operação. A equipe acessa a venda e realiza uma <strong>validação minuciosa</strong> nos dados do contrato para garantir que o faturamento seja processado corretamente.
+                            <br><br>
+                            Essa validação inclui conferência de valores, condições contratuais, dados fiscais e parametrizações de cobrança recorrente.
+                            <br><br>
+                            Ao finalizar as parametrizações, o time avança o card para o estágio final: <span class="highlight">"Aguardando Ativação"</span>.
+                        </div>
+                    </div>
+
+                    <!-- ETAPA 6 -->
+                    <div class="process-step" style="border-left-color: var(--success-color);">
+                        <div class="step-header">
+                            <div class="step-number" style="background: var(--success-color);">6</div>
+                            <div class="step-responsible">Filial <span class="badge badge-filial">Operação</span></div>
+                        </div>
+                        <div class="step-action">
+                            <strong>ATIVAR CONDOMÍNIO</strong><br>
+                            Última e mais importante etapa! A filial deve ativar o condomínio assim que finalizar o <strong>checklist de ativação com a B.A</strong> (Base de Atendimento) e de fato ativar a prestação de serviços.
+                            <br><br>
+                            A ativação confirma que o condomínio está operacional e inicia oficialmente o ciclo de faturamento da filial para este cliente.
+                        </div>
+                    </div>
+
+                    <div class="alert alert-success">
+                        <div class="alert-title">✅ Processo Concluído</div>
+                        <div class="alert-content">
+                            Com a ativação do condomínio, o cliente entra no ciclo regular de faturamento. Todos os dados foram validados nas etapas anteriores, garantindo que a cobrança será processada corretamente no próximo lote.
                         </div>
                     </div>
                 </section>
@@ -994,25 +1044,25 @@
                             <tr>
                                 <td><span class="badge badge-juridico">Jurídico</span></td>
                                 <td>Coord. Jurídico</td>
-                                <td>renata.lima@portergroup.com.br</td>
+                                <td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cbb9aea5aabfaae5a7a2a6aa8bbba4b9bfaeb9acb9a4bebbe5a8a4a6e5a9b9">[email&#160;protected]</a></td>
                                 <td>2001</td>
                             </tr>
                             <tr>
                                 <td><span class="badge badge-logistica">Logística</span></td>
                                 <td>Logística</td>
-                                <td>joao.muller@portergroup.com.br</td>
+                                <td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b0dadfd1df9eddc5dcdcd5c2f0c0dfc2c4d5c2d7c2dfc5c09ed3dfdd9ed2c2">[email&#160;protected]</a></td>
                                 <td>2002</td>
                             </tr>
                             <tr>
                                 <td><span class="badge badge-matriz">Faturamento</span></td>
                                 <td>Coord. Faturamento</td>
-                                <td>ligia.krauss@portergroup.com.br</td>
+                                <td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d6babfb1bfb7f8bda4b7a3a5a596a6b9a4a2b3a4b1a4b9a3a6f8b5b9bbf8b4a4">[email&#160;protected]</a></td>
                                 <td>2003</td>
                             </tr>
                             <tr>
                                 <td><span class="badge badge-ba">Suporte Técnico</span></td>
                                 <td>Analista de Processos</td>
-                                <td>Bernardo.kunz@portergroup.com.br</td>
+                                <td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="195b7c6b77786b7d7637726c77635969766b6d7c6b7e6b766c69377a7674377b6b">[email&#160;protected]</a></td>
                                 <td>2004</td>
                             </tr>
                         </tbody>
@@ -1023,7 +1073,7 @@
                         <div class="alert-title">Plantão 24h</div>
                         <div class="alert-content">
                             <p><strong>Telefone:</strong> (48) 99958-7766<br>
-                            <strong>E-mail:</strong> bernardo.kunz@portergroup.com.br<br>
+                            <strong>E-mail:</strong> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b3d1d6c1ddd2c1d7dc9dd8c6ddc9f3c3dcc1c7d6c1d4c1dcc6c39dd0dcde9dd1c1">[email&#160;protected]</a><br>
                             <strong>Usar apenas para:</strong> Problemas que impedem faturamento ou afetam clientes ativos</p>
                         </div>
                     </div>
@@ -1032,7 +1082,7 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
         particlesJS('particles-js', {
             particles: {
@@ -1171,26 +1221,4 @@
     }
 
     netlifyIdentity.on('init', user => { protectRoute(); });
-    netlifyIdentity.on('logout', () => { window.location.href = 'login.html'; });
-    netlifyIdentity.init();
-    
-    // Botão de logout
-    window.addEventListener('load', () => {
-        const user = netlifyIdentity.currentUser();
-        if (user) {
-            const btn = document.createElement('button');
-            btn.textContent = '🚪 Sair';
-            btn.style.cssText = 'position:fixed;top:20px;right:20px;padding:0.75rem 1.5rem;background:linear-gradient(135deg,#667eea,#764ba2);color:white;border:none;border-radius:25px;font-weight:600;cursor:pointer;box-shadow:0 4px 15px rgba(102,126,234,0.3);z-index:1000;';
-            btn.onclick = () => { if(confirm('Deseja sair?')) netlifyIdentity.logout(); };
-            document.body.appendChild(btn);
-        }
-    });
-</script>
-</body>
-</html>
-
-
-
-
-
-
+    netlifyIdentity.on('logout', () => { window.location.href
